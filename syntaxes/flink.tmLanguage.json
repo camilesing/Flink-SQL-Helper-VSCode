@@ -1,0 +1,186 @@
+{
+  "name": "Flink",
+  "scopeName": "source.flink",
+  "fileTypes": ["sql","fql"],
+  "patterns":[
+    {
+      "begin": "(?i)^\\s*(((?:CREATE(?:\\s+TEMPORARY)?(?:\\s+OR\\s+REPLACE)?|DROP|ALTER|TRUNCATE)\\s+(?:EXTERNAL\\s+TABLE|TABLE|INDEX|VIEW|DATABASE|SCHEMA|FUNCTION|MACRO|ROLE)(?:\\s+IF(?:\\s+NOT)?\\s+EXISTS)?)\\s+(?:[a-z_][a-z0-9_\\.]*))\\b",
+      "end": "$",
+      "beginCaptures": {
+          "2" : { "name" : "keyword.parameter.flink"},
+          "1" : { "name" : "storage.type.definition.flink"}
+      },
+      "patterns": [
+          { "include": "$self" }
+      ]
+    },
+    {
+      "begin": "(?i)^\\s*((UPDATE)\\s+([^\\=]+))\\s+(SET)\\b",
+      "end": "$",
+      "beginCaptures": {
+        "2" : { "name" : "keyword.parameter.flink"},
+        "1" : { "name" : "storage.type.definition.flink"},
+        "4" : { "name" : "keyword.parameter.flink"}
+      },
+      "patterns": [
+        { "include": "$self" }
+      ]
+    },
+    {
+      "begin": "(?i)^\\s*((ADD|LIST|DELETE)\\s+(?:FILE|JAR|ARCflink))\\s+(.*);",
+      "end": "$",
+      "beginCaptures": {
+          "1" : { "name" : "keyword.parameter.flink"},
+          "2" : { "name" : "storage.type.value.flink"}
+      },
+      "patterns": [
+          { "include": "$self" }
+      ]
+    },
+    {
+        "match" : "\\b(?i:create|database|schema|if not exists|comment|location|with dbproperties|show|drop|if exists|restrict|cascade|external|table|select|distinct|partitioned (by|on)|clustered|sorted|asc|desc|into|buckets|skewed by|row format|stored as|stored by|with serdeproperties|(set)?\\s*tblproperties|as|like|delimited|fields terminated by|collection items terminated by|map keys terminated by|lines terminated by|serde|sequencefile|textfile|rcfile|directories|inputformat|outputformat|from|where|group by|order by|limit|load data|local|inpath|overwrite|partition|insert|directory|all|cluster by|sort by|distribute by|having|using|reduce|transform|join|left|right|inner|full|outer|semi|cross|lateral view|import|export|describe|arcflink|unarcflink|alter|add|on|with cube|with rollup|truncate|DBPROPERTIES|tablesample|bucket|out of|case|when|then|end|view|jar|orc|escaped by|msck|repair|recover|partitions|replace columns|fileformat|touch|enable|disable|offline|no_drop|rename to|temporary\\s+(function|macro)|index|idxproperties|WITH DEFERRED REBUILD|in table|databases|schemas|tables|extended|functions|columns|formatted|dot|set\\s+(dbproperties|location|serde|(owner(\\s+(user|role))?))|rebuild|union|percent|rows|else|over|by|unbounded|preceding|current row|following|window|explain|dependency|to|analyze|(compute|update)\\s+statistics|locks|role|(set|create|grant|drop)\\s+role|grant|revoke|user|group|change|serdeproperties|null defined as|lock|unlock|use|exclusive|delete|column|grouping sets|with|compact|first|after|file|grant|option|update|show_database|privileges|function|indexes|compile|named|roles|current|unset|uniquejoin|preserve|shared|concatenate|for|principals|avro|recordreader|transactions|parquet)\\b",
+        "name" : "keyword.control.flink"
+    },
+    {
+      "match" : "(--).*$\\n?",
+      "name" : "comment.line.double-slash.asciidoc"
+    },
+    {
+        "begin": "/\\*",
+        "end": "\\*/",
+        "name": "comment.block.flink"
+    },
+    {
+      "match" : "\\b(?i:tinyint|smallint|int|bigint|float|double|decimal|timestamp|date|boolean|string|varchar|char|binary)\\b",
+      "name" : "storage.type.flink"
+    },
+    {
+      "match" : "\\b(?i:struct|map|array|uniontype)\\b",
+      "name" : "support.type.flink"
+    },
+    {
+      "match" : "\\b(?i:null|true|false|INPUT__FILE__NAME|BLOCK__OFFSET__INSIDE__FILE)\\b",
+      "name" : "constant.language.flink"
+    },
+    {
+      "match" : "\\b\\d+\\b",
+      "name" : "constant.numeric.flink"
+    },
+    {
+      "match" : "'\\\\\\d+'",
+      "name" : "constant.numeric.flink"
+    },
+    {
+      "begin": "\"",
+      "end": "\"",
+      "name": "string.quoted.double.flink",
+      "patterns": [
+        {
+          "match": "\\\\.",
+          "name": "constant.character.escape.flink"
+        }
+      ]
+    },
+    {
+      "begin": "'",
+      "end": "'",
+      "name": "string.quoted.single.flink",
+      "patterns": [
+        {
+          "match": "\\\\.",
+          "name": "constant.character.escape.flink"
+        }
+      ]
+    },
+    {
+      "name": "keyword.operator.arithmetic.flink",
+      "match": "\\b(\\+|\\-|\\*|\\/|\\%|&|\\|\\^|~)\\b"
+    },
+    {
+      "name" : "keyword.operator.relational.flink",
+      "match" : "(?i:=|<=>|==|<>|<|<=|>|>=|!=|(\\b(between|is|like|rlike|regexp)\\b))"
+    },
+    {
+      "name" : "keyword.operator.logical.flink",
+      "match" : "(?i)\\b(and|&&|or|not|\\|\\||!|(not\\s+)?in|(not\\s+)?exists)\\b"
+    },
+    {
+      "name" : "support.function.udf.complex.flink",
+      "match" : "(?i)\\b(map|struct|named_struct|array|create_union)\\b"
+    },
+    {
+      "name" : "support.function.udf.mathematic.flink",
+      "match" : "\\b(?i:round|bround|floor|ceil|ceiling|rand|exp|ln|log|log10|log2|pow|power|sqrt|bin|hex|unhex|conv|abs|pmod|sin|asin|cos|acos|tan|atan|degrees|radians|positive|negative|sign|e|pi|factorial|cbrt|shiftleft|shiftright|shiftrightunsigned)\\b"
+    },
+        {
+      "name" : "support.function.udf.collection.flink",
+      "match" : "\\b(?i:size|map_keys|map_values|array_contains|sort_array)\\b"
+    },
+        {
+      "name" : "support.function.udf.type-cast.flink",
+      "match" : "\\b(?i:binary|cast)\\b"
+    },
+    {
+      "name" : "support.function.udf.date.flink",
+      "match" : "\\b(?i:from_unixtime|unix_timestamp|to_date|year|quarter|month|day|dayofmonth|hour|minute|second|weekofyear|datediff|date_add|date_sub|from_utc_timestamp|to_utc_timestamp|current_date|current_timestamp|add_months|last_day|next_day|trunc|months_between|date_format)\\b"
+    },
+    {
+      "name" : "support.function.udf.conditional.flink",
+      "match" : "\\b(?i:if|coalesce|greatest|least|isnull|isnotnull|nvl|nullif)\\b"
+    },
+    {
+      "name" : "support.function.udf.string.flink",
+      "match" : "\\b(?i:ascii|base64|chr|concat|context_ngrams|concat_ws|decode|encode|find_in_set|format_number|get_json_object|in_file|instr|length|locate|lower|lcase|lpad|ltrim|ngrams|parse_url|printf|regexp_extract|regexp_replace|repeat|reverse|rpad|rtrim|sentences|space|split|str_to_map|substr|substring|substring_index|translate|trim|unbase64|upper|ucase|initcap|levenshtein|soundex)\\b"
+    },
+    {
+      "name" : "support.function.udf.masking.flink",
+      "match" : "\\b(?i:mask|mask_first_n|mask_last_n|mask_show_first_n|mask_show_last_n|mask_hash)\\b"
+    },
+    {
+      "name" : "support.function.udf.misc.flink",
+      "match" : "\\b(?i:java_method|reflect|hash|xpath|xpath_short|xpath_int|xpath_long|xpath_float|xpath_double|xpath_number|xpath_string|get_json_object|md5|sha1|sha|crc32|sha2|current_user|current_database|aes_encrypt|aes_decrypt|version)\\b"
+    },
+    {
+      "match" : "\\b(?i:count|sum|avg|min|max|variance|var_pop|var_samp|stddev_pop|stddev_samp|covar_pop|covar_samp|corr|percentile|percentile_approx|histogram_numeric|collect_set|collect_list|ntile|lead|lag|first_value|last_value|rank|row_number|dense_rank|cume_dist|percent_rank)\\b",
+      "name" : "support.function.udaf.flink"
+    },
+    {
+      "name" : "support.function.udtf.flink",
+      "match" : "\\b(?i:inline|explode|json_tuple|parse_url_tuple|stack|posexplode)\\b"
+    },
+    {
+      "begin": "(?i)^\\s*((?:set)\\s+(?:[^\\=]+))\\s*=\\s*",
+      "end": ";?$",
+      "beginCaptures": {
+        "2" : { "name" : "keyword.parameter.flink"},
+        "1" : { "name" : "storage.type.parameter.flink"}
+      },
+      "patterns": [
+        { "include": "$self" }
+      ]
+    },
+    {
+      "begin": "(?i)(!|dfs)(.*)",
+      "end": "$",
+      "beginCaptures": {
+          "1" : { "name" : "storage.type.definition.flink"},
+          "2" : { "name" : "string.quoted.other.flink"}
+      },
+      "patterns": [
+          { "include": "$self" }
+      ]
+    },
+    {
+      "begin": "(?i)(CRYPTO\\s+(?:CREATE_KEY|CREATE_ZONE|DELETE_KEY))(.*)\\b",
+      "end": "$",
+      "beginCaptures": {
+          "2" : { "name" : "string.quoted.other.flink"},
+          "1" : { "name" : "keyword.control.flink"}
+      },
+      "patterns": [
+          { "include": "$self" }
+      ]
+    }
+  ],
+  "uuid": "c4023735-1f16-4e02-b349-d1673b8652b8"
+}

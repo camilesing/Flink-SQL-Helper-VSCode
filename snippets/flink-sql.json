@@ -1,0 +1,49 @@
+{
+    "Create table": {
+        "prefix": "create",
+        "body": [
+            "CREATE TABLE ${1:table_name} (",
+            "${2:column_names}",
+            ")",
+            "WITH ${3:properties_pairs}",
+            ";"
+        ],
+        "description": "Create a table with the same format and structure as another table."
+    },
+    "Create table from table": {
+        "prefix": "create",
+        "body": [
+            "CREATE TABLE ${1:schema_name}.${2:table_name}",
+            "LIKE ${3:source_table_schema}.${4:source_table_name}",
+            ";"
+        ],
+        "description": "Create a table with the same format and structure as another table."
+    },
+    "Select columns from a table": {
+        "prefix": "select",
+        "body": [
+            "SELECT  ${1:column_names}",
+            "FROM    ${2:table_name};"
+        ]
+    },
+    "Insert statement": {
+        "prefix": "insert",
+        "body": [
+            "INSERT ${1|INTO,OVERWRITE|} TABLE ${2:schema_name}.${3:table_name}",
+            "SELECT",
+            "    ${4:column_names}",
+            "FROM",
+            "    ${5:source_schema_name}.${6:source_table_name};"
+        ]
+    },
+    "Create view statement": {
+        "prefix": "create",
+        "body": [
+            "CREATE TEMPORARY VIEW ${1:view_name} AS",
+            "SELECT",
+            "    ${2:column_names}",
+            "FROM",
+            "    ${3:source_schema_name}.${4:source_table_name};"
+        ]
+    }
+}
