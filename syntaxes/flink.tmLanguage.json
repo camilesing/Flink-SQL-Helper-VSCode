@@ -98,7 +98,7 @@
     },
     {
       "name" : "keyword.operator.relational.flink",
-      "match" : "(?i:=|<>|>|>=|<|<=|(\\b(is null|is not null|is distinct from|is not distinct from|between|not between|like|not like|similar to|not similar to|in|not in|exists|N/A|)\\b))"
+      "match" : "(?i:=|<>|>|>=|<|<=|(\\b(is null|is not null|is distinct from|is not distinct from|between|not between|like|not like|similar to|not similar to|in|not in|exists|N/A)\\b))"
     },
     {
       "name" : "keyword.operator.logical.flink",
@@ -138,7 +138,7 @@
     },
     {
       "name" : "support.function.udf.value.construct.flink",
-      "match" : "\\b(?i:is constructor with parenthesis|array|map|N/A|)\\b"
+      "match" : "\\b(?i:is constructor with parenthesis|array|map|N/A)\\b"
     },
     {
       "name" : "support.function.udf.value.access.flink",
@@ -146,7 +146,7 @@
     },
     {
       "name" : "support.function.udaf.flink",
-      "match" : "\\b(?i:md5|sha1|sha224|sha256|sha384|sha512|sha2|)\\b"
+      "match" : "\\b(?i:md5|sha1|sha224|sha256|sha384|sha512|sha2)\\b"
     },
     {
       "name" : "support.function.udaf.flink",
