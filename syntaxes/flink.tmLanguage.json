@@ -51,7 +51,7 @@
         "name": "comment.block.flink"
     },
     {
-      "match" : "\\b(?i:tinyint|smallint|int|bigint|float|double|varchar|varbinary|decimal|date|time|timestampType|LocalZonedTimestampType)\\b",
+      "match" : "\\b(?i:tinyint|smallint|int|bigint|float|double|varchar|string|varbinary|decimal|date|time|timestampType|LocalZonedTimestampType)\\b",
       "name" : "storage.type.flink"
     },
     {
