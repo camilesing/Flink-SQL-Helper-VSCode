@@ -161,6 +161,10 @@
       "match" : "\\b(?i:miliennium|century|decade|year|year_to_month|week|day|day_to_hour|day_to_minute|day_to_second|hour|hour_to_minute|hour_to_second|minute|minute_to_second|second|millisecond|nanosecond|epoch|doy|dow|isodow|epoch|isoyear)\\b"
     },
     {
+      "name" : "support.function.time.attributes.flink",
+      "match" : "\\b(?i:WATERMARK|PROCTIME())\\b"
+    },
+    {
       "name" : "support.function.udf.column.flink",
       "match" : "\\b(?i:withColumns|withoutColumns)\\b"
     },
