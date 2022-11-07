@@ -150,11 +150,19 @@
     },
     {
       "name" : "support.function.udaf.flink",
-      "match" : "\\b(?i:count|sum|avg|min|max|variance|var_pop|var_samp|stddev_pop|stddev_samp|covar_pop|covar_samp|corr|percentile|percentile_approx|histogram_numeric|collect_set|collect_list|ntile|lead|lag|first_value|last_value|rank|row_number|dense_rank|cume_dist|percent_rank)\\b"
+      "match" : "\\b(?i:count|count(1)|sum|avg|min|max|variance|var_pop|var_samp|collect|variance|rank()|dense_rank()|row_number()|lead|lag|first_value|last_value|list_agg|cume_dist|percent_rank|ntile)\\b"
     },
     {
-      "name" : "support.function.udtf.flink",
-      "match" : "\\b(?i:inline|explode|json_tuple|parse_url_tuple|stack|posexplode)\\b"
+      "name" : "support.function.udf.aggregate.flink",
+      "match" : "\\b(?i:count|distinct|avg|parse_url_tuple|stack|posexplode)\\b"
+    },
+    {
+      "name" : "support.function.udf.time.flink",
+      "match" : "\\b(?i:miliennium|century|decade|year|year_to_month|week|day|day_to_hour|day_to_minute|day_to_second|hour|hour_to_minute|hour_to_second|minute|minute_to_second|second|millisecond|nanosecond|epoch|doy|dow|isodow|epoch|isoyear)\\b"
+    },
+    {
+      "name" : "support.function.udf.column.flink",
+      "match" : "\\b(?i:withColumns|withoutColumns)\\b"
     },
     {
       "begin": "(?i)^\\s*((?:set)\\s+(?:[^\\=]+))\\s*=\\s*",
