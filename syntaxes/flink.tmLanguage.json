@@ -98,11 +98,11 @@
     },
     {
       "name" : "keyword.operator.relational.flink",
-      "match" : "(?i:=|<>|>|>=|<|<=|(\\b(is null|is not null|is distinct from|is not distinct from|between|not between|like|not like|similar to|not similar to|in|not in|exists|N/A)\\b))"
+      "match" : "(?i:=|<>|>|>=|<|<=|(\\b(is null|is not null|is distinct from|is not distinct from|between|not between|like|not like|similar to|not similar to|in|not in|exists|not exists|N/A)\\b))"
     },
     {
       "name" : "keyword.operator.logical.flink",
-      "match" : "(?i)\\b(and|&&|or|not|is false|is not false|is true|is not true|is unkown|is not unkown|\\|\\||!|(not\\s+)?in|(not\\s+)?exists)\\b"
+      "match" : "(?i:\\&|\\||!|(\\b(and|or|not|is false|is not false|is true|is not true|is unkown|is not unkown)\\b)"
     },
     {
       "name" : "support.function.udf.complex.flink",
