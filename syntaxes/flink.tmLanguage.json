@@ -102,7 +102,7 @@
     },
     {
       "name" : "keyword.operator.logical.flink",
-      "match" : "(?i:\\&|\\||!|(\\b(and|or|not|is false|is not false|is true|is not true|is unkown|is not unkown)\\b)"
+      "match" : "(?i:\\&|\\||!|(\\b(and|or|not|is false|is not false|is true|is not true|is unkown|is not unkown)\\b))"
     },
     {
       "name" : "support.function.udf.complex.flink",
