@@ -1,3 +1,5 @@
+### v1.2.0
+- Add color theme recommend on README.
 ### v1.1.3
 - Fix bug.
 ### v1.1.2
