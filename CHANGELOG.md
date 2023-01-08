@@ -1,3 +1,5 @@
+### v1.2.1
+- Fix integer type not highlighting bug.
 ### v1.2.0
 - Add color theme recommend on README.
 ### v1.1.3
