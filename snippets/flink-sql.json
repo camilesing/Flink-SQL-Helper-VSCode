@@ -3,10 +3,12 @@
         "prefix": "create",
         "body": [
             "CREATE TABLE ${1:table_name} (",
-            "${2:column_names}",
+            "    ${2:first_column_name},",
+            "    ${3:last_column_name}",
             ")",
-            "WITH ${3:properties_pairs}",
-            ";"
+            "WITH (",
+            "    '${4:your_key}' ='${5:your_value}'",
+            ");"
         ],
         "description": "Create a table with the same format and structure as another table."
     },
@@ -22,7 +24,7 @@
     "Select columns from a table": {
         "prefix": "select",
         "body": [
-            "SELECT  ${1:column_names}",
+            "SELECT  ${1:column_name}",
             "FROM    ${2:table_name};"
         ]
     },
@@ -31,9 +33,10 @@
         "body": [
             "INSERT ${1|INTO,OVERWRITE|} TABLE ${2:schema_name}.${3:table_name}",
             "SELECT",
-            "    ${4:column_names}",
+            "    ${4:first_column_name},",
+            "    ${5:last_column_name}",
             "FROM",
-            "    ${5:source_schema_name}.${6:source_table_name};"
+            "    ${6:source_schema_name}.${7:source_table_name};"
         ]
     },
     "Create view statement": {
@@ -41,9 +44,10 @@
         "body": [
             "CREATE TEMPORARY VIEW ${1:view_name} AS",
             "SELECT",
-            "    ${2:column_names}",
+            "    ${2:first_column_name},",
+            "    ${3:last_column_name}",
             "FROM",
-            "    ${3:source_schema_name}.${4:source_table_name};"
+            "    ${4:source_schema_name}.${5:source_table_name};"
         ]
     }
 }
