@@ -7,6 +7,12 @@ This extension provides Flink SQL support for VSCode. It also provides some basi
 
 Enables syntax highlighting and complete keywords for Flink SQL(v1.16.0), including user-defined functions.
 
+![](images/flink-sql-vscode-snippets.gif)
+
+snippets keywords:
+- create
+- select
+- insert
 
 ## How use
 Enable the extension on your file, either name the file with a extension:
