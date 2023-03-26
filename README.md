@@ -2,10 +2,21 @@
 
 This extension provides Flink SQL support for VSCode. It also provides some basic code snippets for operations such as creating a table, altering a table, or renaming columns.
 
+## Build
+
+### Prerequisites
+
+- npm
+- vsce
+
+### Build
+
+- Run ```npm install --dependencies``` to install dependencies.
+- Run ```vsce package``` to build extension.
 
 ## Features
 
-Enables syntax highlighting and complete keywords for Flink SQL(v1.16.0), including user-defined functions.
+Enables syntax highlighting, complete keywords, and code format for Flink SQL(v1.16.0), including user-defined functions.
 
 ![](images/flink-sql-vscode-snippets.gif)
 
@@ -21,6 +32,9 @@ Enable the extension on your file, either name the file with a extension:
   
 Or press F1, type 'Change Language Mode', and then choose FlinkSQL.
 
+### Format
+
+Select your FlinkSQL code and press ```Alt+Shift+f```.
 
 ## Color theme recommend
 ~~~json
