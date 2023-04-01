@@ -23,16 +23,16 @@
     },
     "homepage": "https://github.com/camilesing/flink-sql-vscode/master/README.md",
     "categories": [
-        "Programming Languages"
+        "Programming Languages", "Formatters"
     ],
     "keywords": [
-        "Flink SQL", "Flink"
+        "Flink SQL", "Flink", "Formatter"
     ],
     "preview": false,
     "contributes": {
         "languages": [{
             "id": "flink-sql",
-            "aliases": ["FlinkSQL", "flink-sql", "Flink SQL"],
+            "aliases": ["FlinkSQL", "flink-sql", "Flink SQL","fql"],
             "extensions": [".sql", ".fql"],
             "configuration": "./language-configuration.json"
         }],
@@ -47,5 +47,13 @@
                 "path": "./snippets/flink-sql.json"
             }
         ]
+    },
+    "activationEvents": [
+        "onLanguage:sql",
+        "onLanguage:flink-sql"
+      ],
+    "main": "./src/extension.js",
+    "dependencies": {
+        "sql-formatter-plus": "^1.3.6"
     }
 }
