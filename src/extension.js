@@ -5,7 +5,7 @@ const sqlFormatter = require('sql-formatter-plus');
 
 const config = {
 	indent: ' '.repeat(2),
-	language: 'sql',
+	language: 'fql',
 	uppercase: true,
 	linesBetweenQueries: 2
 }
@@ -20,7 +20,7 @@ module.exports.activate = () => {
 			vscode.TextEdit.replace(range, format(document.getText(range)))
 		]
 	});
-	vscode.languages.registerDocumentRangeFormattingEditProvider('sql', {
+	vscode.languages.registerDocumentRangeFormattingEditProvider('fql', {
 		provideDocumentRangeFormattingEdits: (document, range, options) => [
 			vscode.TextEdit.replace(range, format(document.getText(range)))
 		]
