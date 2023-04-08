@@ -1,6 +1,6 @@
 {
     "name": "flink-sql",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "displayName": "Flink SQL",
     "description": "Adds support for Flink's variant of the SQL language",
     "publisher": "CamileSing",
