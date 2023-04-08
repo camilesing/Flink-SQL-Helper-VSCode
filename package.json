@@ -69,6 +69,6 @@
     ],
     "main": "./src/extension.js",
     "dependencies": {
-        "sql-formatter-plus": "git+ssh://git@github.com:AChangFeng/sql-formatter-plus.git#v0.0.1"
+        "sql-formatter-plus": "git+ssh://git@github.com:AChangFeng/sql-formatter-plus.git#v0.0.2"
     }
 }
