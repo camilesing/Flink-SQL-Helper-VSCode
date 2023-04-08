@@ -1,3 +1,7 @@
+### v1.4.0
+- Support code format.
+### v1.3.0
+- Improve snippets.
 ### v1.2.1
 - Fix integer type not highlighting bug.
 ### v1.2.0
