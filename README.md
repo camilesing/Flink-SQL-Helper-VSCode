@@ -2,19 +2,8 @@
 
 This extension provides Flink SQL support for VSCode. It also provides some basic code snippets for operations such as creating a table, altering a table, or renaming columns.
 
-## Build
 
-### Prerequisites
-
-- npm
-- vsce
-
-### Build
-
-- Run ```npm install --dependencies``` to install dependencies.
-- Run ```vsce package``` to build extension.
-
-## Features
+## 1.Features
 
 Enables syntax highlighting, complete keywords, and code format for Flink SQL(v1.16.0), including user-defined functions.
 
@@ -25,18 +14,23 @@ snippets keywords:
 - select
 - insert
 
-## How use
+## 1.1 How use
 Enable the extension on your file, either name the file with a extension:
 - SQL
 - FQL
   
 Or press F1, type 'Change Language Mode', and then choose FlinkSQL.
 
-### Format
+### 1.1.1 Format
 
 Select your FlinkSQL code and press ```Alt+Shift+f```.
 
-## Color theme recommend
+### 1.1.2 Error grammer check
+> The feature during experiment.
+
+open your `setting.json`, add `"flink-sql-grammar-check.enable": true`。
+
+## 1.2 Color theme recommend
 ~~~json
 {
     "workbench.colorTheme": "Default Dark+",
@@ -173,6 +167,18 @@ Select your FlinkSQL code and press ```Alt+Shift+f```.
 }
 ~~~
 
-## TODO List
-- Support grammer:`Conditional Functions`：`CASE value WHEN value1_1 [, value1_2]* THEN RESULT1 (WHEN value2_1 [, value2_2 ]* THEN result_2)* (ELSE result_z) END`
-- Error grammer highlight 
+## 2. Dev Grammar
+- Edit `FlinkSQL.g4`
+- Run `npm run antlr4ts` generate for ts code then move to src directory.
+- Copy ./gen ts file to src directory
+
+## 3. Build
+
+### 3.1 Prerequisites
+- npm
+- vsce
+
+### 3.2 Build
+- Run ```npm install --dependencies``` to install dependencies.
+- Run ```vsce package``` to build extension.
+
