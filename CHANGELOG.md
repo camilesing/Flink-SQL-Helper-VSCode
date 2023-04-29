@@ -1,3 +1,5 @@
+### v1.5.2
+- Add experiment feature:  Error grammer check.
 ### v1.4.0
 - Support code format.
 ### v1.3.0
