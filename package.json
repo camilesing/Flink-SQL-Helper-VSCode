@@ -1,6 +1,6 @@
 {
     "name": "flink-sql",
-    "version": "1.4.0",
+    "version": "1.5.2",
     "displayName": "Flink SQL",
     "description": "Adds support for Flink's variant of the SQL language",
     "publisher": "CamileSing",
@@ -33,6 +33,16 @@
     ],
     "preview": false,
     "contributes": {
+        "configuration": {
+            "title": "Error grammar Check Settings",
+            "properties": {
+              "flink-sql-grammar-check.enable": {
+                "type": "boolean",
+                "default": false,
+                "description": "Enable flink sql grammar check. the feature during experiment."
+              }
+            }
+        },
         "languages": [
             {
                 "id": "flink-sql",
@@ -59,7 +69,7 @@
         "snippets": [
             {
                 "language": "flink-sql",
-                "path": "./snippets/flink-sql.json"
+                "path": "./snippets/snippets.json"
             }
         ]
     },
@@ -67,8 +77,35 @@
         "onLanguage:fql",
         "onLanguage:flink-sql"
     ],
-    "main": "./src/extension.js",
+    "scripts": {
+        "antlr4ts": "antlr4ts -visitor gen/FlinkSQL.g4",
+        "vscode:prepublish": "webpack --mode production",
+        "compile": "webpack --mode none",
+        "watch": "webpack --mode none --watch",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "main": "./out/extension.js",
     "dependencies": {
         "sql-formatter-plus": "git+ssh://git@github.com:AChangFeng/sql-formatter-plus.git#v0.0.3"
+    },
+    "devDependencies": {
+        "@types/glob": "^8.1.0",
+        "@types/mocha": "^10.0.1",
+        "@types/node": "16.x",
+        "@types/vscode": "^1.20.0",
+        "@typescript-eslint/eslint-plugin": "^5.59.1",
+        "@typescript-eslint/parser": "^5.59.1",
+        "@vscode/test-electron": "^2.3.0",
+        "antlr4ts": "^0.5.0-alpha.4",
+        "antlr4ts-cli": "^0.5.0-alpha.4",
+        "eslint": "^8.39.0",
+        "glob": "^8.1.0",
+        "mocha": "^10.2.0",
+        "ts-loader": "^9.4.3",
+        "typescript": "^5.0.4",
+        "webpack": "^5.88.0",
+        "webpack-cli": "^5.1.4"
     }
 }
