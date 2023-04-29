@@ -2,6 +2,10 @@
 
 This extension provides Flink SQL support for VSCode. It also provides some basic code snippets for operations such as creating a table, altering a table, or renaming columns.
 
+## Dev Grammar
+- Edit `FlinkSQL.g4`
+- Run `npm run antlr4ts` generate for ts code then move to src directory.
+
 ## Build
 
 ### Prerequisites
@@ -10,7 +14,6 @@ This extension provides Flink SQL support for VSCode. It also provides some basi
 - vsce
 
 ### Build
-
 - Run ```npm install --dependencies``` to install dependencies.
 - Run ```vsce package``` to build extension.
 
