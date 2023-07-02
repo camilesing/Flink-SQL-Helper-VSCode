@@ -2,7 +2,7 @@
     "name": "flink-sql",
     "version": "1.5.2",
     "displayName": "Flink SQL",
-    "description": "Adds support for Flink's variant of the SQL language",
+    "description": "Support Flink SQL syntax highlighting, complete keywords, error grammer check and code format, including user-defined functions",
     "publisher": "CamileSing",
     "author": {
         "name": "CamileSing",

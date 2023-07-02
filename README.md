@@ -5,7 +5,7 @@ This extension provides Flink SQL support for VSCode. It also provides some basi
 
 ## 1.Features
 
-Enables syntax highlighting, complete keywords, error grammer check, and code format for Flink SQL(v1.16.0), including user-defined functions.
+Support Flink SQL(v1.16.0) syntax highlighting, complete keywords, error grammer check and code format, including user-defined functions
 
 ![](images/flink-sql-vscode-snippets.gif)
 
