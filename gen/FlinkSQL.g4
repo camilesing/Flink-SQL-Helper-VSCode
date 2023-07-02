@@ -14,10 +14,10 @@ sqlStatements
     ;
 
 sqlStatement
-    : ddlStatement SEMICOLON? | dmlStatement SEMICOLON? | describeStatement SEMICOLON? 
-    | explainStatement SEMICOLON? | useStatement SEMICOLON?| showStatememt SEMICOLON?
-    | loadStatement SEMICOLON?| unloadStatememt SEMICOLON?| setStatememt SEMICOLON?
-    | resetStatememt SEMICOLON?| jarStatememt SEMICOLON?
+    : ddlStatement SEMICOLON | dmlStatement SEMICOLON | describeStatement SEMICOLON 
+    | explainStatement SEMICOLON | useStatement SEMICOLON | showStatememt SEMICOLON
+    | loadStatement SEMICOLON | unloadStatememt SEMICOLON | setStatememt SEMICOLON
+    | resetStatememt SEMICOLON | jarStatememt SEMICOLON 
     ;
 
 emptyStatement
