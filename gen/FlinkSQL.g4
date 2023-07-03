@@ -10,8 +10,10 @@ statement
     ;
 
 sqlStatements
-    : (sqlStatement | emptyStatement)*
+    : (comment | sqlStatement | emptyStatement)*
     ;
+
+comment: LINE_COMMENT | COMMENT_INPUT;
 
 sqlStatement
     : ddlStatement SEMICOLON | dmlStatement SEMICOLON | describeStatement SEMICOLON 

@@ -37,6 +37,7 @@ import { LogicalNestedContext } from "./FlinkSQLParser";
 import { ProgramContext } from "./FlinkSQLParser";
 import { StatementContext } from "./FlinkSQLParser";
 import { SqlStatementsContext } from "./FlinkSQLParser";
+import { CommentContext } from "./FlinkSQLParser";
 import { SqlStatementContext } from "./FlinkSQLParser";
 import { EmptyStatementContext } from "./FlinkSQLParser";
 import { DdlStatementContext } from "./FlinkSQLParser";
@@ -497,6 +498,13 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitSqlStatements?: (ctx: SqlStatementsContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.comment`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitComment?: (ctx: CommentContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FlinkSQLParser.sqlStatement`.

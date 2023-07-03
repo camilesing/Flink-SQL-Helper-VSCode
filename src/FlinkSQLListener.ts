@@ -37,6 +37,7 @@ import { LogicalNestedContext } from "./FlinkSQLParser";
 import { ProgramContext } from "./FlinkSQLParser";
 import { StatementContext } from "./FlinkSQLParser";
 import { SqlStatementsContext } from "./FlinkSQLParser";
+import { CommentContext } from "./FlinkSQLParser";
 import { SqlStatementContext } from "./FlinkSQLParser";
 import { EmptyStatementContext } from "./FlinkSQLParser";
 import { DdlStatementContext } from "./FlinkSQLParser";
@@ -661,6 +662,17 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitSqlStatements?: (ctx: SqlStatementsContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.comment`.
+	 * @param ctx the parse tree
+	 */
+	enterComment?: (ctx: CommentContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.comment`.
+	 * @param ctx the parse tree
+	 */
+	exitComment?: (ctx: CommentContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `FlinkSQLParser.sqlStatement`.
