@@ -56,7 +56,10 @@
                     ".sql",
                     ".fql"
                 ],
-                "configuration": "./language-configuration.json"
+                "configuration": "./language-configuration.json",
+                "capabilities" : {
+                    "renameProvider" : "true"
+                }
             }
         ],
         "grammars": [

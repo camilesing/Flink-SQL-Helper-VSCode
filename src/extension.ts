@@ -25,6 +25,8 @@ const format = (text: string): string => {
     return sqlFormatter.format(text, config);
 };
 
+const selector = 'flink-sql'
+
 export function activate(context: ExtensionContext) {
 
     // 获取初始配置
@@ -39,7 +41,7 @@ export function activate(context: ExtensionContext) {
         })
     );
 
-    vscode.languages.registerDocumentRangeFormattingEditProvider('flink-sql', {
+    vscode.languages.registerDocumentRangeFormattingEditProvider(selector, {
         provideDocumentRangeFormattingEdits: (
             document: vscode.TextDocument,
             range: vscode.Range,
@@ -48,7 +50,7 @@ export function activate(context: ExtensionContext) {
                 vscode.TextEdit.replace(range, format(document.getText(range))),
             ],
     });
-
+    context.subscriptions.push(vscode.languages.registerRenameProvider(selector, new MyRenameProvider()));
 
     // 注册插件的其他命令和功能...
 }
@@ -100,5 +102,24 @@ function updateFeatureStatus() {
                 diagnosticCollection.set(event.document.uri, diagnostics);
             }
         });
+    }
+}
+
+
+class MyRenameProvider implements vscode.RenameProvider {
+    provideRenameEdits(document: vscode.TextDocument, position: vscode.Position, newName: string, token: vscode.CancellationToken): vscode.ProviderResult<vscode.WorkspaceEdit> {
+        const wordRange = document.getWordRangeAtPosition(position);
+        const originalWord = document.getText(wordRange);
+
+        const edit = new vscode.WorkspaceEdit();
+        for (let i = 0; i < document.lineCount; i++) {
+            const line = document.lineAt(i);
+            const start = line.text.indexOf(originalWord);
+            if (start >= 0) {
+                edit.replace(document.uri, new vscode.Range(new vscode.Position(i, start), new vscode.Position(i, start + originalWord.length)), newName);
+            }
+        }
+
+        return edit;
     }
 }
