@@ -6,6 +6,7 @@ import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 import { UnquotedIdentifierAlternativeContext } from "./FlinkSQLParser";
 import { QuotedIdentifierAlternativeContext } from "./FlinkSQLParser";
 import { NonReservedKeywordsAlternativeContext } from "./FlinkSQLParser";
+import { UrefVarAlternativeContext } from "./FlinkSQLParser";
 import { ValueExpressionDefaultContext } from "./FlinkSQLParser";
 import { ArithmeticUnaryContext } from "./FlinkSQLParser";
 import { ArithmeticBinaryContext } from "./FlinkSQLParser";
@@ -187,6 +188,7 @@ import { ErrorCapturingIdentifierExtraContext } from "./FlinkSQLParser";
 import { IdentifierListContext } from "./FlinkSQLParser";
 import { IdentifierSeqContext } from "./FlinkSQLParser";
 import { IdentifierContext } from "./FlinkSQLParser";
+import { RefVarContext } from "./FlinkSQLParser";
 import { UnquotedIdentifierContext } from "./FlinkSQLParser";
 import { QuotedIdentifierContext } from "./FlinkSQLParser";
 import { WhenClauseContext } from "./FlinkSQLParser";
@@ -265,6 +267,19 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitNonReservedKeywordsAlternative?: (ctx: NonReservedKeywordsAlternativeContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `urefVarAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	enterUrefVarAlternative?: (ctx: UrefVarAlternativeContext) => void;
+	/**
+	 * Exit a parse tree produced by the `urefVarAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	exitUrefVarAlternative?: (ctx: UrefVarAlternativeContext) => void;
 
 	/**
 	 * Enter a parse tree produced by the `valueExpressionDefault`
@@ -2312,6 +2327,17 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitIdentifier?: (ctx: IdentifierContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.refVar`.
+	 * @param ctx the parse tree
+	 */
+	enterRefVar?: (ctx: RefVarContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.refVar`.
+	 * @param ctx the parse tree
+	 */
+	exitRefVar?: (ctx: RefVarContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `FlinkSQLParser.unquotedIdentifier`.
