@@ -181,4 +181,3 @@ open your `setting.json`, add `"flink-sql-grammar-check.enable": true`。
 ### 3.2 Build
 - Run ```npm install --dependencies``` to install dependencies.
 - Run ```vsce package``` to build extension.
-
