@@ -6,6 +6,7 @@ import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 import { UnquotedIdentifierAlternativeContext } from "./FlinkSQLParser";
 import { QuotedIdentifierAlternativeContext } from "./FlinkSQLParser";
 import { NonReservedKeywordsAlternativeContext } from "./FlinkSQLParser";
+import { UrefVarAlternativeContext } from "./FlinkSQLParser";
 import { ValueExpressionDefaultContext } from "./FlinkSQLParser";
 import { ArithmeticUnaryContext } from "./FlinkSQLParser";
 import { ArithmeticBinaryContext } from "./FlinkSQLParser";
@@ -187,6 +188,7 @@ import { ErrorCapturingIdentifierExtraContext } from "./FlinkSQLParser";
 import { IdentifierListContext } from "./FlinkSQLParser";
 import { IdentifierSeqContext } from "./FlinkSQLParser";
 import { IdentifierContext } from "./FlinkSQLParser";
+import { RefVarContext } from "./FlinkSQLParser";
 import { UnquotedIdentifierContext } from "./FlinkSQLParser";
 import { QuotedIdentifierContext } from "./FlinkSQLParser";
 import { WhenClauseContext } from "./FlinkSQLParser";
@@ -253,6 +255,14 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitNonReservedKeywordsAlternative?: (ctx: NonReservedKeywordsAlternativeContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `urefVarAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitUrefVarAlternative?: (ctx: UrefVarAlternativeContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by the `valueExpressionDefault`
@@ -1548,6 +1558,13 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitIdentifier?: (ctx: IdentifierContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.refVar`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitRefVar?: (ctx: RefVarContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FlinkSQLParser.unquotedIdentifier`.

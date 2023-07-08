@@ -809,7 +809,11 @@ identifier
     : unquotedIdentifier         #unquotedIdentifierAlternative
     | quotedIdentifier           #quotedIdentifierAlternative
     | nonReservedKeywords        #nonReservedKeywordsAlternative
+    | refVar                     #urefVarAlternative
     ;
+
+refVar
+    :  '$' LB_BRACKET unquotedIdentifier RB_BRACKET;
 
 unquotedIdentifier
     : DIG_LITERAL | ID_LITERAL
