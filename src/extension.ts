@@ -32,6 +32,15 @@ export function activate(context: ExtensionContext) {
     // 获取初始配置
     updateFeatureStatus();
 
+    context.subscriptions.push(vscode.languages.registerCodeLensProvider(
+        [{ pattern: '**/*.sql' }, { pattern: '**/*.fql' }],
+        new FlinkSQLCodeLensProvider()
+    ));
+
+    context.subscriptions.push(vscode.commands.registerCommand('extension.showReferences', (uri: vscode.Uri, position: vscode.Position, locations: vscode.Location[]) => {
+        vscode.commands.executeCommand('editor.action.showReferences', uri, position, locations);
+    }));
+
     // 监听配置更改事件
     context.subscriptions.push(
         vscode.workspace.onDidChangeConfiguration((e) => {
@@ -121,5 +130,55 @@ class MyRenameProvider implements vscode.RenameProvider {
         }
 
         return edit;
+    }
+}
+
+
+
+class FlinkSQLCodeLensProvider implements vscode.CodeLensProvider {
+
+
+    provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CodeLens[]> {
+        const codeLenses = [];
+        for (let line = 0; line < document.lineCount; line++) {
+            const lineOfCode = document.lineAt(line);
+            // 添加你的SQL语法检测逻辑
+            if (/CREATE TEMPORARY|CREATE TABLE/i.test(lineOfCode.text)) {
+                codeLenses.push(new vscode.CodeLens(lineOfCode.range));
+            }
+        }
+        return codeLenses;
+    }
+    resolveCodeLens?(codeLens: vscode.CodeLens, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CodeLens> {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            return;
+        }
+
+        const document = editor.document;
+        const tableName = document.getText(codeLens.range);
+        const references = this.findReferences(document, tableName);
+
+        if (references.length > 0) {
+            codeLens.command = {
+                title: `${references.length} reference(s) to ${tableName}`,
+                command: "extension.showReferences",
+                arguments: [document.uri, codeLens.range.start, references]
+            };
+        }
+        return codeLens;
+    }
+
+    findReferences(document: vscode.TextDocument | undefined, tableName: string | undefined): vscode.Range[] {
+        const references = [];
+        if (document && tableName) {
+            for (let line = 0; line < document.lineCount; line++) {
+                const lineOfCode = document.lineAt(line);
+                if (lineOfCode.text.includes(tableName)) {
+                    references.push(lineOfCode.range);
+                }
+            }
+        }
+        return references;
     }
 }
