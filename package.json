@@ -59,7 +59,8 @@
                 "configuration": "./language-configuration.json",
                 "capabilities" : {
                     "renameProvider" : "true",
-                    "resolveProvider": "true"
+                    "resolveProvider": "true",
+                    "referencesProvider" : "true"
                 }
             }
         ],

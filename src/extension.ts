@@ -34,7 +34,12 @@ export function activate(context: ExtensionContext) {
 
     context.subscriptions.push(vscode.languages.registerCodeLensProvider(
         [{ pattern: '**/*.sql' }, { pattern: '**/*.fql' }],
-        new FlinkSQLCodeLensProvider()
+        new FqlCodeLensProvider()
+    ));
+
+    context.subscriptions.push(vscode.languages.registerReferenceProvider(
+        [{ pattern: '**/*.sql' }, { pattern: '**/*.fql' }],
+        new FqlReferenceProvider()
     ));
 
     context.subscriptions.push(vscode.commands.registerCommand('extension.showReferences', (uri: vscode.Uri, position: vscode.Position, locations: vscode.Location[]) => {
@@ -59,7 +64,7 @@ export function activate(context: ExtensionContext) {
                 vscode.TextEdit.replace(range, format(document.getText(range))),
             ],
     });
-    context.subscriptions.push(vscode.languages.registerRenameProvider(selector, new MyRenameProvider()));
+    context.subscriptions.push(vscode.languages.registerRenameProvider(selector, new FqlRenameProvider()));
 
     // 注册插件的其他命令和功能...
 }
@@ -115,7 +120,7 @@ function updateFeatureStatus() {
 }
 
 
-class MyRenameProvider implements vscode.RenameProvider {
+class FqlRenameProvider implements vscode.RenameProvider {
     provideRenameEdits(document: vscode.TextDocument, position: vscode.Position, newName: string, token: vscode.CancellationToken): vscode.ProviderResult<vscode.WorkspaceEdit> {
         const wordRange = document.getWordRangeAtPosition(position);
         const originalWord = document.getText(wordRange);
@@ -135,7 +140,7 @@ class MyRenameProvider implements vscode.RenameProvider {
 
 
 
-class FlinkSQLCodeLensProvider implements vscode.CodeLensProvider {
+class FqlCodeLensProvider implements vscode.CodeLensProvider {
 
 
     provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CodeLens[]> {
@@ -179,6 +184,34 @@ class FlinkSQLCodeLensProvider implements vscode.CodeLensProvider {
                 }
             }
         }
+        return references;
+    }
+}
+
+class FqlReferenceProvider implements vscode.ReferenceProvider {
+    provideReferences(document: vscode.TextDocument, position: vscode.Position, options: { includeDeclaration: boolean }, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Location[]> {
+        const wordRange = document.getWordRangeAtPosition(position);
+        if (!wordRange) {
+            return [];
+        }
+        const word = document.getText(wordRange);
+
+        const references: vscode.Location[] = [];
+
+        for (let line = 0; line < document.lineCount; line++) {
+            const lineOfCode = document.lineAt(line);
+            const index = lineOfCode.text.indexOf(word);
+
+            if (index >= 0) {
+                const referencePosition = new vscode.Position(line, index);
+                const referenceRange = document.getWordRangeAtPosition(referencePosition);
+                if (referenceRange) {
+                    const referenceLocation = new vscode.Location(document.uri, referenceRange);
+                    references.push(referenceLocation);
+                }
+            }
+        }
+
         return references;
     }
 }
