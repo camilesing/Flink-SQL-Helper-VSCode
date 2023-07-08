@@ -713,6 +713,7 @@ primaryExpression
     // | '(' namedExpression (',' namedExpression)+ ')'                                           #rowConstructor
     | '(' queryStatement ')'                                                                            #subqueryExpression
     | functionName '(' (setQuantifier? functionParam (',' functionParam)*)? ')'                      #functionCall
+    | functionName '(' functionParam KW_TO functionParam ')'                      #functionCall
     // | identifier '->' expression                                                               #lambda
     // | '(' identifier (',' identifier)+ ')' '->' expression                                     #lambda
     | value=primaryExpression LS_BRACKET index=valueExpression RS_BRACKET                                   #subscript
@@ -1387,7 +1388,8 @@ nonReservedKeywords
     |KW_STYLE                         
     |KW_TABLES                        
     |KW_TEMPORARY                     
-    |KW_TIMECOL                       
+    |KW_TIMECOL        
+    |KW_FLOOR               
     |KW_TIMESTAMP_LTZ                 
     |KW_TIMESTAMPADD                  
     |KW_TIMESTAMPDIFF                 
@@ -1575,6 +1577,7 @@ KW_STYLE:                            S T Y L E;
 KW_TABLES:                           T A B L E S;
 KW_TEMPORARY:                        T E M P O R A R Y;
 KW_TIMECOL:                          T I M E C O L;
+KW_FLOOR:                            F L O O R;
 KW_TIMESTAMP_LTZ:                    T I M E S T A M P'_'L T Z;
 KW_TIMESTAMPADD:                     T I M E S T A M P A D D;
 KW_TIMESTAMPDIFF:                    T I M E S T A M P D I F F;
