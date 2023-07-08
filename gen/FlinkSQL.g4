@@ -259,7 +259,7 @@ createCatalog
     ;
 
 createDatabase
-    : KW_CREATE KW_DATABASE ifNotExists? databasePathCreate commentSpec? withOption
+    : KW_CREATE KW_DATABASE ifNotExists? databasePathCreate commentSpec? withOption?
     ;
 
 createView
