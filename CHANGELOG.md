@@ -1,3 +1,10 @@
+### v1.6.0
+- Support:
+  - show reference and count.
+  - keyword lower and upper.
+  - floor udf.
+- Fix some bug.
+
 ### v1.5.3
 - Fix check semicolon bug.
 ### v1.5.2

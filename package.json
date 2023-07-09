@@ -1,6 +1,6 @@
 {
     "name": "flink-sql",
-    "version": "1.5.3",
+    "version": "1.6.0",
     "displayName": "Flink SQL",
     "description": "Support Flink SQL syntax highlighting, complete keywords, error grammer check and code format, including user-defined functions",
     "publisher": "CamileSing",
