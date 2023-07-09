@@ -26,8 +26,12 @@ import { SubscriptContext } from "./FlinkSQLParser";
 import { ColumnReferenceContext } from "./FlinkSQLParser";
 import { DereferenceContext } from "./FlinkSQLParser";
 import { ParenthesizedExpressionContext } from "./FlinkSQLParser";
+import { LengthSymbolsTypeDimensionContext } from "./FlinkSQLParser";
+import { LengthBracketTypeDimensionContext } from "./FlinkSQLParser";
 import { ErrorIdentContext } from "./FlinkSQLParser";
 import { RealIdentContext } from "./FlinkSQLParser";
+import { RowSymbolsTypeDimensionContext } from "./FlinkSQLParser";
+import { RowBracketTypeDimensionContext } from "./FlinkSQLParser";
 import { IdentityTransformContext } from "./FlinkSQLParser";
 import { ApplyTransformContext } from "./FlinkSQLParser";
 import { LogicalNotContext } from "./FlinkSQLParser";
@@ -529,6 +533,32 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	exitParenthesizedExpression?: (ctx: ParenthesizedExpressionContext) => void;
 
 	/**
+	 * Enter a parse tree produced by the `lengthSymbolsTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
+	 * @param ctx the parse tree
+	 */
+	enterLengthSymbolsTypeDimension?: (ctx: LengthSymbolsTypeDimensionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `lengthSymbolsTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
+	 * @param ctx the parse tree
+	 */
+	exitLengthSymbolsTypeDimension?: (ctx: LengthSymbolsTypeDimensionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `lengthBracketTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
+	 * @param ctx the parse tree
+	 */
+	enterLengthBracketTypeDimension?: (ctx: LengthBracketTypeDimensionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `lengthBracketTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
+	 * @param ctx the parse tree
+	 */
+	exitLengthBracketTypeDimension?: (ctx: LengthBracketTypeDimensionContext) => void;
+
+	/**
 	 * Enter a parse tree produced by the `errorIdent`
 	 * labeled alternative in `FlinkSQLParser.errorCapturingIdentifierExtra`.
 	 * @param ctx the parse tree
@@ -553,6 +583,32 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitRealIdent?: (ctx: RealIdentContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `rowSymbolsTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.rowTypeDimension`.
+	 * @param ctx the parse tree
+	 */
+	enterRowSymbolsTypeDimension?: (ctx: RowSymbolsTypeDimensionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `rowSymbolsTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.rowTypeDimension`.
+	 * @param ctx the parse tree
+	 */
+	exitRowSymbolsTypeDimension?: (ctx: RowSymbolsTypeDimensionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `rowBracketTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.rowTypeDimension`.
+	 * @param ctx the parse tree
+	 */
+	enterRowBracketTypeDimension?: (ctx: RowBracketTypeDimensionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `rowBracketTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.rowTypeDimension`.
+	 * @param ctx the parse tree
+	 */
+	exitRowBracketTypeDimension?: (ctx: RowBracketTypeDimensionContext) => void;
 
 	/**
 	 * Enter a parse tree produced by the `identityTransform`

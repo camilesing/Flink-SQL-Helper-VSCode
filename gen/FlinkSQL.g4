@@ -174,7 +174,8 @@ lengthTwoStringDimension
     ;
 
 lengthOneTypeDimension
-    : LESS_SYMBOL columnType GREATER_SYMBOL
+    : LESS_SYMBOL columnType (COMMA columnType)* GREATER_SYMBOL  #lengthSymbolsTypeDimension
+    | LS_BRACKET columnType (COMMA columnType)* RS_BRACKET #lengthBracketTypeDimension
     ;
 
 mapTypeDimension
@@ -182,7 +183,8 @@ mapTypeDimension
     ;
 
 rowTypeDimension
-    : LESS_SYMBOL columnName columnType (COMMA columnName columnType)* GREATER_SYMBOL
+    : LESS_SYMBOL columnName columnType (COMMA columnName columnType)* GREATER_SYMBOL #rowSymbolsTypeDimension
+    | LS_BRACKET  columnName columnType (COMMA columnName columnType)* RS_BRACKET #rowBracketTypeDimension
     ;
 
 columnConstraint
