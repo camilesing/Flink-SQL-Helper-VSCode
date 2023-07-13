@@ -3,15 +3,6 @@
 
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
-import { UnquotedIdentifierAlternativeContext } from "./FlinkSQLParser";
-import { QuotedIdentifierAlternativeContext } from "./FlinkSQLParser";
-import { NonReservedKeywordsAlternativeContext } from "./FlinkSQLParser";
-import { UrefVarAlternativeContext } from "./FlinkSQLParser";
-import { ValueExpressionDefaultContext } from "./FlinkSQLParser";
-import { ArithmeticUnaryContext } from "./FlinkSQLParser";
-import { ArithmeticBinaryContext } from "./FlinkSQLParser";
-import { ComparisonContext } from "./FlinkSQLParser";
-import { ArithmeticBinaryAlternateContext } from "./FlinkSQLParser";
 import { SearchedCaseContext } from "./FlinkSQLParser";
 import { SimpleCaseContext } from "./FlinkSQLParser";
 import { CastContext } from "./FlinkSQLParser";
@@ -22,16 +13,25 @@ import { ConstantDefaultContext } from "./FlinkSQLParser";
 import { StarContext } from "./FlinkSQLParser";
 import { SubqueryExpressionContext } from "./FlinkSQLParser";
 import { FunctionCallContext } from "./FlinkSQLParser";
+import { FunctionCallFilterContext } from "./FlinkSQLParser";
 import { SubscriptContext } from "./FlinkSQLParser";
 import { ColumnReferenceContext } from "./FlinkSQLParser";
 import { DereferenceContext } from "./FlinkSQLParser";
 import { ParenthesizedExpressionContext } from "./FlinkSQLParser";
-import { LengthSymbolsTypeDimensionContext } from "./FlinkSQLParser";
-import { LengthBracketTypeDimensionContext } from "./FlinkSQLParser";
+import { ComplexDataTypeFieldExpressionContext } from "./FlinkSQLParser";
 import { ErrorIdentContext } from "./FlinkSQLParser";
 import { RealIdentContext } from "./FlinkSQLParser";
+import { UnquotedIdentifierAlternativeContext } from "./FlinkSQLParser";
+import { QuotedIdentifierAlternativeContext } from "./FlinkSQLParser";
+import { NonReservedKeywordsAlternativeContext } from "./FlinkSQLParser";
+import { UrefVarAlternativeContext } from "./FlinkSQLParser";
+import { ValueExpressionDefaultContext } from "./FlinkSQLParser";
+import { ArithmeticUnaryContext } from "./FlinkSQLParser";
+import { ArithmeticBinaryContext } from "./FlinkSQLParser";
+import { ComparisonContext } from "./FlinkSQLParser";
+import { ArithmeticBinaryAlternateContext } from "./FlinkSQLParser";
+import { LengthSymbolsTypeDimensionContext } from "./FlinkSQLParser";
 import { RowSymbolsTypeDimensionContext } from "./FlinkSQLParser";
-import { RowBracketTypeDimensionContext } from "./FlinkSQLParser";
 import { IdentityTransformContext } from "./FlinkSQLParser";
 import { ApplyTransformContext } from "./FlinkSQLParser";
 import { LogicalNotContext } from "./FlinkSQLParser";
@@ -174,8 +174,15 @@ import { PredicateContext } from "./FlinkSQLParser";
 import { LikePredicateContext } from "./FlinkSQLParser";
 import { ValueExpressionContext } from "./FlinkSQLParser";
 import { PrimaryExpressionContext } from "./FlinkSQLParser";
+import { ComplexDataTypeExpressionContext } from "./FlinkSQLParser";
+import { ArrayExpressionContext } from "./FlinkSQLParser";
+import { RowExpressionContext } from "./FlinkSQLParser";
+import { MapExpressionContext } from "./FlinkSQLParser";
+import { RowFieldExpressionContext } from "./FlinkSQLParser";
+import { DataTypeExpressionContext } from "./FlinkSQLParser";
 import { FunctionNameContext } from "./FlinkSQLParser";
 import { FunctionParamContext } from "./FlinkSQLParser";
+import { FilterClauseContext } from "./FlinkSQLParser";
 import { DereferenceDefinitionContext } from "./FlinkSQLParser";
 import { CorrelationNameContext } from "./FlinkSQLParser";
 import { QualifiedNameContext } from "./FlinkSQLParser";
@@ -233,123 +240,6 @@ import { NonReservedKeywordsContext } from "./FlinkSQLParser";
  * `FlinkSQLParser`.
  */
 export interface FlinkSQLListener extends ParseTreeListener {
-	/**
-	 * Enter a parse tree produced by the `unquotedIdentifierAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 */
-	enterUnquotedIdentifierAlternative?: (ctx: UnquotedIdentifierAlternativeContext) => void;
-	/**
-	 * Exit a parse tree produced by the `unquotedIdentifierAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 */
-	exitUnquotedIdentifierAlternative?: (ctx: UnquotedIdentifierAlternativeContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `quotedIdentifierAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 */
-	enterQuotedIdentifierAlternative?: (ctx: QuotedIdentifierAlternativeContext) => void;
-	/**
-	 * Exit a parse tree produced by the `quotedIdentifierAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 */
-	exitQuotedIdentifierAlternative?: (ctx: QuotedIdentifierAlternativeContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `nonReservedKeywordsAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 */
-	enterNonReservedKeywordsAlternative?: (ctx: NonReservedKeywordsAlternativeContext) => void;
-	/**
-	 * Exit a parse tree produced by the `nonReservedKeywordsAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 */
-	exitNonReservedKeywordsAlternative?: (ctx: NonReservedKeywordsAlternativeContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `urefVarAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 */
-	enterUrefVarAlternative?: (ctx: UrefVarAlternativeContext) => void;
-	/**
-	 * Exit a parse tree produced by the `urefVarAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 */
-	exitUrefVarAlternative?: (ctx: UrefVarAlternativeContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `valueExpressionDefault`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 */
-	enterValueExpressionDefault?: (ctx: ValueExpressionDefaultContext) => void;
-	/**
-	 * Exit a parse tree produced by the `valueExpressionDefault`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 */
-	exitValueExpressionDefault?: (ctx: ValueExpressionDefaultContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `arithmeticUnary`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 */
-	enterArithmeticUnary?: (ctx: ArithmeticUnaryContext) => void;
-	/**
-	 * Exit a parse tree produced by the `arithmeticUnary`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 */
-	exitArithmeticUnary?: (ctx: ArithmeticUnaryContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `arithmeticBinary`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 */
-	enterArithmeticBinary?: (ctx: ArithmeticBinaryContext) => void;
-	/**
-	 * Exit a parse tree produced by the `arithmeticBinary`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 */
-	exitArithmeticBinary?: (ctx: ArithmeticBinaryContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `comparison`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 */
-	enterComparison?: (ctx: ComparisonContext) => void;
-	/**
-	 * Exit a parse tree produced by the `comparison`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 */
-	exitComparison?: (ctx: ComparisonContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `arithmeticBinaryAlternate`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 */
-	enterArithmeticBinaryAlternate?: (ctx: ArithmeticBinaryAlternateContext) => void;
-	/**
-	 * Exit a parse tree produced by the `arithmeticBinaryAlternate`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 */
-	exitArithmeticBinaryAlternate?: (ctx: ArithmeticBinaryAlternateContext) => void;
-
 	/**
 	 * Enter a parse tree produced by the `searchedCase`
 	 * labeled alternative in `FlinkSQLParser.primaryExpression`.
@@ -481,6 +371,19 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	exitFunctionCall?: (ctx: FunctionCallContext) => void;
 
 	/**
+	 * Enter a parse tree produced by the `functionCallFilter`
+	 * labeled alternative in `FlinkSQLParser.primaryExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterFunctionCallFilter?: (ctx: FunctionCallFilterContext) => void;
+	/**
+	 * Exit a parse tree produced by the `functionCallFilter`
+	 * labeled alternative in `FlinkSQLParser.primaryExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitFunctionCallFilter?: (ctx: FunctionCallFilterContext) => void;
+
+	/**
 	 * Enter a parse tree produced by the `subscript`
 	 * labeled alternative in `FlinkSQLParser.primaryExpression`.
 	 * @param ctx the parse tree
@@ -533,30 +436,17 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	exitParenthesizedExpression?: (ctx: ParenthesizedExpressionContext) => void;
 
 	/**
-	 * Enter a parse tree produced by the `lengthSymbolsTypeDimension`
-	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
+	 * Enter a parse tree produced by the `complexDataTypeFieldExpression`
+	 * labeled alternative in `FlinkSQLParser.primaryExpression`.
 	 * @param ctx the parse tree
 	 */
-	enterLengthSymbolsTypeDimension?: (ctx: LengthSymbolsTypeDimensionContext) => void;
+	enterComplexDataTypeFieldExpression?: (ctx: ComplexDataTypeFieldExpressionContext) => void;
 	/**
-	 * Exit a parse tree produced by the `lengthSymbolsTypeDimension`
-	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
+	 * Exit a parse tree produced by the `complexDataTypeFieldExpression`
+	 * labeled alternative in `FlinkSQLParser.primaryExpression`.
 	 * @param ctx the parse tree
 	 */
-	exitLengthSymbolsTypeDimension?: (ctx: LengthSymbolsTypeDimensionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `lengthBracketTypeDimension`
-	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
-	 * @param ctx the parse tree
-	 */
-	enterLengthBracketTypeDimension?: (ctx: LengthBracketTypeDimensionContext) => void;
-	/**
-	 * Exit a parse tree produced by the `lengthBracketTypeDimension`
-	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
-	 * @param ctx the parse tree
-	 */
-	exitLengthBracketTypeDimension?: (ctx: LengthBracketTypeDimensionContext) => void;
+	exitComplexDataTypeFieldExpression?: (ctx: ComplexDataTypeFieldExpressionContext) => void;
 
 	/**
 	 * Enter a parse tree produced by the `errorIdent`
@@ -585,6 +475,136 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	exitRealIdent?: (ctx: RealIdentContext) => void;
 
 	/**
+	 * Enter a parse tree produced by the `unquotedIdentifierAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	enterUnquotedIdentifierAlternative?: (ctx: UnquotedIdentifierAlternativeContext) => void;
+	/**
+	 * Exit a parse tree produced by the `unquotedIdentifierAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	exitUnquotedIdentifierAlternative?: (ctx: UnquotedIdentifierAlternativeContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `quotedIdentifierAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	enterQuotedIdentifierAlternative?: (ctx: QuotedIdentifierAlternativeContext) => void;
+	/**
+	 * Exit a parse tree produced by the `quotedIdentifierAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	exitQuotedIdentifierAlternative?: (ctx: QuotedIdentifierAlternativeContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `nonReservedKeywordsAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	enterNonReservedKeywordsAlternative?: (ctx: NonReservedKeywordsAlternativeContext) => void;
+	/**
+	 * Exit a parse tree produced by the `nonReservedKeywordsAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	exitNonReservedKeywordsAlternative?: (ctx: NonReservedKeywordsAlternativeContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `urefVarAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	enterUrefVarAlternative?: (ctx: UrefVarAlternativeContext) => void;
+	/**
+	 * Exit a parse tree produced by the `urefVarAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	exitUrefVarAlternative?: (ctx: UrefVarAlternativeContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `valueExpressionDefault`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterValueExpressionDefault?: (ctx: ValueExpressionDefaultContext) => void;
+	/**
+	 * Exit a parse tree produced by the `valueExpressionDefault`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitValueExpressionDefault?: (ctx: ValueExpressionDefaultContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `arithmeticUnary`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterArithmeticUnary?: (ctx: ArithmeticUnaryContext) => void;
+	/**
+	 * Exit a parse tree produced by the `arithmeticUnary`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitArithmeticUnary?: (ctx: ArithmeticUnaryContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `arithmeticBinary`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterArithmeticBinary?: (ctx: ArithmeticBinaryContext) => void;
+	/**
+	 * Exit a parse tree produced by the `arithmeticBinary`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitArithmeticBinary?: (ctx: ArithmeticBinaryContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `comparison`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterComparison?: (ctx: ComparisonContext) => void;
+	/**
+	 * Exit a parse tree produced by the `comparison`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitComparison?: (ctx: ComparisonContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `arithmeticBinaryAlternate`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterArithmeticBinaryAlternate?: (ctx: ArithmeticBinaryAlternateContext) => void;
+	/**
+	 * Exit a parse tree produced by the `arithmeticBinaryAlternate`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitArithmeticBinaryAlternate?: (ctx: ArithmeticBinaryAlternateContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `lengthSymbolsTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
+	 * @param ctx the parse tree
+	 */
+	enterLengthSymbolsTypeDimension?: (ctx: LengthSymbolsTypeDimensionContext) => void;
+	/**
+	 * Exit a parse tree produced by the `lengthSymbolsTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
+	 * @param ctx the parse tree
+	 */
+	exitLengthSymbolsTypeDimension?: (ctx: LengthSymbolsTypeDimensionContext) => void;
+
+	/**
 	 * Enter a parse tree produced by the `rowSymbolsTypeDimension`
 	 * labeled alternative in `FlinkSQLParser.rowTypeDimension`.
 	 * @param ctx the parse tree
@@ -596,19 +616,6 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitRowSymbolsTypeDimension?: (ctx: RowSymbolsTypeDimensionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `rowBracketTypeDimension`
-	 * labeled alternative in `FlinkSQLParser.rowTypeDimension`.
-	 * @param ctx the parse tree
-	 */
-	enterRowBracketTypeDimension?: (ctx: RowBracketTypeDimensionContext) => void;
-	/**
-	 * Exit a parse tree produced by the `rowBracketTypeDimension`
-	 * labeled alternative in `FlinkSQLParser.rowTypeDimension`.
-	 * @param ctx the parse tree
-	 */
-	exitRowBracketTypeDimension?: (ctx: RowBracketTypeDimensionContext) => void;
 
 	/**
 	 * Enter a parse tree produced by the `identityTransform`
@@ -2187,6 +2194,72 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	exitPrimaryExpression?: (ctx: PrimaryExpressionContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.complexDataTypeExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterComplexDataTypeExpression?: (ctx: ComplexDataTypeExpressionContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.complexDataTypeExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitComplexDataTypeExpression?: (ctx: ComplexDataTypeExpressionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.arrayExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterArrayExpression?: (ctx: ArrayExpressionContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.arrayExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitArrayExpression?: (ctx: ArrayExpressionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.rowExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterRowExpression?: (ctx: RowExpressionContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.rowExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitRowExpression?: (ctx: RowExpressionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.mapExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterMapExpression?: (ctx: MapExpressionContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.mapExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitMapExpression?: (ctx: MapExpressionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.rowFieldExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterRowFieldExpression?: (ctx: RowFieldExpressionContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.rowFieldExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitRowFieldExpression?: (ctx: RowFieldExpressionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.dataTypeExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterDataTypeExpression?: (ctx: DataTypeExpressionContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.dataTypeExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitDataTypeExpression?: (ctx: DataTypeExpressionContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `FlinkSQLParser.functionName`.
 	 * @param ctx the parse tree
 	 */
@@ -2207,6 +2280,17 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitFunctionParam?: (ctx: FunctionParamContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.filterClause`.
+	 * @param ctx the parse tree
+	 */
+	enterFilterClause?: (ctx: FilterClauseContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.filterClause`.
+	 * @param ctx the parse tree
+	 */
+	exitFilterClause?: (ctx: FilterClauseContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `FlinkSQLParser.dereferenceDefinition`.
