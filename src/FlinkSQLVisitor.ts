@@ -3,15 +3,6 @@
 
 import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 
-import { UnquotedIdentifierAlternativeContext } from "./FlinkSQLParser";
-import { QuotedIdentifierAlternativeContext } from "./FlinkSQLParser";
-import { NonReservedKeywordsAlternativeContext } from "./FlinkSQLParser";
-import { UrefVarAlternativeContext } from "./FlinkSQLParser";
-import { ValueExpressionDefaultContext } from "./FlinkSQLParser";
-import { ArithmeticUnaryContext } from "./FlinkSQLParser";
-import { ArithmeticBinaryContext } from "./FlinkSQLParser";
-import { ComparisonContext } from "./FlinkSQLParser";
-import { ArithmeticBinaryAlternateContext } from "./FlinkSQLParser";
 import { SearchedCaseContext } from "./FlinkSQLParser";
 import { SimpleCaseContext } from "./FlinkSQLParser";
 import { CastContext } from "./FlinkSQLParser";
@@ -22,16 +13,25 @@ import { ConstantDefaultContext } from "./FlinkSQLParser";
 import { StarContext } from "./FlinkSQLParser";
 import { SubqueryExpressionContext } from "./FlinkSQLParser";
 import { FunctionCallContext } from "./FlinkSQLParser";
+import { FunctionCallFilterContext } from "./FlinkSQLParser";
 import { SubscriptContext } from "./FlinkSQLParser";
 import { ColumnReferenceContext } from "./FlinkSQLParser";
 import { DereferenceContext } from "./FlinkSQLParser";
 import { ParenthesizedExpressionContext } from "./FlinkSQLParser";
-import { LengthSymbolsTypeDimensionContext } from "./FlinkSQLParser";
-import { LengthBracketTypeDimensionContext } from "./FlinkSQLParser";
+import { ComplexDataTypeFieldExpressionContext } from "./FlinkSQLParser";
 import { ErrorIdentContext } from "./FlinkSQLParser";
 import { RealIdentContext } from "./FlinkSQLParser";
+import { UnquotedIdentifierAlternativeContext } from "./FlinkSQLParser";
+import { QuotedIdentifierAlternativeContext } from "./FlinkSQLParser";
+import { NonReservedKeywordsAlternativeContext } from "./FlinkSQLParser";
+import { UrefVarAlternativeContext } from "./FlinkSQLParser";
+import { ValueExpressionDefaultContext } from "./FlinkSQLParser";
+import { ArithmeticUnaryContext } from "./FlinkSQLParser";
+import { ArithmeticBinaryContext } from "./FlinkSQLParser";
+import { ComparisonContext } from "./FlinkSQLParser";
+import { ArithmeticBinaryAlternateContext } from "./FlinkSQLParser";
+import { LengthSymbolsTypeDimensionContext } from "./FlinkSQLParser";
 import { RowSymbolsTypeDimensionContext } from "./FlinkSQLParser";
-import { RowBracketTypeDimensionContext } from "./FlinkSQLParser";
 import { IdentityTransformContext } from "./FlinkSQLParser";
 import { ApplyTransformContext } from "./FlinkSQLParser";
 import { LogicalNotContext } from "./FlinkSQLParser";
@@ -174,8 +174,15 @@ import { PredicateContext } from "./FlinkSQLParser";
 import { LikePredicateContext } from "./FlinkSQLParser";
 import { ValueExpressionContext } from "./FlinkSQLParser";
 import { PrimaryExpressionContext } from "./FlinkSQLParser";
+import { ComplexDataTypeExpressionContext } from "./FlinkSQLParser";
+import { ArrayExpressionContext } from "./FlinkSQLParser";
+import { RowExpressionContext } from "./FlinkSQLParser";
+import { MapExpressionContext } from "./FlinkSQLParser";
+import { RowFieldExpressionContext } from "./FlinkSQLParser";
+import { DataTypeExpressionContext } from "./FlinkSQLParser";
 import { FunctionNameContext } from "./FlinkSQLParser";
 import { FunctionParamContext } from "./FlinkSQLParser";
+import { FilterClauseContext } from "./FlinkSQLParser";
 import { DereferenceDefinitionContext } from "./FlinkSQLParser";
 import { CorrelationNameContext } from "./FlinkSQLParser";
 import { QualifiedNameContext } from "./FlinkSQLParser";
@@ -236,78 +243,6 @@ import { NonReservedKeywordsContext } from "./FlinkSQLParser";
  * operations with no return type.
  */
 export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
-	/**
-	 * Visit a parse tree produced by the `unquotedIdentifierAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitUnquotedIdentifierAlternative?: (ctx: UnquotedIdentifierAlternativeContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `quotedIdentifierAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitQuotedIdentifierAlternative?: (ctx: QuotedIdentifierAlternativeContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `nonReservedKeywordsAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitNonReservedKeywordsAlternative?: (ctx: NonReservedKeywordsAlternativeContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `urefVarAlternative`
-	 * labeled alternative in `FlinkSQLParser.identifier`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitUrefVarAlternative?: (ctx: UrefVarAlternativeContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `valueExpressionDefault`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitValueExpressionDefault?: (ctx: ValueExpressionDefaultContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `arithmeticUnary`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitArithmeticUnary?: (ctx: ArithmeticUnaryContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `arithmeticBinary`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitArithmeticBinary?: (ctx: ArithmeticBinaryContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `comparison`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitComparison?: (ctx: ComparisonContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `arithmeticBinaryAlternate`
-	 * labeled alternative in `FlinkSQLParser.valueExpression`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitArithmeticBinaryAlternate?: (ctx: ArithmeticBinaryAlternateContext) => Result;
-
 	/**
 	 * Visit a parse tree produced by the `searchedCase`
 	 * labeled alternative in `FlinkSQLParser.primaryExpression`.
@@ -389,6 +324,14 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitFunctionCall?: (ctx: FunctionCallContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by the `functionCallFilter`
+	 * labeled alternative in `FlinkSQLParser.primaryExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitFunctionCallFilter?: (ctx: FunctionCallFilterContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by the `subscript`
 	 * labeled alternative in `FlinkSQLParser.primaryExpression`.
 	 * @param ctx the parse tree
@@ -421,20 +364,12 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitParenthesizedExpression?: (ctx: ParenthesizedExpressionContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by the `lengthSymbolsTypeDimension`
-	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
+	 * Visit a parse tree produced by the `complexDataTypeFieldExpression`
+	 * labeled alternative in `FlinkSQLParser.primaryExpression`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitLengthSymbolsTypeDimension?: (ctx: LengthSymbolsTypeDimensionContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `lengthBracketTypeDimension`
-	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitLengthBracketTypeDimension?: (ctx: LengthBracketTypeDimensionContext) => Result;
+	visitComplexDataTypeFieldExpression?: (ctx: ComplexDataTypeFieldExpressionContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by the `errorIdent`
@@ -453,20 +388,92 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitRealIdent?: (ctx: RealIdentContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by the `unquotedIdentifierAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitUnquotedIdentifierAlternative?: (ctx: UnquotedIdentifierAlternativeContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `quotedIdentifierAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitQuotedIdentifierAlternative?: (ctx: QuotedIdentifierAlternativeContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `nonReservedKeywordsAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitNonReservedKeywordsAlternative?: (ctx: NonReservedKeywordsAlternativeContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `urefVarAlternative`
+	 * labeled alternative in `FlinkSQLParser.identifier`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitUrefVarAlternative?: (ctx: UrefVarAlternativeContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `valueExpressionDefault`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitValueExpressionDefault?: (ctx: ValueExpressionDefaultContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `arithmeticUnary`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitArithmeticUnary?: (ctx: ArithmeticUnaryContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `arithmeticBinary`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitArithmeticBinary?: (ctx: ArithmeticBinaryContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `comparison`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitComparison?: (ctx: ComparisonContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `arithmeticBinaryAlternate`
+	 * labeled alternative in `FlinkSQLParser.valueExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitArithmeticBinaryAlternate?: (ctx: ArithmeticBinaryAlternateContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by the `lengthSymbolsTypeDimension`
+	 * labeled alternative in `FlinkSQLParser.lengthOneTypeDimension`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitLengthSymbolsTypeDimension?: (ctx: LengthSymbolsTypeDimensionContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by the `rowSymbolsTypeDimension`
 	 * labeled alternative in `FlinkSQLParser.rowTypeDimension`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitRowSymbolsTypeDimension?: (ctx: RowSymbolsTypeDimensionContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by the `rowBracketTypeDimension`
-	 * labeled alternative in `FlinkSQLParser.rowTypeDimension`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitRowBracketTypeDimension?: (ctx: RowBracketTypeDimensionContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by the `identityTransform`
@@ -1470,6 +1477,48 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitPrimaryExpression?: (ctx: PrimaryExpressionContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.complexDataTypeExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitComplexDataTypeExpression?: (ctx: ComplexDataTypeExpressionContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.arrayExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitArrayExpression?: (ctx: ArrayExpressionContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.rowExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitRowExpression?: (ctx: RowExpressionContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.mapExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitMapExpression?: (ctx: MapExpressionContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.rowFieldExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitRowFieldExpression?: (ctx: RowFieldExpressionContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.dataTypeExpression`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitDataTypeExpression?: (ctx: DataTypeExpressionContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by `FlinkSQLParser.functionName`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -1482,6 +1531,13 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitFunctionParam?: (ctx: FunctionParamContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.filterClause`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitFilterClause?: (ctx: FilterClauseContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FlinkSQLParser.dereferenceDefinition`.

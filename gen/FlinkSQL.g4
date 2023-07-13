@@ -175,7 +175,6 @@ lengthTwoStringDimension
 
 lengthOneTypeDimension
     : LESS_SYMBOL columnType (COMMA columnType)* GREATER_SYMBOL  #lengthSymbolsTypeDimension
-    | LS_BRACKET columnType (COMMA columnType)* RS_BRACKET #lengthBracketTypeDimension
     ;
 
 mapTypeDimension
@@ -184,7 +183,6 @@ mapTypeDimension
 
 rowTypeDimension
     : LESS_SYMBOL columnName columnType (COMMA columnName columnType)* GREATER_SYMBOL #rowSymbolsTypeDimension
-    | LS_BRACKET  columnName columnType (COMMA columnName columnType)* RS_BRACKET #rowBracketTypeDimension
     ;
 
 columnConstraint
@@ -418,7 +416,7 @@ selectStatement
     ;
 
 selectClause
-    : KW_SELECT setQuantifier? (ASTERISK_SIGN | projectItemDefinition (COMMA projectItemDefinition)*)
+    : KW_SELECT setQuantifier?  (ASTERISK_SIGN | projectItemDefinition (COMMA projectItemDefinition)*)
     ;
 
 projectItemDefinition
@@ -704,24 +702,26 @@ valueExpression
 primaryExpression
     : KW_CASE whenClause+ (KW_ELSE elseExpression=expression)? KW_END                                   #searchedCase
     | KW_CASE value=expression whenClause+ (KW_ELSE elseExpression=expression)? KW_END                  #simpleCase
-    | KW_CAST '(' expression KW_AS columnType ')'                                                      #cast
+    | KW_CAST LR_BRACKET expression KW_AS columnType RR_BRACKET                                                      #cast
     // | STRUCT '(' (argument+=namedExpression (',' argument+=namedExpression)*)? ')'             #struct
-    | KW_FIRST '(' expression (KW_IGNORE KW_NULLS)? ')'                                                 #first
-    | KW_LAST '(' expression (KW_IGNORE KW_NULLS)? ')'                                                  #last
-    | KW_POSITION '(' substr=valueExpression KW_IN str=valueExpression ')'                           #position
+    | KW_FIRST LR_BRACKET expression (KW_IGNORE KW_NULLS)? RR_BRACKET                                                 #first
+    | KW_LAST LR_BRACKET expression (KW_IGNORE KW_NULLS)? RR_BRACKET                                                  #last
+    | KW_POSITION LR_BRACKET substr=valueExpression KW_IN str=valueExpression RR_BRACKET                           #position
     | constant                                                                                 #constantDefault
     | '*'                                                                                 #star
     | uid '.' '*'                                                                #star
     // | '(' namedExpression (',' namedExpression)+ ')'                                           #rowConstructor
-    | '(' queryStatement ')'                                                                            #subqueryExpression
-    | functionName '(' (setQuantifier? functionParam (',' functionParam)*)? ')'                      #functionCall
-    | functionName '(' functionParam KW_TO functionParam ')'                      #functionCall
+    | LR_BRACKET queryStatement RR_BRACKET                                                                           #subqueryExpression
+    | functionName LR_BRACKET (setQuantifier? functionParam (',' functionParam)*)? RR_BRACKET                      #functionCall
+    | functionName LR_BRACKET functionParam KW_TO functionParam RR_BRACKET                      #functionCall
+    | functionName LR_BRACKET setQuantifier? functionParam RR_BRACKET  filterClause?                             #functionCallFilter
     // | identifier '->' expression                                                               #lambda
     // | '(' identifier (',' identifier)+ ')' '->' expression                                     #lambda
     | value=primaryExpression LS_BRACKET index=valueExpression RS_BRACKET                                   #subscript
     | identifier                                                                               #columnReference
     | dereferenceDefinition                                                                                      #dereference
-    | '(' expression ')'                                                                       #parenthesizedExpression
+    | LR_BRACKET expression RR_BRACKET                                                                       #parenthesizedExpression 
+    | complexDataTypeExpression                                                                 # complexDataTypeFieldExpression
     // | EXTRACT '(' field=identifier KW_FROM source=valueExpression ')'                             #extract
     // | (SUBSTR | SUBSTRING) '(' str=valueExpression (KW_FROM | ',') pos=valueExpression
     //   ((KW_FOR | ',') len=valueExpression)? ')'                                                   #substring
@@ -729,6 +729,36 @@ primaryExpression
     //    KW_FROM srcStr=valueExpression ')'                                                         #trim
     // | OVERLAY '(' input=valueExpression PLACING replace=valueExpression
     //   KW_FROM position=valueExpression (KW_FOR length=valueExpression)? ')'                          #overlay
+    ;
+
+
+
+
+complexDataTypeExpression
+    : arrayExpression
+    | rowExpression
+    | mapExpression
+    ;
+
+arrayExpression
+    : KW_ARRAY LS_BRACKET dataTypeExpression RS_BRACKET
+    ;
+
+rowExpression
+    : KW_ROW LR_BRACKET rowFieldExpression (COMMA rowFieldExpression)* RR_BRACKET
+    ;
+
+mapExpression
+    : KW_MAP LS_BRACKET dataTypeExpression COMMA dataTypeExpression RS_BRACKET
+    ;
+
+rowFieldExpression
+    : dataTypeExpression KW_AS identifier
+    ;
+
+dataTypeExpression
+    : columnAlias
+    | complexDataTypeExpression
     ;
 
 functionName
@@ -742,6 +772,11 @@ functionParam
     | timeIntervalUnit
     | timePointUnit
     | expression
+    | filterClause
+    ;
+
+filterClause
+    : KW_FILTER LR_BRACKET KW_WHERE booleanExpression RR_BRACKET
     ;
 
 dereferenceDefinition
@@ -1470,6 +1505,7 @@ KW_EXCEPTION:                        E X C E P T I O N;
 KW_EXCLUDE:                          E X C L U D E;
 KW_EXCLUDING:                        E X C L U D I N G;
 KW_EXTENDED:                         E X T E N D E D;
+KW_FILTER:                           F I L T E R;
 KW_FILE:                             F I L E;
 KW_FINAL:                            F I N A L;
 KW_FIRST:                            F I R S T;
