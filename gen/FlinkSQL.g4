@@ -436,6 +436,7 @@ fromClause
 tableExpression
     : tableReference (COMMA tableReference)*
     | tableExpression KW_NATURAL? (KW_LEFT | KW_RIGHT | KW_FULL | KW_INNER)? KW_OUTER? KW_JOIN tableExpression joinCondition?
+    | tableExpression KW_NATURAL? (KW_LEFT | KW_RIGHT | KW_FULL | KW_INNER)? KW_OUTER? KW_JOIN tableExpression joinCondition? (COMMA tableReference)*
     | tableExpression KW_CROSS KW_JOIN tableExpression
     | inlineDataValueClause
     | windoTVFClause
@@ -449,6 +450,7 @@ tablePrimary
     : KW_TABLE? tablePath systemTimePeriod? (KW_AS? correlationName)?
     | KW_LATERAL KW_TABLE LR_BRACKET functionName LR_BRACKET functionParam (COMMA functionParam)* RR_BRACKET RR_BRACKET
     | KW_LATERAL? LR_BRACKET queryStatement RR_BRACKET
+    | KW_LATERAL KW_TABLE LR_BRACKET functionName LR_BRACKET functionParam (COMMA functionParam)* RR_BRACKET RR_BRACKET KW_AS tableAlias LR_BRACKET projectItemDefinition (COMMA projectItemDefinition)* RR_BRACKET
     | KW_UNNEST LR_BRACKET expression RR_BRACKET
     ;
 
