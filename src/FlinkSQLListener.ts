@@ -178,7 +178,6 @@ import { ComplexDataTypeExpressionContext } from "./FlinkSQLParser";
 import { ArrayExpressionContext } from "./FlinkSQLParser";
 import { RowExpressionContext } from "./FlinkSQLParser";
 import { MapExpressionContext } from "./FlinkSQLParser";
-import { RowFieldExpressionContext } from "./FlinkSQLParser";
 import { DataTypeExpressionContext } from "./FlinkSQLParser";
 import { FunctionNameContext } from "./FlinkSQLParser";
 import { FunctionParamContext } from "./FlinkSQLParser";
@@ -2236,17 +2235,6 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitMapExpression?: (ctx: MapExpressionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `FlinkSQLParser.rowFieldExpression`.
-	 * @param ctx the parse tree
-	 */
-	enterRowFieldExpression?: (ctx: RowFieldExpressionContext) => void;
-	/**
-	 * Exit a parse tree produced by `FlinkSQLParser.rowFieldExpression`.
-	 * @param ctx the parse tree
-	 */
-	exitRowFieldExpression?: (ctx: RowFieldExpressionContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `FlinkSQLParser.dataTypeExpression`.
