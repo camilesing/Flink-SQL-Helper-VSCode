@@ -743,20 +743,17 @@ complexDataTypeExpression
     ;
 
 arrayExpression
-    : KW_ARRAY LS_BRACKET dataTypeExpression RS_BRACKET
+    : KW_ARRAY LS_BRACKET dataTypeExpression (COMMA dataTypeExpression)* RS_BRACKET
     ;
 
 rowExpression
-    : KW_ROW LR_BRACKET rowFieldExpression (COMMA rowFieldExpression)* RR_BRACKET
+    : KW_ROW LR_BRACKET dataTypeExpression (COMMA dataTypeExpression)* RR_BRACKET
     ;
 
 mapExpression
     : KW_MAP LS_BRACKET dataTypeExpression COMMA dataTypeExpression RS_BRACKET
     ;
 
-rowFieldExpression
-    : dataTypeExpression KW_AS identifier
-    ;
 
 dataTypeExpression
     : columnAlias
