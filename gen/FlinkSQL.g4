@@ -425,8 +425,8 @@ projectItemDefinition
     ;
 
 overWindowItem
-    : primaryExpression KW_OVER windowSpec KW_AS identifier
-    | primaryExpression KW_OVER errorCapturingIdentifier KW_AS identifier
+    : primaryExpression KW_OVER windowSpec KW_AS? identifier
+    | primaryExpression KW_OVER errorCapturingIdentifier KW_AS? identifier
     ;
 
 fromClause
@@ -1050,19 +1050,25 @@ reservedKeywordsUsedAsFuncName
     | KW_COLLECT
     | KW_COUNT
     | KW_DATE
+    | KW_FIRST_VALUE
     | KW_GROUPING
     | KW_HOUR
     | KW_IF
+    | KW_LEAD
     | KW_LAG
+    | KW_LAST_VALUE
     | KW_LEFT
+    | KW_NTILE
     | KW_MAP
     | KW_MINUTE
     | KW_MONTH
     | KW_OVERLAY
     | KW_POSITION
+    | KW_PERCENT_RANK
     | KW_POWER
     | KW_QUARTER
     | KW_RANK
+    | KW_ROW_NUMBER
     | KW_RIGHT
     | KW_SECOND
     | KW_SUBSTRING
@@ -1124,6 +1130,7 @@ reservedKeywords
     | KW_CREATE
     | KW_CROSS
     | KW_CUBE
+    | KW_CUME_DIST
     | KW_CURRENT
     | KW_CURSOR
     | KW_CYCLE
@@ -1136,6 +1143,7 @@ reservedKeywords
     | KW_DEFAULT
     | KW_DEFINE
     | KW_DELETE
+    | KW_DENSE_RANK
     | KW_DESCRIBE
     | KW_DISTINCT
     | KW_DOUBLE
@@ -1152,6 +1160,7 @@ reservedKeywords
     | KW_EXTRACT
     | KW_FALSE
     | KW_FLOAT
+    | KW_FIRST_VALUE
     | KW_FOR
     | KW_FROM
     | KW_FULL
@@ -1177,9 +1186,11 @@ reservedKeywords
     | KW_IS
     | KW_JOIN
     | KW_LAG
+    | KW_LAST_VALUE
     | KW_LANGUAGE
     | KW_LATERAL
     | KW_LEADING
+    | KW_LEAD
     | KW_LEFT
     | KW_LIKE
     | KW_LIMIT
@@ -1197,6 +1208,7 @@ reservedKeywords
     | KW_MULTISET
     | KW_NATURAL
     | KW_NEXT
+    | KW_NTILE
     | KW_NO
     | KW_NONE
     | KW_NOT
@@ -1216,11 +1228,13 @@ reservedKeywords
     | KW_PATTERN
     | KW_PER
     | KW_PERCENT
+    | KW_PERCENT_RANK
     | KW_PERIOD
     | KW_POSITION
     | KW_PRIMARY
     | KW_RANGE
     | KW_RANK
+    | KW_ROW_NUMBER
     | KW_RESET
     | KW_REVOKE
     | KW_RIGHT
@@ -1692,6 +1706,7 @@ KW_COUNT:                            C O U N T;
 KW_CREATE:                           C R E A T E;
 KW_CROSS:                            C R O S S;
 KW_CUBE:                             C U B E;
+KW_CUME_DIST:                        C U M E'_'D I S T;
 KW_CURRENT:                          C U R R E N T;
 KW_CURSOR:                           C U R S O R;
 KW_CYCLE:                            C Y C L E;
@@ -1705,6 +1720,7 @@ KW_DEFAULT:                          D E F A U L T;
 KW_DEFINE:                           D E F I N E;
 KW_DELETE:                           D E L E T E;
 KW_DESCRIBE:                         D E S C R I B E;
+KW_DENSE_RANK:                       D E N S E'_'R A N K;
 KW_DISTINCT:                         D I S T I N C T;
 KW_DOUBLE:                           D O U B L E;
 KW_DROP:                             D R O P;
@@ -1719,6 +1735,7 @@ KW_EXISTS:                           E X I S T S;
 KW_EXPLAIN:                          E X P L A I N;
 KW_EXTERNAL:                         E X T E R N A L;
 KW_EXTRACT:                          E X T R A C T;
+KW_FIRST_VALUE:                      F I R S T'_'V A L U E;
 KW_FALSE:                            F A L S E ;
 KW_FLOAT:                            F L O A T;
 KW_FOR:                              F O R;
@@ -1748,6 +1765,8 @@ KW_JOIN:                             J O I N;
 KW_LAG:                              L A G;
 KW_LANGUAGE:                         L A N G U A G E;
 KW_LATERAL:                          L A T E R A L;
+KW_LAST_VALUE:                       L A S T'_'V A L U E;
+KW_LEAD:                             L E A D;
 KW_LEADING:                          L E A D I N G;
 KW_LEFT:                             L E F T;
 KW_LIKE:                             L I K E;
@@ -1769,6 +1788,7 @@ KW_NEXT:                             N E X T ;
 KW_NO:                               N O;
 KW_NONE:                             N O N E;
 KW_NOT:                              N O T;
+KW_NTILE:                            N T I L E;
 KW_NULL:                             N U L L;
 KW_NUMERIC:                          N U M E R I C;
 KW_OF:                               O F;
@@ -1785,11 +1805,13 @@ KW_PARTITION:                        P A R T I T I O N;
 KW_PATTERN:                          P A T T E R N;
 KW_PER:                              P E R;
 KW_PERCENT:                          P E R C E N T;
+KW_PERCENT_RANK:                     P E R C E N T'_'R A N K;
 KW_PERIOD:                           P E R I O D;
 KW_POSITION:                         P O S I T I O N;
 KW_POWER:                            P O W E R;
 KW_PRIMARY:                          P R I M A R Y;
 KW_RANGE:                            R A N G E;
+KW_ROW_NUMBER:                       R O W'_'N U M B E R;
 KW_RANK:                             R A N K;
 KW_RESET:                            R E S E T;
 KW_REVOKE:                           R E V O K E;
