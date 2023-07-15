@@ -73,48 +73,52 @@ function updateFeatureStatus() {
 
     if (vscode.workspace.getConfiguration('flink-sql-grammar-check').get('enable')) {
         // 创建诊断集合，用于报告语法错误和警告
-        const diagnosticCollection = vscode.languages.createDiagnosticCollection('flink-sql');
+        const diagnosticCollection = vscode.languages.createDiagnosticCollection(selector);
 
         // 监听文件更改事件
         vscode.workspace.onDidChangeTextDocument((event: vscode.TextDocumentChangeEvent) => {
             // 检查文件是否为Flink SQL文件
-            if (event.document.languageId === 'flink-sql') {
-                // 清除之前的诊断信息
-                diagnosticCollection.clear();
-
-                // 使用生成的词法分析器和解析器进行语法检查
-                const inputStream = new ANTLRInputStream(event.document.getText());
-                const lexer = new FlinkSQLLexer(inputStream);
-                const tokenStream = new CommonTokenStream(lexer);
-                const parser = new FlinkSQLParser(tokenStream);
-                parser.removeErrorListeners();
-                parser.addErrorListener({
-                    syntaxError: (recognizer: Recognizer<any, any>, offendingSymbol: any, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined): void => {
-                        vscode.window.showInformationMessage("parser error: line " + line + " position: " + charPositionInLine + " msg: " + msg);
-                    },
-                })
-                parser.compileParseTreePattern
-                // 解析文件内容并获取语法树
-                const parseTree = parser.program();
-
-                // 创建访问器实例并访问语法树，以获取语法错误和警告
-                const visitor = new MyFlinkSqlVisitor();
-                visitor.visit(parseTree);
-                const errors = visitor.getErrors();
-                console.log("visitor errors: " + errors);
-                // 使用VSCode的诊断API报告语法错误和警告
-                const diagnostics: vscode.Diagnostic[] = errors.map(error => {
-                    const range = new vscode.Range(
-
-                        event.document.positionAt(error.getStartIndex()),
-                        event.document.positionAt(error.getStopIndex() + 1)
-                    );
-                    const diagnostic = new vscode.Diagnostic(range, error.message, vscode.DiagnosticSeverity.Error);
-                    return diagnostic;
-                });
-
-                diagnosticCollection.set(event.document.uri, diagnostics);
+            if (event.document.languageId !== selector) {
+                return;
             }
+            // 清除之前的诊断信息
+            diagnosticCollection.clear();
+
+            // 使用生成的词法分析器和解析器进行语法检查
+            const inputStream = new ANTLRInputStream(event.document.getText());
+            const lexer = new FlinkSQLLexer(inputStream);
+            const tokenStream = new CommonTokenStream(lexer);
+            const parser = new FlinkSQLParser(tokenStream);
+            parser.removeErrorListeners();
+            parser.addErrorListener({
+                syntaxError: (recognizer: Recognizer<any, any>, offendingSymbol: any, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined): void => {
+                    vscode.window.showErrorMessage("Parser flink sql error. line: " + line + " position: " + charPositionInLine + " msg: " + msg);
+                },
+            })
+            parser.compileParseTreePattern
+            // 解析文件内容并获取语法树
+            const parseTree = parser.program();
+
+            // 创建访问器实例并访问语法树，以获取语法错误和警告
+            const visitor = new MyFlinkSqlVisitor();
+            visitor.visit(parseTree);
+            const errors = visitor.getErrors();
+            errors.forEach(error => {
+                vscode.window.showInformationMessage("Visitor flink sql error. error: " + error);
+            })
+
+            // 使用VSCode的诊断API报告语法错误和警告
+            // const diagnostics: vscode.Diagnostic[] = errors.map(error => {
+            //     const range = new vscode.Range(
+            //         event.document.positionAt(error.getStartIndex()),
+            //         event.document.positionAt(error.getStopIndex() + 1)
+            //     );
+            //     const diagnostic = new vscode.Diagnostic(range, error.message, vscode.DiagnosticSeverity.Error);
+            //     return diagnostic;
+            // });
+
+            // diagnosticCollection.set(event.document.uri, diagnostics);
+
         });
     }
 }
