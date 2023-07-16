@@ -1,3 +1,6 @@
+### v1.7.1
+- Feature: Grammar check be optional features from experiment.
+
 ### v1.6.0
 - Support:
   - show reference and count.
@@ -8,7 +11,7 @@
 ### v1.5.3
 - Fix check semicolon bug.
 ### v1.5.2
-- Add experiment feature: Error grammer check.
+- Add experiment feature: Error grammar check.
 ### v1.4.0
 - Support code format.
 ### v1.3.0

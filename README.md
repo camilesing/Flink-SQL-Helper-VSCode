@@ -1,36 +1,46 @@
-# Flink-SQL-VsCode
+# Flink-SQL-Checker
 
-This extension provides Flink SQL support for VSCode. It also provides some basic code snippets for operations such as creating a table, altering a table, or renaming columns and error grammer check.
+This extension provides Flink SQL support for VSCode. Support Flink SQL error grammer check, syntax highlighting, complete keywords, rename and code format, including user-defined functions.
 
 
 ## 1.Features
 
-Support Flink SQL(v1.16.0) syntax highlighting, complete keywords, error grammer check and code format, including user-defined functions
+### 1.1 Grammar Check
+open your `setting.json`, add `"flink-sql-grammar-check.enable": true` or 
+![](images/open-setting.jpg)
 
-![](images/flink-sql-vscode-snippets.gif)
+example:
+- ![](images/expect-semicolon.jpg)
 
+- ![](images/select-not-expect-comma.jpg)
+
+- ![](images/unexpect-input.jpg)
+
+### 1.2 Rename
+![](images/rename.gif)
+
+### 1.3 Code Completion Proposals
+![](images/code-completion-proposal.gif)
+
+### 1.4 Snippets 
 snippets keywords:
 - create
 - select
 - insert
 
-## 1.1 How use
+![](images/flink-sql-vscode-snippets.gif)
+
+### 1.5 Code Format
+Select your FlinkSQL code and press ```Alt+Shift+f```.
+
+## 2. User Guide
 Enable the extension on your file, either name the file with a extension:
 - SQL
 - FQL
   
 Or press F1, type 'Change Language Mode', and then choose FlinkSQL.
 
-### 1.1.1 Format
-
-Select your FlinkSQL code and press ```Alt+Shift+f```.
-
-### 1.1.2 Error grammer check
-> The feature during experiment.
-
-open your `setting.json`, add `"flink-sql-grammar-check.enable": true`。
-
-## 1.2 Color theme recommend
+### 2.1 Color theme recommend
 ~~~json
 {
     "workbench.colorTheme": "Default Dark+",
@@ -166,18 +176,3 @@ open your `setting.json`, add `"flink-sql-grammar-check.enable": true`。
     }
 }
 ~~~
-
-## 2. Dev Grammar
-- Edit `FlinkSQL.g4`
-- Run `npm run antlr4ts` generate for ts code then move to src directory.
-- Copy ./gen ts file to src directory
-
-## 3. Build
-
-### 3.1 Prerequisites
-- npm
-- vsce
-
-### 3.2 Build
-- Run ```npm install --dependencies``` to install dependencies.
-- Run ```vsce package``` to build extension.
