@@ -1,20 +1,21 @@
 # Flink-SQL-Checker
 
-This extension provides Flink SQL support for VSCode. Support Flink SQL error grammer check, syntax highlighting, complete keywords, rename and code format, including user-defined functions.
+This extension provides Flink SQL support for VSCode. support Flink SQL error grammar check, syntax highlighting, complete keywords, rename and code format, including user-defined functions.
 
 
 ## 1.Features
 
 ### 1.1 Grammar Check
-open your `setting.json`, add `"flink-sql-grammar-check.enable": true` or 
+open your `setting.json`, add `"flink-sql-grammar-check.enable": true` or setting like
 ![](images/open-setting.jpg)
 
-example:
-- ![](images/expect-semicolon.jpg)
+then the plugin will check grammar when you save edit (suggest you turn off automatic saving).
 
-- ![](images/select-not-expect-comma.jpg)
+example:
 
 - ![](images/unexpect-input.jpg)
+- ![](images/select-not-expect-comma.jpg)
+- ![](images/expect-semicolon.jpg)
 
 ### 1.2 Rename
 ![](images/rename.gif)
