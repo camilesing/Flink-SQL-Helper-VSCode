@@ -75,17 +75,17 @@ function updateFeatureStatus() {
         // 创建诊断集合，用于报告语法错误和警告
         const diagnosticCollection = vscode.languages.createDiagnosticCollection(selector);
 
-        // 监听文件更改事件
-        vscode.workspace.onDidChangeTextDocument((event: vscode.TextDocumentChangeEvent) => {
+        // 保存时触发
+        vscode.workspace.onDidSaveTextDocument((event: vscode.TextDocument) => {
             // 检查文件是否为Flink SQL文件
-            if (event.document.languageId !== selector) {
+            if (event.languageId !== selector) {
                 return;
             }
             // 清除之前的诊断信息
             diagnosticCollection.clear();
 
             // 使用生成的词法分析器和解析器进行语法检查
-            const inputStream = new ANTLRInputStream(event.document.getText());
+            const inputStream = new ANTLRInputStream(event.getText());
             const lexer = new FlinkSQLLexer(inputStream);
             const tokenStream = new CommonTokenStream(lexer);
             const parser = new FlinkSQLParser(tokenStream);

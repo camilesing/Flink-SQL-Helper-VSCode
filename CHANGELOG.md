@@ -1,3 +1,5 @@
+### v1.7.2
+- Improve: Trigger grammar check when save edit.
 ### v1.7.1
 - Feature: Grammar check be optional features from experiment.
 
