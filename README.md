@@ -21,7 +21,7 @@ example:
 ![](images/rename_v2.gif)
 
 ### 1.3 Code Completion Proposals
-![](images/code-completion-proposal.gif)
+![](images/code-completion-proposal_v2.gif)
 
 ### 1.4 Snippets 
 snippets keywords:
