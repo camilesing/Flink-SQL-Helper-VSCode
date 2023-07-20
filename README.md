@@ -18,7 +18,7 @@ example:
 - ![](images/expect-semicolon.jpg)
 
 ### 1.2 Rename
-![](images/rename.gif)
+![](images/rename_v2.gif)
 
 ### 1.3 Code Completion Proposals
 ![](images/code-completion-proposal.gif)
