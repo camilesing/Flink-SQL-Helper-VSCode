@@ -21,6 +21,23 @@
         ],
         "description": "Create a table with the same format and structure as another table."
     },
+    "Create view statement": {
+        "prefix": "create",
+        "body": [
+            "CREATE TEMPORARY VIEW ${1:view_name} AS",
+            "SELECT",
+            "    ${2:first_column_name},",
+            "    ${3:last_column_name}",
+            "FROM",
+            "    ${4:source_schema_name}.${5:source_table_name};"
+        ]
+    },
+    "Create UDF": {
+        "prefix": "create",
+        "body": [
+            "CREATE TEMPORARY FUNCTION IF NOT EXISTS your_function_name AS 'com.example.ExampleUdf';"
+        ]
+    },
     "Select columns from a table": {
         "prefix": "select",
         "body": [
@@ -31,7 +48,7 @@
     "Insert statement": {
         "prefix": "insert",
         "body": [
-            "INSERT ${1|INTO,OVERWRITE|} TABLE ${2:schema_name}.${3:table_name}",
+            "INSERT ${1|INTO,OVERWRITE|} ${2:schema_name}.${3:table_name}",
             "SELECT",
             "    ${4:first_column_name},",
             "    ${5:last_column_name}",
@@ -39,15 +56,10 @@
             "    ${6:source_schema_name}.${7:source_table_name};"
         ]
     },
-    "Create view statement": {
-        "prefix": "create",
+    "Join": {
+        "prefix": "join",
         "body": [
-            "CREATE TEMPORARY VIEW ${1:view_name} AS",
-            "SELECT",
-            "    ${2:first_column_name},",
-            "    ${3:last_column_name}",
-            "FROM",
-            "    ${4:source_schema_name}.${5:source_table_name};"
+            "join table_2 FOR SYSTEM_TIME AS OF table_1.proctime as r on table_1.ip = r.ip"
         ]
     }
 }
