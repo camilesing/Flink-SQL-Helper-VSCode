@@ -39,7 +39,7 @@
               "flink-sql-grammar-check.enable": {
                 "type": "boolean",
                 "default": false,
-                "description": "Enable flink sql grammar check. the feature during experiment."
+                "description": "Enable flink sql grammar check."
               }
             }
         },

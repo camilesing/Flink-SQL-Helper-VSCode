@@ -134,7 +134,13 @@ class FqlRenameProvider implements vscode.RenameProvider {
             const line = document.lineAt(i);
             const start = line.text.indexOf(originalWord);
             if (start >= 0) {
-                edit.replace(document.uri, new vscode.Range(new vscode.Position(i, start), new vscode.Position(i, start + originalWord.length)), newName);
+                // 检查单词前后是否有其他字符
+                const isWordBoundary = (index: number) => {
+                    return index < 0 || index >= line.text.length || /\W/.test(line.text[index]);
+                };
+                if (isWordBoundary(start - 1) && isWordBoundary(start + originalWord.length)) {
+                    edit.replace(document.uri, new vscode.Range(new vscode.Position(i, start), new vscode.Position(i, start + originalWord.length)), newName);
+                }
             }
         }
 
