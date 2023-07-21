@@ -1,3 +1,7 @@
+### v1.8.0
+- Improve rename feature.
+- Support snippets Join and Create UDF.
+
 ### v1.7.2
 - Improve: Trigger grammar check when save edit.
 ### v1.7.1
