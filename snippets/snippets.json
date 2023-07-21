@@ -59,7 +59,7 @@
     "Join": {
         "prefix": "join",
         "body": [
-            "join table_2 FOR SYSTEM_TIME AS OF table_1.proctime as r on table_1.ip = r.ip"
+            "${1|LEFT,RIGHT,INNER|} JOIN ${2:table_name} FOR SYSTEM_TIME AS OF ${3:table_name}.proctime as r on ${4:table_name}.${5:field} = r.${6:field}"
         ]
     }
 }

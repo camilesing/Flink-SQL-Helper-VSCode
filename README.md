@@ -25,12 +25,20 @@ example:
 
 ### 1.4 Snippets 
 snippets keywords:
+- create
+- select
+- insert
+- join
+
 #### create
 ![](images/create_snippets.gif)
 #### select 
-![](images/select_snippets.gif)
+![](images/select_snippets_v2.gif)
 #### insert
 ![](images/insert_snippets.gif)
+
+#### join
+![](images/join_snippets.gif)
 
 ### 1.5 Code Format
 Select your FlinkSQL code and press ```Alt+Shift+f```.
