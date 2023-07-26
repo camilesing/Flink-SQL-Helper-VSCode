@@ -1,3 +1,5 @@
+### v1.8.2
+- For user experience. disable the show reference count feature because has bug.
 ### v1.8.0
 - Improve rename feature.
 - Support snippets Join and Create UDF.

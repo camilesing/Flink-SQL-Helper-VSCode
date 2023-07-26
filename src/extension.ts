@@ -32,11 +32,6 @@ export function activate(context: ExtensionContext) {
     // 获取初始配置
     updateFeatureStatus();
 
-    context.subscriptions.push(vscode.languages.registerCodeLensProvider(
-        [{ pattern: '**/*.sql' }, { pattern: '**/*.fql' }],
-        new FqlCodeLensProvider()
-    ));
-
     context.subscriptions.push(vscode.languages.registerReferenceProvider(
         [{ pattern: '**/*.sql' }, { pattern: '**/*.fql' }],
         new FqlReferenceProvider()
@@ -148,55 +143,6 @@ class FqlRenameProvider implements vscode.RenameProvider {
     }
 }
 
-
-
-class FqlCodeLensProvider implements vscode.CodeLensProvider {
-
-
-    provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CodeLens[]> {
-        const codeLenses = [];
-        for (let line = 0; line < document.lineCount; line++) {
-            const lineOfCode = document.lineAt(line);
-            // 添加你的SQL语法检测逻辑
-            if (/CREATE TEMPORARY|CREATE TABLE/i.test(lineOfCode.text)) {
-                codeLenses.push(new vscode.CodeLens(lineOfCode.range));
-            }
-        }
-        return codeLenses;
-    }
-    resolveCodeLens?(codeLens: vscode.CodeLens, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CodeLens> {
-        const editor = vscode.window.activeTextEditor;
-        if (!editor) {
-            return;
-        }
-
-        const document = editor.document;
-        const tableName = document.getText(codeLens.range);
-        const references = this.findReferences(document, tableName);
-
-        if (references.length > 0) {
-            codeLens.command = {
-                title: `${references.length} reference(s) to ${tableName}`,
-                command: "extension.showReferences",
-                arguments: [document.uri, codeLens.range.start, references]
-            };
-        }
-        return codeLens;
-    }
-
-    findReferences(document: vscode.TextDocument | undefined, tableName: string | undefined): vscode.Range[] {
-        const references = [];
-        if (document && tableName) {
-            for (let line = 0; line < document.lineCount; line++) {
-                const lineOfCode = document.lineAt(line);
-                if (lineOfCode.text.includes(tableName)) {
-                    references.push(lineOfCode.range);
-                }
-            }
-        }
-        return references;
-    }
-}
 
 class FqlReferenceProvider implements vscode.ReferenceProvider {
     provideReferences(document: vscode.TextDocument, position: vscode.Position, options: { includeDeclaration: boolean }, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Location[]> {
