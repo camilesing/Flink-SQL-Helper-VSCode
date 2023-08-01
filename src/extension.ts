@@ -3,7 +3,9 @@ import { ExtensionContext } from 'vscode';
 import { FlinkSQLLexer } from './FlinkSQLLexer'; // 导入生成的词法分析器
 import { FlinkSQLParser } from './FlinkSQLParser'; // 导入生成的解析器
 import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
-import { MyFlinkSqlVisitor } from './MyGrammar'; // 导入生成的访问器
+import { MyFlinkSQLVisitor } from './Grammar'; 
+import { FlinkSQLReferenceProvider } from './Reference'; 
+import { FlinkSQLRenameProvider } from './Rename'; 
 import { ParserErrorListener, RecognitionException, Recognizer } from 'antlr4ts';
 const sqlFormatter = require('sql-formatter-plus');
 
@@ -34,7 +36,7 @@ export function activate(context: ExtensionContext) {
 
     context.subscriptions.push(vscode.languages.registerReferenceProvider(
         [{ pattern: '**/*.sql' }, { pattern: '**/*.fql' }],
-        new FqlReferenceProvider()
+        new FlinkSQLReferenceProvider()
     ));
 
     context.subscriptions.push(vscode.commands.registerCommand('extension.showReferences', (uri: vscode.Uri, position: vscode.Position, locations: vscode.Location[]) => {
@@ -59,7 +61,7 @@ export function activate(context: ExtensionContext) {
                 vscode.TextEdit.replace(range, format(document.getText(range))),
             ],
     });
-    context.subscriptions.push(vscode.languages.registerRenameProvider(selector, new FqlRenameProvider()));
+    context.subscriptions.push(vscode.languages.registerRenameProvider(selector, new FlinkSQLRenameProvider()));
 
     // 注册插件的其他命令和功能...
 }
@@ -95,79 +97,12 @@ function updateFeatureStatus() {
             const parseTree = parser.program();
 
             // 创建访问器实例并访问语法树，以获取语法错误和警告
-            const visitor = new MyFlinkSqlVisitor();
+            const visitor = new MyFlinkSQLVisitor();
             visitor.visit(parseTree);
             const errors = visitor.getErrors();
             errors.forEach(error => {
                 vscode.window.showInformationMessage("Visitor flink sql error. error: " + error);
             })
-
-            // 使用VSCode的诊断API报告语法错误和警告
-            // const diagnostics: vscode.Diagnostic[] = errors.map(error => {
-            //     const range = new vscode.Range(
-            //         event.document.positionAt(error.getStartIndex()),
-            //         event.document.positionAt(error.getStopIndex() + 1)
-            //     );
-            //     const diagnostic = new vscode.Diagnostic(range, error.message, vscode.DiagnosticSeverity.Error);
-            //     return diagnostic;
-            // });
-
-            // diagnosticCollection.set(event.document.uri, diagnostics);
-
         });
-    }
-}
-
-
-class FqlRenameProvider implements vscode.RenameProvider {
-    provideRenameEdits(document: vscode.TextDocument, position: vscode.Position, newName: string, token: vscode.CancellationToken): vscode.ProviderResult<vscode.WorkspaceEdit> {
-        const wordRange = document.getWordRangeAtPosition(position);
-        const originalWord = document.getText(wordRange);
-
-        const edit = new vscode.WorkspaceEdit();
-        for (let i = 0; i < document.lineCount; i++) {
-            const line = document.lineAt(i);
-            const start = line.text.indexOf(originalWord);
-            if (start >= 0) {
-                // 检查单词前后是否有其他字符
-                const isWordBoundary = (index: number) => {
-                    return index < 0 || index >= line.text.length || /\W/.test(line.text[index]);
-                };
-                if (isWordBoundary(start - 1) && isWordBoundary(start + originalWord.length)) {
-                    edit.replace(document.uri, new vscode.Range(new vscode.Position(i, start), new vscode.Position(i, start + originalWord.length)), newName);
-                }
-            }
-        }
-
-        return edit;
-    }
-}
-
-
-class FqlReferenceProvider implements vscode.ReferenceProvider {
-    provideReferences(document: vscode.TextDocument, position: vscode.Position, options: { includeDeclaration: boolean }, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Location[]> {
-        const wordRange = document.getWordRangeAtPosition(position);
-        if (!wordRange) {
-            return [];
-        }
-        const word = document.getText(wordRange);
-
-        const references: vscode.Location[] = [];
-
-        for (let line = 0; line < document.lineCount; line++) {
-            const lineOfCode = document.lineAt(line);
-            const index = lineOfCode.text.indexOf(word);
-
-            if (index >= 0) {
-                const referencePosition = new vscode.Position(line, index);
-                const referenceRange = document.getWordRangeAtPosition(referencePosition);
-                if (referenceRange) {
-                    const referenceLocation = new vscode.Location(document.uri, referenceRange);
-                    references.push(referenceLocation);
-                }
-            }
-        }
-
-        return references;
     }
 }

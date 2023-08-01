@@ -25,7 +25,7 @@ export class GrammarError extends Error {
 }
 
 // Extend the AbstractParseTreeVisitor to get default visitor behaviour
-export class MyFlinkSqlVisitor extends AbstractParseTreeVisitor<void> implements FlinkSQLVisitor<void> {
+export class MyFlinkSQLVisitor extends AbstractParseTreeVisitor<void> implements FlinkSQLVisitor<void> {
 
 	// 用于存储语法错误和警告的数组
 	private errors: GrammarError[] = [];
