@@ -9,7 +9,7 @@
         "email": "CamileSing@gmail.com"
     },
     "license": "MIT",
-    "icon": "extras/apache_flink.png",
+    "icon": "icons/Flink_SQL.jpg",
     "engines": {
         "vscode": "^1.20.0"
     },
@@ -46,6 +46,10 @@
         "languages": [
             {
                 "id": "flink-sql",
+                "icon": {
+                    "light": "./icons/Flink Icons.png",
+                    "dark": "./icons/Flink Icons.png"
+                },
                 "aliases": [
                     "FlinkSQL",
                     "flink-sql",

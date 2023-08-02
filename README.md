@@ -7,21 +7,21 @@ This extension provides Flink SQL support for VSCode. support Flink SQL error gr
 
 ### 1.1 Grammar Check
 open your `setting.json`, add `"flink-sql-grammar-check.enable": true` or setting like
-![](images/open-setting.jpg)
+![](docs/images/open-setting.jpg)
 
 then the plugin will check grammar when you save edit (suggest you turn off automatic saving).
 
 example:
 
-- ![](images/unexpect-input.jpg)
-- ![](images/select-not-expect-comma.jpg)
-- ![](images/expect-semicolon.jpg)
+- ![](docs/images/unexpect-input.jpg)
+- ![](docs/images/select-not-expect-comma.jpg)
+- ![](docs/images/expect-semicolon.jpg)
 
 ### 1.2 Rename
-![](images/rename_v2.gif)
+![](docs/images/rename_v2.gif)
 
 ### 1.3 Code Completion Proposals
-![](images/code-completion-proposal_v2.gif)
+![](docs/images/code-completion-proposal_v2.gif)
 
 ### 1.4 Snippets 
 snippets keywords:
@@ -31,14 +31,14 @@ snippets keywords:
 - join
 
 #### create
-![](images/create_snippets.gif)
+![](docs/images/create_snippets.gif)
 #### select 
-![](images/select_snippets_v2.gif)
+![](docs/images/select_snippets_v2.gif)
 #### insert
-![](images/insert_snippets.gif)
+![](docs/images/insert_snippets.gif)
 
 #### join
-![](images/join_snippets.gif)
+![](docs/images/join_snippets.gif)
 
 ### 1.5 Code Format
 Select your FlinkSQL code and press ```Alt+Shift+f```.
