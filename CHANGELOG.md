@@ -1,3 +1,8 @@
+### v1.9.0
+- Update plugin icon.
+- Add fql file icon.
+- Add develop recommend on README.
+
 ### v1.8.0
 - Improve rename feature.
 - Support snippets Join and Create UDF.
