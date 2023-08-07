@@ -1,3 +1,6 @@
+### v1.9.1
+- Update doc for performance gif, displayName and description.
+
 ### v1.9.0
 - Update plugin icon.
 - Add fql file icon.
