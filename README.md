@@ -1,6 +1,5 @@
-# Flink-SQL-Checker
-
-This extension provides Flink SQL support for VSCode. support Flink SQL error grammar check, syntax highlighting, complete keywords, rename, find all references and code format, including user-defined functions.
+# Flink-SQL-Helper
+Help you efficiently and focus on FlinkSQL development. support Flink SQL error grammar check, syntax highlighting, complete keywords, rename, find all references and code format, including user-defined functions.
 
 
 > I suggest that you develop and debug on vscode based on the information (https://code.visualstudio.com/docs/java/java-debugging) to obtain a better experience.
@@ -15,15 +14,15 @@ then the plugin will check grammar when you save edit (suggest you turn off auto
 
 example:
 
-- ![](docs/images/unexpect-input.jpg)
-- ![](docs/images/select-not-expect-comma.jpg)
-- ![](docs/images/expect-semicolon.jpg)
+- ![](docs/images/unexpect_input_v2.jpg)
+- ![](docs/images/select_not_expect_comma_v2.jpg)
+- ![](docs/images/expect_semicolon_v2.jpg)
 
-### 1.2 Rename
-![](docs/images/rename_v2.gif)
+### 1.2 Refactorings
+![](docs/images/refactorings.gif)
 
 ### 1.3 Code Completion Proposals
-![](docs/images/code-completion-proposal_v2.gif)
+![](docs/images/code_completion_proposal_v3.gif)
 
 ### 1.4 Snippets 
 snippets keywords:
@@ -33,14 +32,14 @@ snippets keywords:
 - join
 
 #### create
-![](docs/images/create_snippets.gif)
+![](docs/images/create_snippets_v2.gif)
 #### select 
-![](docs/images/select_snippets_v2.gif)
+![](docs/images/select_snippets_v3.gif)
 #### insert
-![](docs/images/insert_snippets.gif)
+![](docs/images/insert_snippets_v2.gif)
 
 #### join
-![](docs/images/join_snippets.gif)
+![](docs/images/join_snippets_v2.gif)
 
 ### 1.5 Find All References 
 ![](docs/images/find-all-references.gif)

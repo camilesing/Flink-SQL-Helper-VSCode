@@ -1,8 +1,8 @@
 {
     "name": "flink-sql",
     "version": "1.9.0",
-    "displayName": "Flink SQL Checker",
-    "description": "Support Flink SQL grammar check, syntax highlighting, complete keywords, rename and code format, including user-defined functions",
+    "displayName": "Flink SQL Helper",
+    "description": "Help you efficiently and focus on FlinkSQL development. support Flink SQL error grammar check, syntax highlighting, complete keywords, rename, find all references and code format, including user-defined functions.",
     "publisher": "CamileSing",
     "author": {
         "name": "CamileSing",
