@@ -1,3 +1,6 @@
+### v1.9.3
+- Update README for setting picture.
+
 ### v1.9.1
 - Update doc for performance gif, displayName and description.
 
