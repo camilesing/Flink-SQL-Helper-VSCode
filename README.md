@@ -7,8 +7,9 @@ Help you efficiently and focus on FlinkSQL development. support Flink SQL error 
 ## 1.Features
 
 ### 1.1 Grammar Check
-open your `setting.json`, add `"flink-sql-grammar-check.enable": true` or setting like
-![](docs/images/open-setting.jpg)
+Setting plugin config like
+1. ![](docs/images/setting_1.png)
+2. ![](docs/images/setting_2.png)
 
 then the plugin will check grammar when you save edit (suggest you turn off automatic saving).
 
