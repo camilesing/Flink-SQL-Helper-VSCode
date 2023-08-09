@@ -16,8 +16,8 @@ then the plugin will check grammar when you save edit (suggest you turn off auto
 example:
 
 - ![](docs/images/unexpect_input_v2.jpg)
-- ![](docs/images/select_not_expect_comma_v2.jpg)
-- ![](docs/images/expect_semicolon_v2.jpg)
+- ![](docs/images/select_not_expect_comma_v3.jpg)
+- ![](docs/images/expect_semicolon_v3.jpg)
 
 ### 1.2 Refactorings
 ![](docs/images/refactorings.gif)
