@@ -1,3 +1,6 @@
+### v1.9.4
+- Update README for grammar check picture.
+
 ### v1.9.3
 - Update README for setting picture.
 

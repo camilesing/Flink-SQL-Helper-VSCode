@@ -1,6 +1,6 @@
 {
     "name": "flink-sql",
-    "version": "1.9.3",
+    "version": "1.9.4",
     "displayName": "Flink SQL Helper",
     "description": "Help you efficiently and focus on FlinkSQL development. support Flink SQL error grammar check, syntax highlighting, complete keywords, rename, find all references and code format, including user-defined functions.",
     "publisher": "CamileSing",
