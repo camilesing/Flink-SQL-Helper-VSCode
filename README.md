@@ -55,9 +55,9 @@ Enable the extension on your file, either name the file with a extension:
 Or press F1, type 'Change Language Mode', and then choose FlinkSQL.
 
 ### 2.1 Color theme recommend
+Press F1, choose `Preference: Open User Setting(JSON)` then paste:
 ~~~json
 {
-    "workbench.colorTheme": "Default Dark+",
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {
