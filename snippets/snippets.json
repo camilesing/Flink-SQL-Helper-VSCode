@@ -61,5 +61,12 @@
         "body": [
             "${1|LEFT,RIGHT,INNER|} JOIN ${2:table_name} FOR SYSTEM_TIME AS OF ${3:table_name}.proctime as r on ${4:table_name}.${5:field} = r.${6:field}"
         ]
+    },
+    "Windows": {
+        "prefix": "windows",
+        "body": [
+            "${1|LEAD,LAG,FIRST_VALUE,LAST_VALUE,RANK,ROW_NUMBER,DENSE_RANK,CUME_DIST,PERCENT_RANK,NTILE,COUNT,SUM,MIN,MAX,AVG|}() OVER ( PARTITION BY field1, field2 ORDER BY field3 ${2|ASC,DESC|} ) ${3|AS rownum|}"
+        ]
+       
     }
 }
