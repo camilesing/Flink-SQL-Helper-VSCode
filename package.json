@@ -95,6 +95,7 @@
         "test": "node ./out/test/runTest.js"
     },
     "main": "./out/extension.js",
+    "browser": "./out/extension.js",
     "dependencies": {
         "sql-formatter-plus": "git+ssh://git@github.com:AChangFeng/sql-formatter-plus.git#v0.0.3"
     },
