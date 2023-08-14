@@ -190,3 +190,4 @@ Press F1, choose `Preference: Open User Setting(JSON)` then paste:
     }
 }
 ~~~
+We provide so many options to allow developers to better customize their favorite themes. if you want to deep in, please see the `syntaxes/flink.tmLanguage.json` to understand keyword and color theme mapping.
