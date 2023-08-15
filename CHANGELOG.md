@@ -1,3 +1,7 @@
+### v1.10.0
+- Support snippets for windows functions.
+- Support browser install the plugin.
+
 ### v1.9.4
 - Update README for grammar check picture.
 
