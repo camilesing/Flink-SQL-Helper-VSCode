@@ -31,6 +31,7 @@ snippets keywords:
 - select
 - insert
 - join
+- windows
 
 #### create
 ![](docs/images/create_snippets_v2.gif)
@@ -41,6 +42,10 @@ snippets keywords:
 
 #### join
 ![](docs/images/join_snippets_v2.gif)
+
+#### windows
+![](docs/images/windows_snippets.gif)
+
 
 ### 1.5 Find All References 
 ![](docs/images/find-all-references.gif)
