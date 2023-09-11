@@ -691,9 +691,9 @@ likePredicate
 
 valueExpression
     : primaryExpression                                                                      #valueExpressionDefault
-    | operator=('-' | '+' | '~') valueExpression                                        #arithmeticUnary
-    | left=valueExpression operator=('*' | '/' | '%' | KW_DIV) right=valueExpression #arithmeticBinary
-    | left=valueExpression operator=('+' | '-' | DOUBLE_VERTICAL_SIGN) right=valueExpression       #arithmeticBinary
+    | operator=('-' | ADD_SIGN | '~') valueExpression                                        #arithmeticUnary
+    | left=valueExpression operator=('*' | SLASH_SIGN | PENCENT_SIGN | KW_DIV) right=valueExpression #arithmeticBinary
+    | left=valueExpression operator=(ADD_SIGN | HYPNEN_SIGN | DOUBLE_VERTICAL_SIGN) right=valueExpression       #arithmeticBinary
     | left=valueExpression operator='&' right=valueExpression                          #arithmeticBinary
     | left=valueExpression operator='^' right=valueExpression                                #arithmeticBinary
     | left=valueExpression operator='|' right=valueExpression                               #arithmeticBinary
@@ -813,7 +813,7 @@ unitToUnitInterval
     ;
 
 intervalValue
-    : ('+' | '-')? (DIG_LITERAL | REAL_LITERAL)
+    : (ADD_SIGN | HYPNEN_SIGN)? (DIG_LITERAL | REAL_LITERAL)
     | STRING_LITERAL
     ;
 
@@ -949,8 +949,8 @@ mathOperator
     | SLASH_SIGN 
     | PENCENT_SIGN 
     | KW_DIV 
-    | '+' 
-    | '-' 
+    | ADD_SIGN
+    | HYPNEN_SIGN 
     | DOUBLE_HYPNEN_SIGN
     ;
 
@@ -958,7 +958,7 @@ unaryOperator
     : '!' 
     | '~' 
     | ADD_SIGN 
-    | '-' 
+    | HYPNEN_SIGN 
     | KW_NOT
     ;
 
@@ -1470,8 +1470,8 @@ nonReservedKeywords
 SPACE:                               [ \t\r\n]+    -> channel(HIDDEN);
 COMMENT_INPUT:                       '/*' .*? '*/' -> channel(HIDDEN);
 LINE_COMMENT:                        (
-                                       ('--' | '#') ~[\r\n]* ('\r'? '\n' | EOF)
-                                       | '--' ('\r'? '\n' | EOF)
+                                       ( DOUBLE_HYPNEN_SIGN | '#') ~[\r\n]* ('\r'? '\n' | EOF)
+                                       | DOUBLE_HYPNEN_SIGN ('\r'? '\n' | EOF)
                                      ) -> channel(HIDDEN);
 
 // List of keywords that are not reserved.
@@ -1931,6 +1931,7 @@ DOUBLE_QUOTE_SYMB:                   '"';
 REVERSE_QUOTE_SYMB:                  '`';
 COLON_SYMB:                          ':';
 ASTERISK_SIGN:                       '*';
+// todo: reduce duplicate code
 UNDERLINE_SIGN:                      '_';
 HYPNEN_SIGN:                         '-';
 ADD_SIGN:                            '+';
