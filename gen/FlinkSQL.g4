@@ -141,7 +141,7 @@ columnName
     ;
 
 columnNameList
-    : LR_BRACKET columnName (',' columnName)* RR_BRACKET
+    : LR_BRACKET columnName (COMMA columnName)* RR_BRACKET
     ;
 
 columnType
@@ -166,11 +166,11 @@ lengthOneDimension
     ;
 
 lengthTwoOptionalDimension
-    : '(' decimalLiteral (',' decimalLiteral)? ')'
+    : '(' decimalLiteral (COMMA decimalLiteral)? ')'
     ;
 
 lengthTwoStringDimension
-    : '(' stringLiteral (',' stringLiteral)? ')'
+    : '(' stringLiteral (COMMA stringLiteral)? ')'
     ;
 
 lengthOneTypeDimension
@@ -231,13 +231,13 @@ partitionDefinition
     ;
 
 transformList
-    : '(' transform (',' transform)* ')'
+    : '(' transform (COMMA transform)* ')'
     ;
 
 transform
     : qualifiedName                                                           #identityTransform
     | transformName=identifier
-      '(' transformArgument (',' transformArgument)* ')'  #applyTransform
+      '(' transformArgument (COMMA transformArgument)* ')'  #applyTransform
     ;
 
 transformArgument
@@ -554,7 +554,7 @@ havingClause
     ;
 
 windowClause
-    : KW_WINDOW namedWindow (',' namedWindow)*
+    : KW_WINDOW namedWindow (COMMA namedWindow)*
     ;
 
 namedWindow
@@ -674,7 +674,7 @@ predicate
         kind=KW_BETWEEN (KW_ASYMMETRIC | KW_SYMMETRIC)? 
         lower=valueExpression KW_AND 
         upper=valueExpression
-    | KW_NOT? kind=KW_IN '(' expression (',' expression)* ')'
+    | KW_NOT? kind=KW_IN '(' expression (COMMA expression)* ')'
     | KW_NOT? kind=KW_IN '(' queryStatement ')'
     | kind=KW_EXISTS '(' queryStatement ')'
     | KW_NOT? kind=KW_RLIKE pattern=valueExpression
@@ -685,14 +685,14 @@ predicate
     ;
 
 likePredicate
-    : KW_NOT? kind=KW_LIKE quantifier=(KW_ANY | KW_ALL) ('('')' | '(' expression (',' expression)* ')')
+    : KW_NOT? kind=KW_LIKE quantifier=(KW_ANY | KW_ALL) ('('')' | '(' expression (COMMA expression)* ')')
     | KW_NOT? kind=KW_LIKE pattern=valueExpression (KW_ESCAPE stringLiteral)?
     ;
 
 valueExpression
     : primaryExpression                                                                      #valueExpressionDefault
     | operator=('-' | ADD_SIGN | '~') valueExpression                                        #arithmeticUnary
-    | left=valueExpression operator=('*' | SLASH_SIGN | PENCENT_SIGN | KW_DIV) right=valueExpression #arithmeticBinary
+    | left=valueExpression operator=(ASTERISK_SIGN | SLASH_SIGN | PENCENT_SIGN | KW_DIV) right=valueExpression #arithmeticBinary
     | left=valueExpression operator=(ADD_SIGN | HYPNEN_SIGN | DOUBLE_VERTICAL_SIGN) right=valueExpression       #arithmeticBinary
     | left=valueExpression operator='&' right=valueExpression                          #arithmeticBinary
     | left=valueExpression operator='^' right=valueExpression                                #arithmeticBinary
@@ -710,11 +710,11 @@ primaryExpression
     | KW_LAST LR_BRACKET expression (KW_IGNORE KW_NULLS)? RR_BRACKET                                                  #last
     | KW_POSITION LR_BRACKET substr=valueExpression KW_IN str=valueExpression RR_BRACKET                           #position
     | constant                                                                                 #constantDefault
-    | '*'                                                                                 #star
-    | uid '.' '*'                                                                #star
+    | ASTERISK_SIGN                                                                                 #star
+    | uid '.' ASTERISK_SIGN                                                                #star
     // | '(' namedExpression (',' namedExpression)+ ')'                                           #rowConstructor
     | LR_BRACKET queryStatement RR_BRACKET                                                                           #subqueryExpression
-    | functionName LR_BRACKET (setQuantifier? functionParam (',' functionParam)*)? RR_BRACKET                      #functionCall
+    | functionName LR_BRACKET (setQuantifier? functionParam (COMMA functionParam)*)? RR_BRACKET                      #functionCall
     | functionName LR_BRACKET functionParam KW_TO functionParam RR_BRACKET                      #functionCall
     | functionName LR_BRACKET setQuantifier? functionParam RR_BRACKET  filterClause?                             #functionCallFilter
     // | identifier '->' expression                                                               #lambda
@@ -899,7 +899,7 @@ ifExists
     : KW_IF KW_EXISTS;
 
 tablePropertyList
-    : '(' tableProperty (',' tableProperty)* ')'
+    : '(' tableProperty (COMMA tableProperty)* ')'
     ;
 
 tableProperty
@@ -945,7 +945,7 @@ bitOperator
     ;
 
 mathOperator
-    : '*' 
+    : ASTERISK_SIGN 
     | SLASH_SIGN 
     | PENCENT_SIGN 
     | KW_DIV 
@@ -1491,7 +1491,7 @@ KW_CATALOG:                          C A T A L O G;
 KW_CATALOGS:                         C A T A L O G;
 KW_CENTURY:                          C E N T U R Y;
 KW_CHAIN:                            C H A I N;
-KW_CHANGELOG_MODE:                   C H A N G E L O G'_'M O D E;
+KW_CHANGELOG_MODE:                   C H A N G E L O G UNDERLINE_SIGN M O D E;
 KW_CHARACTERS:                       C H A R A C T E R S;
 KW_COMMENT:                          C O M M E N T;
 KW_COMPACT:                          C O M P A C T;
@@ -1513,7 +1513,7 @@ KW_ENFORCED:                         E N F O R C E D;
 KW_ENGINE:                           E N G I N E;
 KW_EPOCH:                            E P O C H;
 KW_ERROR:                            E R R O R;
-KW_ESTIMATED_COST:                   E S T I M A T E D'_'C O S T;
+KW_ESTIMATED_COST:                   E S T I M A T E D UNDERLINE_SIGN C O S T;
 KW_EXCEPTION:                        E X C E P T I O N;
 KW_EXCLUDE:                          E X C L U D E;
 KW_EXCLUDING:                        E X C L U D I N G;
@@ -1526,7 +1526,7 @@ KW_FOLLOWING:                        F O L L O W I N G;
 KW_FORMAT:                           F O R M A T;
 KW_FORTRAN:                          F O R T R A N;
 KW_FOUND:                            F O U N D;
-KW_FRAC_SECOND:                      F R A C'_'S E C O N D;
+KW_FRAC_SECOND:                      F R A C UNDERLINE_SIGN S E C O N D;
 KW_FUNCTIONS:                        F U N C T I O N S;
 KW_GENERAL:                          G E N E R A L;
 KW_GENERATED:                        G E N E R A T E D;
@@ -1544,10 +1544,10 @@ KW_JAR:                              J A R;
 KW_JARS:                             J A R S;
 KW_JAVA:                             J A V A;
 KW_JSON:                             J S O N;
-KW_JSON_EXECUTION_PLAN:              J S O N'_'E X E C U T I O N'_'P L A N;
+KW_JSON_EXECUTION_PLAN:              J S O N UNDERLINE_SIGN E X E C U T I O N UNDERLINE_SIGN P L A N;
 KW_KEY:                              K E Y;
-KW_KEY_MEMBER:                       K E Y'_'M E M B E R;
-KW_KEY_TYPE:                         K E Y'_'T Y P E;
+KW_KEY_MEMBER:                       K E Y UNDERLINE_SIGN M E M B E R;
+KW_KEY_TYPE:                         K E Y UNDERLINE_SIGN T Y P E;
 KW_LABEL:                            L A B E L;
 KW_LAST:                             L A S T;
 KW_LENGTH:                           L E N G T H;
@@ -1584,12 +1584,12 @@ KW_PRIOR:                            P R I O R;
 KW_PRIVILEGES:                       P R I V I L E G E S;
 KW_PUBLIC:                           P U B L I C;
 KW_PYTHON:                           P Y T H O N;
-KW_PYTHON_FILES:                     P Y T H O N'_'F I L E S;
-KW_PYTHON_REQUIREMENTS:              P Y T H O N'_'R E Q U I R E M E N T S;
-KW_PYTHON_DEPENDENCIES:              P Y T H O N'_'D E P E N D E N C I E S;
-KW_PYTHON_JAR:                       P Y T H O N'_'J A R;
-KW_PYTHON_ARCHIVES:                  P Y T H O N'_'A R C H I V E S;
-KW_PYTHON_PARAMETER:                 P Y T H O N'_'P A R A M E T E R;
+KW_PYTHON_FILES:                     P Y T H O N UNDERLINE_SIGN F I L E S;
+KW_PYTHON_REQUIREMENTS:              P Y T H O N UNDERLINE_SIGN R E Q U I R E M E N T S;
+KW_PYTHON_DEPENDENCIES:              P Y T H O N UNDERLINE_SIGN D E P E N D E N C I E S;
+KW_PYTHON_JAR:                       P Y T H O N UNDERLINE_SIGN J A R;
+KW_PYTHON_ARCHIVES:                  P Y T H O N UNDERLINE_SIGN A R C H I V E S;
+KW_PYTHON_PARAMETER:                 P Y T H O N UNDERLINE_SIGN P A R A M E T E R;
 KW_QUARTER:                          Q U A R T E R;
 KW_RAW:                              R A W;
 KW_READ:                             R E A D;
@@ -1601,7 +1601,7 @@ KW_RESPECT:                          R E S P E C T;
 KW_RESTART:                          R E S T A R T;
 KW_RESTRICT:                         R E S T R I C T;
 KW_ROLE:                             R O L E;
-KW_ROW_COUNT:                        R O W'_'C O U N T;
+KW_ROW_COUNT:                        R O W UNDERLINE_SIGN C O U N T;
 KW_SCALA:                            S C A L A;
 KW_SCALAR:                           S C A L A R;
 KW_SCALE:                            S C A L E;
@@ -1611,7 +1611,7 @@ KW_SECTION:                          S E C T I O N;
 KW_SECURITY:                         S E C U R I T Y;
 KW_SELF:                             S E L F;
 KW_SERVER:                           S E R V E R;
-KW_SERVER_NAME:                      S E R V E R'_'N A M E;
+KW_SERVER_NAME:                      S E R V E R UNDERLINE_SIGN N A M E;
 KW_SESSION:                          S E S S I O N;
 KW_SETS:                             S E T S;
 KW_SIMPLE:                           S I M P L E;
@@ -1629,7 +1629,7 @@ KW_TABLES:                           T A B L E S;
 KW_TEMPORARY:                        T E M P O R A R Y;
 KW_TIMECOL:                          T I M E C O L;
 KW_FLOOR:                            F L O O R;
-KW_TIMESTAMP_LTZ:                    T I M E S T A M P'_'L T Z;
+KW_TIMESTAMP_LTZ:                    T I M E S T A M P UNDERLINE_SIGN L T Z;
 KW_TIMESTAMPADD:                     T I M E S T A M P A D D;
 KW_TIMESTAMPDIFF:                    T I M E S T A M P D I F F;
 KW_TRANSFORM:                        T R A N S F O R M;
@@ -1706,7 +1706,7 @@ KW_COUNT:                            C O U N T;
 KW_CREATE:                           C R E A T E;
 KW_CROSS:                            C R O S S;
 KW_CUBE:                             C U B E;
-KW_CUME_DIST:                        C U M E'_'D I S T;
+KW_CUME_DIST:                        C U M E UNDERLINE_SIGN D I S T;
 KW_CURRENT:                          C U R R E N T;
 KW_CURSOR:                           C U R S O R;
 KW_CYCLE:                            C Y C L E;
@@ -1720,7 +1720,7 @@ KW_DEFAULT:                          D E F A U L T;
 KW_DEFINE:                           D E F I N E;
 KW_DELETE:                           D E L E T E;
 KW_DESCRIBE:                         D E S C R I B E;
-KW_DENSE_RANK:                       D E N S E'_'R A N K;
+KW_DENSE_RANK:                       D E N S E UNDERLINE_SIGN R A N K;
 KW_DISTINCT:                         D I S T I N C T;
 KW_DOUBLE:                           D O U B L E;
 KW_DROP:                             D R O P;
@@ -1735,7 +1735,7 @@ KW_EXISTS:                           E X I S T S;
 KW_EXPLAIN:                          E X P L A I N;
 KW_EXTERNAL:                         E X T E R N A L;
 KW_EXTRACT:                          E X T R A C T;
-KW_FIRST_VALUE:                      F I R S T'_'V A L U E;
+KW_FIRST_VALUE:                      F I R S T UNDERLINE_SIGN V A L U E;
 KW_FALSE:                            F A L S E ;
 KW_FLOAT:                            F L O A T;
 KW_FOR:                              F O R;
@@ -1765,7 +1765,7 @@ KW_JOIN:                             J O I N;
 KW_LAG:                              L A G;
 KW_LANGUAGE:                         L A N G U A G E;
 KW_LATERAL:                          L A T E R A L;
-KW_LAST_VALUE:                       L A S T'_'V A L U E;
+KW_LAST_VALUE:                       L A S T UNDERLINE_SIGN V A L U E;
 KW_LEAD:                             L E A D;
 KW_LEADING:                          L E A D I N G;
 KW_LEFT:                             L E F T;
@@ -1773,7 +1773,7 @@ KW_LIKE:                             L I K E;
 KW_LIMIT:                            L I M I T;
 KW_LOCAL:                            L O C A L;
 KW_MATCH:                            M A T C H;
-KW_MATCH_RECOGNIZE:                  M A T C H'_'R E C O G N I Z E;
+KW_MATCH_RECOGNIZE:                  M A T C H UNDERLINE_SIGN R E C O G N I Z E;
 KW_MEASURES:                         M E A S U R E S;
 KW_MERGE:                            M E R G E;
 KW_METADATA:                         M E T A D A T A;
@@ -1805,13 +1805,13 @@ KW_PARTITION:                        P A R T I T I O N;
 KW_PATTERN:                          P A T T E R N;
 KW_PER:                              P E R;
 KW_PERCENT:                          P E R C E N T;
-KW_PERCENT_RANK:                     P E R C E N T'_'R A N K;
+KW_PERCENT_RANK:                     P E R C E N T UNDERLINE_SIGN R A N K;
 KW_PERIOD:                           P E R I O D;
 KW_POSITION:                         P O S I T I O N;
 KW_POWER:                            P O W E R;
 KW_PRIMARY:                          P R I M A R Y;
 KW_RANGE:                            R A N G E;
-KW_ROW_NUMBER:                       R O W'_'N U M B E R;
+KW_ROW_NUMBER:                       R O W UNDERLINE_SIGN N U M B E R;
 KW_RANK:                             R A N K;
 KW_RESET:                            R E S E T;
 KW_REVOKE:                           R E V O K E;
@@ -1834,8 +1834,8 @@ KW_SUBSTRING:                        S U B S T R I N G ;
 KW_SUM:                              S U M;
 KW_SYMMETRIC:                        S Y M M E T R I C;
 KW_SYSTEM:                           S Y S T E M;
-KW_SYSTEM_TIME:                      S Y S T E M '_' T I M E;
-KW_SYSTEM_USER:                      S Y S T E M'_' U S E R;
+KW_SYSTEM_TIME:                      S Y S T E M UNDERLINE_SIGN T I M E;
+KW_SYSTEM_USER:                      S Y S T E M UNDERLINE_SIGN U S E R;
 KW_TABLE:                            T A B L E;
 KW_TABLESAMPLE:                      T A B L E S A M P L E;
 KW_THEN:                             T H E N;
@@ -1920,6 +1920,20 @@ DOT:                                 '.';
 LS_BRACKET:                          '[';
 RS_BRACKET:                          ']';
 LR_BRACKET:                          '(';
+// todo: reduce duplicate code
+
+
+fragment SLASH_TEXT_FRAG:            [/\\] (~([/\\ ] | '(' | ')' | ';'))*;
+fragment JAR_FILE_PARTTARN:          REVERSE_QUOTE_SYMB ( '\\'. | '``' | ~( '`'|'\\'))* REVERSE_QUOTE_SYMB;
+fragment EXPONENT_NUM_PART:          'E' [-+]? DEC_DIGIT+;
+fragment ID_LITERAL_FRAG:            [A-Z_0-9a-z]*?[A-Z_a-z]+?[A-Z_0-9a-z]*;
+fragment DEC_DIGIT:                  [0-9];
+fragment DEC_LETTER:                 [A-Za-z];
+fragment DQUOTA_STRING:              DOUBLE_QUOTE_SYMB ( '\\'. | '""' | ~( '`'| '\\') )* DOUBLE_QUOTE_SYMB;
+fragment SQUOTA_STRING:              '\'' ('\\'. | '\'\'' | ~('\'' | '\\'))* '\'';
+fragment BIT_STRING_L:               'B' '\'' [01]+ '\'';
+fragment BQUOTA_STRING:             REVERSE_QUOTE_SYMB ( '\\'. | '``' | ~( '`'|'\\'))* REVERSE_QUOTE_SYMB;
+
 RR_BRACKET:                          ')';
 LB_BRACKET:                          '{';
 RB_BRACKET:                          '}';
@@ -1931,7 +1945,6 @@ DOUBLE_QUOTE_SYMB:                   '"';
 REVERSE_QUOTE_SYMB:                  '`';
 COLON_SYMB:                          ':';
 ASTERISK_SIGN:                       '*';
-// todo: reduce duplicate code
 UNDERLINE_SIGN:                      '_';
 HYPNEN_SIGN:                         '-';
 ADD_SIGN:                            '+';
@@ -1950,14 +1963,3 @@ REAL_LITERAL:                        (DEC_DIGIT+)? '.' DEC_DIGIT+
 BIT_STRING:                          BIT_STRING_L;
 ID_LITERAL:                          ID_LITERAL_FRAG;
 SLASH_TEXT:                          SLASH_TEXT_FRAG;
-
-fragment SLASH_TEXT_FRAG:            [/\\] (~([/\\ ] | '(' | ')' | ';'))*;
-fragment JAR_FILE_PARTTARN:          '`' ( '\\'. | '``' | ~('`'|'\\'))* '`';
-fragment EXPONENT_NUM_PART:          'E' [-+]? DEC_DIGIT+;
-fragment ID_LITERAL_FRAG:            [A-Z_0-9a-z]*?[A-Z_a-z]+?[A-Z_0-9a-z]*;
-fragment DEC_DIGIT:                  [0-9];
-fragment DEC_LETTER:                 [A-Za-z];
-fragment DQUOTA_STRING:              '"' ( '\\'. | '""' | ~('"'| '\\') )* '"';
-fragment SQUOTA_STRING:              '\'' ('\\'. | '\'\'' | ~('\'' | '\\'))* '\'';
-fragment BIT_STRING_L:               'B' '\'' [01]+ '\'';
-fragment BQUOTA_STRING:              '`' ( '\\'. | '``' | ~('`'|'\\'))* '`';
