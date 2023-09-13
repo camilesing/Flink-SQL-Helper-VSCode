@@ -162,15 +162,15 @@ columnType
     ;
 
 lengthOneDimension
-    : '(' decimalLiteral ')'
+    : LR_BRACKET decimalLiteral RR_BRACKET
     ;
 
 lengthTwoOptionalDimension
-    : '(' decimalLiteral (COMMA decimalLiteral)? ')'
+    : LR_BRACKET decimalLiteral (COMMA decimalLiteral)? RR_BRACKET
     ;
 
 lengthTwoStringDimension
-    : '(' stringLiteral (COMMA stringLiteral)? ')'
+    : LR_BRACKET stringLiteral (COMMA stringLiteral)? RR_BRACKET
     ;
 
 lengthOneTypeDimension
@@ -231,13 +231,13 @@ partitionDefinition
     ;
 
 transformList
-    : '(' transform (COMMA transform)* ')'
+    : LR_BRACKET transform (COMMA transform)* RR_BRACKET
     ;
 
 transform
     : qualifiedName                                                           #identityTransform
     | transformName=identifier
-      '(' transformArgument (COMMA transformArgument)* ')'  #applyTransform
+      LR_BRACKET transformArgument (COMMA transformArgument)* RR_BRACKET  #applyTransform
     ;
 
 transformArgument
@@ -388,7 +388,7 @@ insertMulStatement
 queryStatement
     : valuesCaluse
     | withClause queryStatement
-    | '(' queryStatement ')'
+    | LR_BRACKET queryStatement RR_BRACKET
     | left=queryStatement operator=(KW_INTERSECT | KW_UNION | KW_EXCEPT) KW_ALL? right=queryStatement orderByCaluse? limitClause?
     | selectClause orderByCaluse? limitClause?
     | selectStatement orderByCaluse? limitClause?
@@ -662,7 +662,7 @@ expression
 
 booleanExpression
     : KW_NOT booleanExpression                                        #logicalNot
-    | KW_EXISTS '(' queryStatement ')'                                         #exists
+    | KW_EXISTS LR_BRACKET queryStatement RR_BRACKET                                         #exists
     | valueExpression predicate?                                   #predicated
     | left=booleanExpression operator=KW_AND right=booleanExpression  #logicalBinary
     | left=booleanExpression operator=KW_OR right=booleanExpression   #logicalBinary
@@ -674,9 +674,9 @@ predicate
         kind=KW_BETWEEN (KW_ASYMMETRIC | KW_SYMMETRIC)? 
         lower=valueExpression KW_AND 
         upper=valueExpression
-    | KW_NOT? kind=KW_IN '(' expression (COMMA expression)* ')'
-    | KW_NOT? kind=KW_IN '(' queryStatement ')'
-    | kind=KW_EXISTS '(' queryStatement ')'
+    | KW_NOT? kind=KW_IN LR_BRACKET expression (COMMA expression)* RR_BRACKET
+    | KW_NOT? kind=KW_IN LR_BRACKET queryStatement ')'
+    | kind=KW_EXISTS LR_BRACKET queryStatement ')'
     | KW_NOT? kind=KW_RLIKE pattern=valueExpression
     | likePredicate
     | KW_IS KW_NOT? kind=(KW_TRUE | KW_FALSE | KW_UNKNOWN | KW_NULL)
@@ -685,7 +685,7 @@ predicate
     ;
 
 likePredicate
-    : KW_NOT? kind=KW_LIKE quantifier=(KW_ANY | KW_ALL) ('('')' | '(' expression (COMMA expression)* ')')
+    : KW_NOT? kind=KW_LIKE quantifier=(KW_ANY | KW_ALL) (LR_BRACKET RR_BRACKET | LR_BRACKET expression (COMMA expression)* RR_BRACKET)
     | KW_NOT? kind=KW_LIKE pattern=valueExpression (KW_ESCAPE stringLiteral)?
     ;
 
@@ -711,7 +711,7 @@ primaryExpression
     | KW_POSITION LR_BRACKET substr=valueExpression KW_IN str=valueExpression RR_BRACKET                           #position
     | constant                                                                                 #constantDefault
     | ASTERISK_SIGN                                                                                 #star
-    | uid '.' ASTERISK_SIGN                                                                #star
+    | uid DOT ASTERISK_SIGN                                                                #star
     // | '(' namedExpression (',' namedExpression)+ ')'                                           #rowConstructor
     | LR_BRACKET queryStatement RR_BRACKET                                                                           #subqueryExpression
     | functionName LR_BRACKET (setQuantifier? functionParam (COMMA functionParam)*)? RR_BRACKET                      #functionCall
@@ -835,7 +835,7 @@ errorCapturingIdentifierExtra
     ;
 
 identifierList
-    : '(' identifierSeq ')'
+    : LR_BRACKET identifierSeq RR_BRACKET
     ;
 
 identifierSeq
@@ -899,7 +899,7 @@ ifExists
     : KW_IF KW_EXISTS;
 
 tablePropertyList
-    : '(' tableProperty (COMMA tableProperty)* ')'
+    : LR_BRACKET tableProperty (COMMA tableProperty)* RR_BRACKET
     ;
 
 tableProperty
@@ -1908,19 +1908,12 @@ EXCLAMATION_SYMBOL:                  '!';
 
 // Operators. Bit
 
+// todo: reduce duplicate code
 BIT_NOT_OP:                          '~';
 BIT_OR_OP:                           '|';
 BIT_AND_OP:                          '&';
 BIT_XOR_OP:                          '^';
 
-
-// Constructors symbols
-
-DOT:                                 '.';
-LS_BRACKET:                          '[';
-RS_BRACKET:                          ']';
-LR_BRACKET:                          '(';
-// todo: reduce duplicate code
 
 
 fragment SLASH_TEXT_FRAG:            [/\\] (~([/\\ ] | '(' | ')' | ';'))*;
@@ -1934,6 +1927,12 @@ fragment SQUOTA_STRING:              '\'' ('\\'. | '\'\'' | ~('\'' | '\\'))* '\'
 fragment BIT_STRING_L:               'B' '\'' [01]+ '\'';
 fragment BQUOTA_STRING:             REVERSE_QUOTE_SYMB ( '\\'. | '``' | ~( '`'|'\\'))* REVERSE_QUOTE_SYMB;
 
+// Constructors symbols
+
+DOT:                                 '.';
+LS_BRACKET:                          '[';
+RS_BRACKET:                          ']';
+LR_BRACKET:                          '(';
 RR_BRACKET:                          ')';
 LB_BRACKET:                          '{';
 RB_BRACKET:                          '}';
