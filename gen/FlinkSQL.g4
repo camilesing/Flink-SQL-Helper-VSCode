@@ -691,7 +691,7 @@ likePredicate
 
 valueExpression
     : primaryExpression                                                                      #valueExpressionDefault
-    | operator=('-' | ADD_SIGN | '~') valueExpression                                        #arithmeticUnary
+    | operator=('-' | ADD_SIGN | BIT_NOT_OP) valueExpression                                        #arithmeticUnary
     | left=valueExpression operator=(ASTERISK_SIGN | SLASH_SIGN | PENCENT_SIGN | KW_DIV) right=valueExpression #arithmeticBinary
     | left=valueExpression operator=(ADD_SIGN | HYPNEN_SIGN | DOUBLE_VERTICAL_SIGN) right=valueExpression       #arithmeticBinary
     | left=valueExpression operator='&' right=valueExpression                          #arithmeticBinary
@@ -926,19 +926,19 @@ logicalOperator
     ;
 
 comparisonOperator
-    : '=' 
-    | '>' 
-    | '<' 
-    | '<' '=' 
-    | '>' '='
-    | '<' '>' 
-    | '!' '=' 
-    | '<' '=' '>'
+    : EQUAL_SYMBOL 
+    | GREATER_SYMBOL 
+    | LESS_SYMBOL 
+    | LESS_SYMBOL EQUAL_SYMBOL 
+    | GREATER_SYMBOL EQUAL_SYMBOL
+    | LESS_SYMBOL GREATER_SYMBOL 
+    | EXCLAMATION_SYMBOL EQUAL_SYMBOL 
+    | LESS_SYMBOL EQUAL_SYMBOL GREATER_SYMBOL
     ;
 
 bitOperator
-    : '<' '<' 
-    | '>' '>' 
+    : LESS_SYMBOL LESS_SYMBOL
+    | GREATER_SYMBOL GREATER_SYMBOL
     | '&' 
     | '^' 
     | '|'
@@ -955,8 +955,8 @@ mathOperator
     ;
 
 unaryOperator
-    : '!' 
-    | '~' 
+    : EXCLAMATION_SYMBOL
+    | BIT_NOT_OP
     | ADD_SIGN 
     | HYPNEN_SIGN 
     | KW_NOT
@@ -1898,22 +1898,19 @@ fragment Y: ('Y'|'y');
 fragment Z: ('Z'|'z');
 
 
-// Operators. Comparation
-
-EQUAL_SYMBOL:                        '=';
-GREATER_SYMBOL:                      '>';
-LESS_SYMBOL:                         '<';
-EXCLAMATION_SYMBOL:                  '!';
-
-
 // Operators. Bit
-
-// todo: reduce duplicate code
+// todo reduce 
 BIT_NOT_OP:                          '~';
 BIT_OR_OP:                           '|';
 BIT_AND_OP:                          '&';
 BIT_XOR_OP:                          '^';
 
+
+// Operators. Comparation
+EQUAL_SYMBOL:                        '=';
+GREATER_SYMBOL:                      '>';
+LESS_SYMBOL:                         '<';
+EXCLAMATION_SYMBOL:                  '!';
 
 
 fragment SLASH_TEXT_FRAG:            [/\\] (~([/\\ ] | '(' | ')' | ';'))*;

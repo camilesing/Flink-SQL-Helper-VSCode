@@ -91,8 +91,8 @@ public class FlinkSQLLexer extends Lexer {
 		KW_UPPER=372, KW_UPSERT=373, KW_USER=374, KW_USING=375, KW_VALUE=376, 
 		KW_VALUES=377, KW_VARBINARY=378, KW_VARCHAR=379, KW_WHEN=380, KW_WHERE=381, 
 		KW_WINDOW=382, KW_WITH=383, KW_WITHIN=384, KW_WITHOUT=385, KW_YEAR=386, 
-		EQUAL_SYMBOL=387, GREATER_SYMBOL=388, LESS_SYMBOL=389, EXCLAMATION_SYMBOL=390, 
-		BIT_NOT_OP=391, BIT_OR_OP=392, BIT_AND_OP=393, BIT_XOR_OP=394, DOT=395, 
+		BIT_NOT_OP=387, BIT_OR_OP=388, BIT_AND_OP=389, BIT_XOR_OP=390, EQUAL_SYMBOL=391, 
+		GREATER_SYMBOL=392, LESS_SYMBOL=393, EXCLAMATION_SYMBOL=394, DOT=395, 
 		LS_BRACKET=396, RS_BRACKET=397, LR_BRACKET=398, RR_BRACKET=399, LB_BRACKET=400, 
 		RB_BRACKET=401, COMMA=402, SEMICOLON=403, AT_SIGN=404, SINGLE_QUOTE_SYMB=405, 
 		DOUBLE_QUOTE_SYMB=406, REVERSE_QUOTE_SYMB=407, COLON_SYMB=408, ASTERISK_SIGN=409, 
@@ -179,8 +179,8 @@ public class FlinkSQLLexer extends Lexer {
 			"KW_WHEN", "KW_WHERE", "KW_WINDOW", "KW_WITH", "KW_WITHIN", "KW_WITHOUT", 
 			"KW_YEAR", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", 
 			"M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", 
-			"EQUAL_SYMBOL", "GREATER_SYMBOL", "LESS_SYMBOL", "EXCLAMATION_SYMBOL", 
-			"BIT_NOT_OP", "BIT_OR_OP", "BIT_AND_OP", "BIT_XOR_OP", "SLASH_TEXT_FRAG", 
+			"BIT_NOT_OP", "BIT_OR_OP", "BIT_AND_OP", "BIT_XOR_OP", "EQUAL_SYMBOL", 
+			"GREATER_SYMBOL", "LESS_SYMBOL", "EXCLAMATION_SYMBOL", "SLASH_TEXT_FRAG", 
 			"JAR_FILE_PARTTARN", "EXPONENT_NUM_PART", "ID_LITERAL_FRAG", "DEC_DIGIT", 
 			"DEC_LETTER", "DQUOTA_STRING", "SQUOTA_STRING", "BIT_STRING_L", "BQUOTA_STRING", 
 			"DOT", "LS_BRACKET", "RS_BRACKET", "LR_BRACKET", "RR_BRACKET", "LB_BRACKET", 
@@ -227,7 +227,7 @@ public class FlinkSQLLexer extends Lexer {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, "'='", "'>'", "'<'", "'!'", "'~'", "'|'", "'&'", "'^'", 
+			null, null, null, "'~'", "'|'", "'&'", "'^'", "'='", "'>'", "'<'", "'!'", 
 			"'.'", "'['", "']'", "'('", "')'", "'{'", "'}'", "','", "';'", "'@'", 
 			"'''", "'\"'", "'`'", "':'", "'*'", "'_'", "'-'", "'+'", "'%'", "'||'", 
 			"'--'", "'/'", "'?'", "'=>'"
@@ -303,8 +303,8 @@ public class FlinkSQLLexer extends Lexer {
 			"KW_UNION", "KW_UNIQUE", "KW_UNKNOWN", "KW_UNNEST", "KW_UPPER", "KW_UPSERT", 
 			"KW_USER", "KW_USING", "KW_VALUE", "KW_VALUES", "KW_VARBINARY", "KW_VARCHAR", 
 			"KW_WHEN", "KW_WHERE", "KW_WINDOW", "KW_WITH", "KW_WITHIN", "KW_WITHOUT", 
-			"KW_YEAR", "EQUAL_SYMBOL", "GREATER_SYMBOL", "LESS_SYMBOL", "EXCLAMATION_SYMBOL", 
-			"BIT_NOT_OP", "BIT_OR_OP", "BIT_AND_OP", "BIT_XOR_OP", "DOT", "LS_BRACKET", 
+			"KW_YEAR", "BIT_NOT_OP", "BIT_OR_OP", "BIT_AND_OP", "BIT_XOR_OP", "EQUAL_SYMBOL", 
+			"GREATER_SYMBOL", "LESS_SYMBOL", "EXCLAMATION_SYMBOL", "DOT", "LS_BRACKET", 
 			"RS_BRACKET", "LR_BRACKET", "RR_BRACKET", "LB_BRACKET", "RB_BRACKET", 
 			"COMMA", "SEMICOLON", "AT_SIGN", "SINGLE_QUOTE_SYMB", "DOUBLE_QUOTE_SYMB", 
 			"REVERSE_QUOTE_SYMB", "COLON_SYMB", "ASTERISK_SIGN", "UNDERLINE_SIGN", 
@@ -2133,10 +2133,10 @@ public class FlinkSQLLexer extends Lexer {
 		"\u0ee4\t\31\2\2\u0ee4\u0332\3\2\2\2\u0ee5\u0ee6\t\32\2\2\u0ee6\u0334\3"+
 		"\2\2\2\u0ee7\u0ee8\t\33\2\2\u0ee8\u0336\3\2\2\2\u0ee9\u0eea\t\34\2\2\u0eea"+
 		"\u0338\3\2\2\2\u0eeb\u0eec\t\35\2\2\u0eec\u033a\3\2\2\2\u0eed\u0eee\7"+
-		"?\2\2\u0eee\u033c\3\2\2\2\u0eef\u0ef0\7@\2\2\u0ef0\u033e\3\2\2\2\u0ef1"+
-		"\u0ef2\7>\2\2\u0ef2\u0340\3\2\2\2\u0ef3\u0ef4\7#\2\2\u0ef4\u0342\3\2\2"+
-		"\2\u0ef5\u0ef6\7\u0080\2\2\u0ef6\u0344\3\2\2\2\u0ef7\u0ef8\7~\2\2\u0ef8"+
-		"\u0346\3\2\2\2\u0ef9\u0efa\7(\2\2\u0efa\u0348\3\2\2\2\u0efb\u0efc\7`\2"+
+		"\u0080\2\2\u0eee\u033c\3\2\2\2\u0eef\u0ef0\7~\2\2\u0ef0\u033e\3\2\2\2"+
+		"\u0ef1\u0ef2\7(\2\2\u0ef2\u0340\3\2\2\2\u0ef3\u0ef4\7`\2\2\u0ef4\u0342"+
+		"\3\2\2\2\u0ef5\u0ef6\7?\2\2\u0ef6\u0344\3\2\2\2\u0ef7\u0ef8\7@\2\2\u0ef8"+
+		"\u0346\3\2\2\2\u0ef9\u0efa\7>\2\2\u0efa\u0348\3\2\2\2\u0efb\u0efc\7#\2"+
 		"\2\u0efc\u034a\3\2\2\2\u0efd\u0f01\t\36\2\2\u0efe\u0f00\n\37\2\2\u0eff"+
 		"\u0efe\3\2\2\2\u0f00\u0f03\3\2\2\2\u0f01\u0eff\3\2\2\2\u0f01\u0f02\3\2"+
 		"\2\2\u0f02\u034c\3\2\2\2\u0f03\u0f01\3\2\2\2\u0f04\u0f0c\5\u0377\u01bc"+
