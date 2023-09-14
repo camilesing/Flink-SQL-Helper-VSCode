@@ -402,14 +402,14 @@ export class FlinkSQLLexer extends Lexer {
 	public static readonly KW_WITHIN = 384;
 	public static readonly KW_WITHOUT = 385;
 	public static readonly KW_YEAR = 386;
-	public static readonly EQUAL_SYMBOL = 387;
-	public static readonly GREATER_SYMBOL = 388;
-	public static readonly LESS_SYMBOL = 389;
-	public static readonly EXCLAMATION_SYMBOL = 390;
-	public static readonly BIT_NOT_OP = 391;
-	public static readonly BIT_OR_OP = 392;
-	public static readonly BIT_AND_OP = 393;
-	public static readonly BIT_XOR_OP = 394;
+	public static readonly BIT_NOT_OP = 387;
+	public static readonly BIT_OR_OP = 388;
+	public static readonly BIT_AND_OP = 389;
+	public static readonly BIT_XOR_OP = 390;
+	public static readonly EQUAL_SYMBOL = 391;
+	public static readonly GREATER_SYMBOL = 392;
+	public static readonly LESS_SYMBOL = 393;
+	public static readonly EXCLAMATION_SYMBOL = 394;
 	public static readonly DOT = 395;
 	public static readonly LS_BRACKET = 396;
 	public static readonly RS_BRACKET = 397;
@@ -520,17 +520,17 @@ export class FlinkSQLLexer extends Lexer {
 		"KW_USING", "KW_VALUE", "KW_VALUES", "KW_VARBINARY", "KW_VARCHAR", "KW_WHEN", 
 		"KW_WHERE", "KW_WINDOW", "KW_WITH", "KW_WITHIN", "KW_WITHOUT", "KW_YEAR", 
 		"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
-		"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "EQUAL_SYMBOL", 
-		"GREATER_SYMBOL", "LESS_SYMBOL", "EXCLAMATION_SYMBOL", "BIT_NOT_OP", "BIT_OR_OP", 
-		"BIT_AND_OP", "BIT_XOR_OP", "SLASH_TEXT_FRAG", "JAR_FILE_PARTTARN", "EXPONENT_NUM_PART", 
-		"ID_LITERAL_FRAG", "DEC_DIGIT", "DEC_LETTER", "DQUOTA_STRING", "SQUOTA_STRING", 
-		"BIT_STRING_L", "BQUOTA_STRING", "DOT", "LS_BRACKET", "RS_BRACKET", "LR_BRACKET", 
-		"RR_BRACKET", "LB_BRACKET", "RB_BRACKET", "COMMA", "SEMICOLON", "AT_SIGN", 
-		"SINGLE_QUOTE_SYMB", "DOUBLE_QUOTE_SYMB", "REVERSE_QUOTE_SYMB", "COLON_SYMB", 
-		"ASTERISK_SIGN", "UNDERLINE_SIGN", "HYPNEN_SIGN", "ADD_SIGN", "PENCENT_SIGN", 
-		"DOUBLE_VERTICAL_SIGN", "DOUBLE_HYPNEN_SIGN", "SLASH_SIGN", "QUESTION_MARK_SIGN", 
-		"DOUBLE_RIGHT_ARROW", "STRING_LITERAL", "DIG_LITERAL", "REAL_LITERAL", 
-		"BIT_STRING", "ID_LITERAL", "SLASH_TEXT",
+		"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "BIT_NOT_OP", 
+		"BIT_OR_OP", "BIT_AND_OP", "BIT_XOR_OP", "EQUAL_SYMBOL", "GREATER_SYMBOL", 
+		"LESS_SYMBOL", "EXCLAMATION_SYMBOL", "SLASH_TEXT_FRAG", "JAR_FILE_PARTTARN", 
+		"EXPONENT_NUM_PART", "ID_LITERAL_FRAG", "DEC_DIGIT", "DEC_LETTER", "DQUOTA_STRING", 
+		"SQUOTA_STRING", "BIT_STRING_L", "BQUOTA_STRING", "DOT", "LS_BRACKET", 
+		"RS_BRACKET", "LR_BRACKET", "RR_BRACKET", "LB_BRACKET", "RB_BRACKET", 
+		"COMMA", "SEMICOLON", "AT_SIGN", "SINGLE_QUOTE_SYMB", "DOUBLE_QUOTE_SYMB", 
+		"REVERSE_QUOTE_SYMB", "COLON_SYMB", "ASTERISK_SIGN", "UNDERLINE_SIGN", 
+		"HYPNEN_SIGN", "ADD_SIGN", "PENCENT_SIGN", "DOUBLE_VERTICAL_SIGN", "DOUBLE_HYPNEN_SIGN", 
+		"SLASH_SIGN", "QUESTION_MARK_SIGN", "DOUBLE_RIGHT_ARROW", "STRING_LITERAL", 
+		"DIG_LITERAL", "REAL_LITERAL", "BIT_STRING", "ID_LITERAL", "SLASH_TEXT",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
@@ -589,8 +589,8 @@ export class FlinkSQLLexer extends Lexer {
 		undefined, undefined, undefined, undefined, undefined, undefined, undefined, 
 		undefined, undefined, undefined, undefined, undefined, undefined, undefined, 
 		undefined, undefined, undefined, undefined, undefined, undefined, undefined, 
-		undefined, undefined, "'='", "'>'", "'<'", "'!'", "'~'", "'|'", "'&'", 
-		"'^'", "'.'", "'['", "']'", "'('", "')'", "'{'", "'}'", "','", "';'", 
+		undefined, undefined, "'~'", "'|'", "'&'", "'^'", "'='", "'>'", "'<'", 
+		"'!'", "'.'", "'['", "']'", "'('", "')'", "'{'", "'}'", "','", "';'", 
 		"'@'", "'''", "'\"'", "'`'", "':'", "'*'", "'_'", "'-'", "'+'", "'%'", 
 		"'||'", "'--'", "'/'", "'?'", "'=>'",
 	];
@@ -662,8 +662,8 @@ export class FlinkSQLLexer extends Lexer {
 		"KW_UNIQUE", "KW_UNKNOWN", "KW_UNNEST", "KW_UPPER", "KW_UPSERT", "KW_USER", 
 		"KW_USING", "KW_VALUE", "KW_VALUES", "KW_VARBINARY", "KW_VARCHAR", "KW_WHEN", 
 		"KW_WHERE", "KW_WINDOW", "KW_WITH", "KW_WITHIN", "KW_WITHOUT", "KW_YEAR", 
-		"EQUAL_SYMBOL", "GREATER_SYMBOL", "LESS_SYMBOL", "EXCLAMATION_SYMBOL", 
-		"BIT_NOT_OP", "BIT_OR_OP", "BIT_AND_OP", "BIT_XOR_OP", "DOT", "LS_BRACKET", 
+		"BIT_NOT_OP", "BIT_OR_OP", "BIT_AND_OP", "BIT_XOR_OP", "EQUAL_SYMBOL", 
+		"GREATER_SYMBOL", "LESS_SYMBOL", "EXCLAMATION_SYMBOL", "DOT", "LS_BRACKET", 
 		"RS_BRACKET", "LR_BRACKET", "RR_BRACKET", "LB_BRACKET", "RB_BRACKET", 
 		"COMMA", "SEMICOLON", "AT_SIGN", "SINGLE_QUOTE_SYMB", "DOUBLE_QUOTE_SYMB", 
 		"REVERSE_QUOTE_SYMB", "COLON_SYMB", "ASTERISK_SIGN", "UNDERLINE_SIGN", 
@@ -2851,12 +2851,12 @@ export class FlinkSQLLexer extends Lexer {
 		"\t\x1A\x02\x02\u0EE6\u0334\x03\x02\x02\x02\u0EE7\u0EE8\t\x1B\x02\x02\u0EE8" +
 		"\u0336\x03\x02\x02\x02\u0EE9\u0EEA\t\x1C\x02\x02\u0EEA\u0338\x03\x02\x02" +
 		"\x02\u0EEB\u0EEC\t\x1D\x02\x02\u0EEC\u033A\x03\x02\x02\x02\u0EED\u0EEE" +
-		"\x07?\x02\x02\u0EEE\u033C\x03\x02\x02\x02\u0EEF\u0EF0\x07@\x02\x02\u0EF0" +
-		"\u033E\x03\x02\x02\x02\u0EF1\u0EF2\x07>\x02\x02\u0EF2\u0340\x03\x02\x02" +
-		"\x02\u0EF3\u0EF4\x07#\x02\x02\u0EF4\u0342\x03\x02\x02\x02\u0EF5\u0EF6" +
-		"\x07\x80\x02\x02\u0EF6\u0344\x03\x02\x02\x02\u0EF7\u0EF8\x07~\x02\x02" +
-		"\u0EF8\u0346\x03\x02\x02\x02\u0EF9\u0EFA\x07(\x02\x02\u0EFA\u0348\x03" +
-		"\x02\x02\x02\u0EFB\u0EFC\x07`\x02\x02\u0EFC\u034A\x03\x02\x02\x02\u0EFD" +
+		"\x07\x80\x02\x02\u0EEE\u033C\x03\x02\x02\x02\u0EEF\u0EF0\x07~\x02\x02" +
+		"\u0EF0\u033E\x03\x02\x02\x02\u0EF1\u0EF2\x07(\x02\x02\u0EF2\u0340\x03" +
+		"\x02\x02\x02\u0EF3\u0EF4\x07`\x02\x02\u0EF4\u0342\x03\x02\x02\x02\u0EF5" +
+		"\u0EF6\x07?\x02\x02\u0EF6\u0344\x03\x02\x02\x02\u0EF7\u0EF8\x07@\x02\x02" +
+		"\u0EF8\u0346\x03\x02\x02\x02\u0EF9\u0EFA\x07>\x02\x02\u0EFA\u0348\x03" +
+		"\x02\x02\x02\u0EFB\u0EFC\x07#\x02\x02\u0EFC\u034A\x03\x02\x02\x02\u0EFD" +
 		"\u0F01\t\x1E\x02\x02\u0EFE\u0F00\n\x1F\x02\x02\u0EFF\u0EFE\x03\x02\x02" +
 		"\x02\u0F00\u0F03\x03\x02\x02\x02\u0F01\u0EFF\x03\x02\x02\x02\u0F01\u0F02" +
 		"\x03\x02\x02\x02\u0F02\u034C\x03\x02\x02\x02\u0F03\u0F01\x03\x02\x02\x02" +
