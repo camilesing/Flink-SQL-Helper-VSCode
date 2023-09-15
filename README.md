@@ -1,12 +1,13 @@
 # Flink-SQL-Helper
-Help you efficiently and focus on FlinkSQL development. support Flink SQL error grammar check, syntax highlighting, complete keywords, rename, find all references and code format, including user-defined functions.
 
+Help you efficiently and focus on FlinkSQL development. support Flink SQL error grammar check, syntax highlighting, complete keywords, rename, find all references and code format, including user-defined functions.
 
 > I suggest that you develop and debug on vscode based on the information (https://code.visualstudio.com/docs/java/java-debugging) to obtain a better experience.
 
 ## 1.Features
 
 ### 1.1 Grammar Check
+
 Setting plugin config like
 1. ![](docs/images/setting_1.png)
 2. ![](docs/images/setting_2.png)
@@ -20,13 +21,17 @@ example:
 - ![](docs/images/expect_semicolon_v3.jpg)
 
 ### 1.2 Refactorings
+
 ![](docs/images/refactorings.gif)
 
 ### 1.3 Code Completion Proposals
+
 ![](docs/images/code_completion_proposal_v3.gif)
 
-### 1.4 Snippets 
+### 1.4 Snippets
+
 snippets keywords:
+
 - create
 - select
 - insert
@@ -34,33 +39,46 @@ snippets keywords:
 - windows
 
 #### create
+
 ![](docs/images/create_snippets_v2.gif)
-#### select 
+
+#### select
+
 ![](docs/images/select_snippets_v3.gif)
+
 #### insert
+
 ![](docs/images/insert_snippets_v2.gif)
 
 #### join
+
 ![](docs/images/join_snippets_v2.gif)
 
 #### windows
+
 ![](docs/images/windows_snippets.gif)
 
+### 1.5 Find All References
 
-### 1.5 Find All References 
 ![](docs/images/find-all-references.gif)
+
 ### 1.6 Code Format
+
 Select your FlinkSQL code and press ```Alt+Shift+f```.
 
 ## 2. User Guide
+
 Enable the extension on your file, either name the file with a extension:
+
 - SQL
 - FQL
   
 Or press F1, type 'Change Language Mode', and then choose FlinkSQL.
 
 ### 2.1 Color theme recommend
+
 Press F1, choose `Preference: Open User Setting(JSON)` then paste:
+
 ~~~json
 {
     "editor.tokenColorCustomizations": {
@@ -195,4 +213,5 @@ Press F1, choose `Preference: Open User Setting(JSON)` then paste:
     }
 }
 ~~~
+
 We provide so many options to allow developers to better customize their favorite themes. if you want to deep in, please see the `syntaxes/flink.tmLanguage.json` to understand keyword and color theme mapping.
