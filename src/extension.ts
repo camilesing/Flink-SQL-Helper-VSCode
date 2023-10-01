@@ -3,10 +3,11 @@ import { ExtensionContext } from 'vscode';
 import { FlinkSQLLexer } from './FlinkSQLLexer'; // 导入生成的词法分析器
 import { FlinkSQLParser } from './FlinkSQLParser'; // 导入生成的解析器
 import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
-import { MyFlinkSQLVisitor } from './Grammar'; 
-import { FlinkSQLReferenceProvider } from './Reference'; 
-import { FlinkSQLRenameProvider } from './Rename'; 
-import { ParserErrorListener, RecognitionException, Recognizer } from 'antlr4ts';
+import { MyFlinkSQLVisitor } from './Grammar';
+import { FlinkSQLReferenceProvider } from './Reference';
+import { FlinkSQLRenameProvider } from './Rename';
+import { ATNSimulator } from 'antlr4ts/atn/ATNSimulator'
+import { Token, ParserErrorListener, RecognitionException, Recognizer } from 'antlr4ts';
 const sqlFormatter = require('sql-formatter-plus');
 
 interface Config {
@@ -82,14 +83,26 @@ function updateFeatureStatus() {
             diagnosticCollection.clear();
 
             // 使用生成的词法分析器和解析器进行语法检查
-            const inputStream = new ANTLRInputStream(event.getText());
+            const sourceText = event.getText();
+            const inputStream = new ANTLRInputStream(sourceText);
             const lexer = new FlinkSQLLexer(inputStream);
             const tokenStream = new CommonTokenStream(lexer);
             const parser = new FlinkSQLParser(tokenStream);
             parser.removeErrorListeners();
             parser.addErrorListener({
-                syntaxError: (recognizer: Recognizer<any, any>, offendingSymbol: any, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined): void => {
-                    vscode.window.showErrorMessage("Parser flink sql error. line: " + line + " position: " + charPositionInLine + " msg: " + msg);
+                syntaxError: (recognizer: Recognizer<Token, ATNSimulator>, offendingSymbol: Token | undefined, line: number, startPosition: number, msg: string, e: RecognitionException | undefined): void => {
+                    let endPosition = startPosition + 1;
+                    if (offendingSymbol != undefined && offendingSymbol.text != undefined
+                        && offendingSymbol && offendingSymbol.text !== null) {
+                        endPosition = startPosition + offendingSymbol.text.length;
+                        const splitedText = sourceText.split('\n')
+                        const errorLine = splitedText[line - 1]
+                        vscode.window.showErrorMessage("Parse error. line: " + line + " start position: "
+                            + startPosition + " end position: " + endPosition + " near the input: ' " + errorLine + " ' msg: " + msg);
+                    } else {
+                        vscode.window.showErrorMessage("Parse error. line: " + line + " start position: "
+                            + startPosition + " end position: " + endPosition + " msg: " + msg);
+                    }
                 },
             })
             parser.compileParseTreePattern
@@ -101,7 +114,7 @@ function updateFeatureStatus() {
             visitor.visit(parseTree);
             const errors = visitor.getErrors();
             errors.forEach(error => {
-                vscode.window.showInformationMessage("Visitor flink sql error. error: " + error);
+                vscode.window.showInformationMessage("Check error. error: " + error);
             })
         });
     }
