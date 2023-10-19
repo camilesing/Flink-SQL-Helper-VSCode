@@ -1,0 +1,12 @@
+insert into
+  table1
+select
+  ARRAY [ ROW(
+    f1,
+    f2,
+    f3,
+    f4,
+    f5
+  )]  as message
+from
+  source_table;

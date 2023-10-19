@@ -1,0 +1,58 @@
+CREATE TEMPORARY VIEW tmp_view AS
+select
+  name as row_key,
+  cast(id as BIGINT) as id,
+  count(1) filter (
+    where
+      (
+        event_no not in (
+          '54126212',
+          '54126213',
+          '54126214',
+          '54126215',
+          '54126216',
+          '54126217'
+        )
+        AND event_no = '101'
+      )
+  ) as f1,
+  count(1) filter (
+    where
+      (
+        event_no <> '60079992'
+        or event_name <> '138'
+      )
+  ) as f2,
+  count(1) filter (
+    where
+     event_name = 'trigger'
+  ) as f3,
+  sum(1) filter (
+    where
+      visit_type = 'look'
+      and (
+        event_no <> '54126210'
+        or event_name = 'trigger2'
+      )
+  ) as f4,
+  count(distinct name) filter (
+    where
+      TIMESTAMPDIFF(MINUTE, rowtime, LOCALTIMESTAMP) <= 10
+      and  event_no <> '54126211'
+  ) as f5,
+  (
+    case
+      when country = 'China' then 8
+      when country = 'US' then 20
+      ELSE 0
+    END
+  ) as timezone,
+  FLOOR(rowtime TO MINUTE) as dt,
+  PROCTIME() as proctime
+from
+  source_table
+where
+  create_timestamp is not null
+group by
+  id,
+  name;
