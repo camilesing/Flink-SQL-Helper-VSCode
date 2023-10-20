@@ -1,0 +1,27 @@
+CREATE TEMPORARY VIEW tmp_view AS
+SELECT
+  *
+FROM
+  (
+    SELECT
+      *,
+      ROW_NUMBER() OVER (
+        PARTITION  FLOOR( --miss 'BY' 
+          TO_TIMESTAMP(
+            FROM_UNIXTIME(event_time / 1000, 'yyyy-MM-dd HH:mm:ss')
+          ) TO HOUR
+        ),
+        event_time,
+        order_seq,
+        sku_id,
+        is_offline
+        ORDER
+          BY proctime DESC
+      ) AS rownum
+    FROM
+      source_trade_order_fht
+    WHERE
+      is_offline = 0
+  )
+WHERE
+  rownum = 1;
