@@ -1,0 +1,3 @@
+CREATE DATABASE my_dwv;
+
+use my_dwv --expect error

@@ -1,0 +1,72 @@
+CREATE TEMPORARY VIEW temp_view AS
+select
+  e.application_id as id,
+  e.main_id as main_id,
+  (
+    case
+      when r.province = 'Hongkong' then '22.27747'
+      WHEN r.province = 'Macao' then '22.16252'
+      WHEN r.province = 'Taiwan' then '25.04573'
+      ELSE -- expect error
+    END
+  ) as lat,
+  (
+    case
+      when r.province = 'Hongkong' then '114.1712'
+      WHEN r.province = 'Macao' then '113.5838'
+      WHEN r.province = 'Taiwan' then '121.5117'
+      ELSE m.lng
+    END
+  ) as lng,
+  (
+    case
+      when r.province = 'Hongkong' then 'HK'
+      WHEN r.province = 'Macao' then 'MO'
+      WHEN r.province = 'Taiwan' then 'TW'
+      ELSE r.areacode
+    END
+  ) as region,
+  count(distinct e.s_id) filter (
+    where
+      TIMESTAMPDIFF(MINUTE, e.rowtime, LOCALTIMESTAMP) <= 10
+  ) as uv,
+  count(e.s_id) filter (
+    where
+      TIMESTAMPDIFF(MINUTE, e.rowtime, LOCALTIMESTAMP) <= 10
+  ) as pv,
+  HOP_END(e.proctime, INTERVAL '10' SECOND, INTERVAL '10' MINUTE) as dt
+from
+  filter_uv e
+  left join lookup_ip_info FOR SYSTEM_TIME AS OF e.proctime as r on e.ip = r.ip
+  left join lookup_international_location FOR SYSTEM_TIME AS OF e.proctime as m on m.code = r.areacode
+where
+  TIMESTAMPDIFF(MINUTE, e.rowtime, LOCALTIMESTAMP) <= 10
+group by
+  e.application_id,
+  e.main_id,
+  (
+    case
+      when r.province = 'Hongkong' then '22.27747'
+      WHEN r.province = 'Macao' then '22.16252'
+      WHEN r.province = 'Taiwan' then '25.04573'
+      ELSE m.lat
+    END
+  ),
+  (
+    case
+      when r.province = 'Hongkong' then '114.1712'
+      WHEN r.province = 'Macao' then '113.5838'
+      WHEN r.province = 'Taiwan' then '121.5117'
+      ELSE m.lng
+    END
+  ),
+  r.areacode,
+  (
+    case
+      when r.province = 'Hongkong' then 'HK'
+      WHEN r.province = 'Macao' then 'MO'
+      WHEN r.province = 'Taiwan' then 'TW'
+      ELSE r.areacode
+    END
+  ),
+  HOP(e.proctime, INTERVAL '10' SECOND, INTERVAL '10' MINUTE);
