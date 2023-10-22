@@ -8,17 +8,18 @@ Help you efficiently and focus on FlinkSQL development. support Flink SQL error 
 
 ### 1.1 Grammar Check
 
-Setting plugin config like
-1. ![](docs/images/setting_1.png)
-2. ![](docs/images/setting_2.png)
-
-then the plugin will check grammar when you save edit (suggest you turn off automatic saving).
+Grammar check when you save edit (suggest you turn off automatic saving).
 
 example:
 
 - ![](docs/images/unexpect_input_v2.jpg)
 - ![](docs/images/select_not_expect_comma_v3.jpg)
 - ![](docs/images/expect_semicolon_v3.jpg)
+
+if you dont like the feature, you can setting config to turn off and show you how to change config:
+1. ![](docs/images/setting_1.png)
+2. ![](docs/images/setting_2.png)
+
 
 ### 1.2 Refactorings
 
@@ -64,7 +65,7 @@ snippets keywords:
 
 ### 1.6 Code Format
 
-Select your FlinkSQL code and press ```Alt+Shift+f```.
+![](docs/images/format.gif)
 
 ## 2. User Guide
 
