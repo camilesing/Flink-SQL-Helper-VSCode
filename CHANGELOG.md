@@ -1,3 +1,7 @@
+### v1.11.1
+
+- Update README.
+
 ### v1.11.0
 
 - Improve parse error info.
