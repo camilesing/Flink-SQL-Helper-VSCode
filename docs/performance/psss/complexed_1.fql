@@ -1,3 +1,17 @@
+CREATE TABLE source_table (
+    application_id STRING,
+    main_id STRING,
+    province STRING,
+    s_id STRING,
+    areacode STRING,
+    proctime AS PROCTIME()
+) WITH ( 
+    'connector' = 'filesystem',
+    'path' = '/path/to/example.csv',
+    'format' = 'csv'
+);
+
+
 CREATE TEMPORARY VIEW temp_view AS
 select
   e.application_id as id,
@@ -36,7 +50,7 @@ select
   ) as pv,
   HOP_END(e.proctime, INTERVAL '10' SECOND, INTERVAL '10' MINUTE) as dt
 from
-  filter_uv e
+  source_table e
   left join lookup_ip_info FOR SYSTEM_TIME AS OF e.proctime as r on e.ip = r.ip
   left join lookup_international_location FOR SYSTEM_TIME AS OF e.proctime as m on m.code = r.areacode
 where

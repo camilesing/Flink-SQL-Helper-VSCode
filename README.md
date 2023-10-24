@@ -63,7 +63,11 @@ snippets keywords:
 
 ![](docs/images/find-all-references.gif)
 
-### 1.6 Code Format
+### 1.5 Show References
+
+![](docs/images/show_references.gif)
+
+### 1.7 Code Format
 
 ![](docs/images/format.gif)
 
