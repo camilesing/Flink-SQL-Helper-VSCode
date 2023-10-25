@@ -9,7 +9,7 @@
         "email": "CamileSing@gmail.com"
     },
     "license": "MIT",
-    "icon": "icons/Flink_SQL.jpg",
+    "icon": "icons/Flink Icons.png",
     "engines": {
         "vscode": "^1.20.0"
     },
