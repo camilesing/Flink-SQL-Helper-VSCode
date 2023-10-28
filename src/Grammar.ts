@@ -1,8 +1,9 @@
 // ...
 import { FlinkSQLVisitor } from './FlinkSQLVisitor'
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor'
- 
+
 import * as vscode from 'vscode';
+import { CreateTableAsSelectContext, CreateTableContext, CreateViewContext, SimpleCreateTableContext } from './FlinkSQLParser';
 
 export class GrammarError extends Error {
 	private startIndex: number;
@@ -16,16 +17,29 @@ export class GrammarError extends Error {
 		return this.stopIndex;
 	}
 
-	constructor(errorMsg: string, startIndex: number, stopIndex: number) {
+	constructor(errorMsg: string, startIndex?: number, stopIndex?: number) {
 		super(errorMsg);
-		this.startIndex = startIndex;
-		this.stopIndex = stopIndex;
+		if (startIndex == null) {
+			this.startIndex = 0
+		} else {
+			this.startIndex = startIndex;
+		}
+
+		if (stopIndex == null) {
+			this.stopIndex = 0
+		} else {
+			this.stopIndex = stopIndex;
+		}
+
 	}
+
 
 }
 
 // Extend the AbstractParseTreeVisitor to get default visitor behaviour
 export class MyFlinkSQLVisitor extends AbstractParseTreeVisitor<void> implements FlinkSQLVisitor<void> {
+
+	private createIdentifier = new Set<string>();
 
 	// 用于存储语法错误和警告的数组
 	private errors: GrammarError[] = [];
@@ -46,7 +60,28 @@ export class MyFlinkSQLVisitor extends AbstractParseTreeVisitor<void> implements
 		this.errors.push(error);
 	}
 
- 
- 
+	visitSimpleCreateTable(ctx: SimpleCreateTableContext): void {
+		var id = ctx.tablePathCreate().uid().identifier.toString()
+		this.checkIdtentifyHasAlreadyExist(id)
+
+	}
+
+	visitCreateTableAsSelect(ctx: CreateTableAsSelectContext): void {
+		var id = ctx.tablePathCreate().uid().identifier.toString()
+		this.checkIdtentifyHasAlreadyExist(id)
+	}
+
+	visitCreateView(ctx: CreateViewContext): void {
+		var id = ctx.uid().identifier.toString()
+		this.checkIdtentifyHasAlreadyExist(id)
+	}
+
+	private checkIdtentifyHasAlreadyExist(id :string){
+		if (this.createIdentifier.has(id)) {
+			this.addError(new GrammarError("The define [" + id + " has alread exist]"))
+		} else {
+			this.createIdentifier.add(id)
+		}
+	}
 }
 
