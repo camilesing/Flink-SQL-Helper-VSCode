@@ -1,6 +1,6 @@
 {
     "name": "flink-sql",
-    "version": "1.11.1",
+    "version": "1.11.2",
     "displayName": "Flink SQL Helper",
     "description": "Help you efficiently and focus on Flink SQL development. support Flink SQL error grammar check, syntax highlighting, complete keywords, rename, find all references and code format, including user-defined functions.",
     "publisher": "CamileSing",
@@ -9,7 +9,7 @@
         "email": "CamileSing@gmail.com"
     },
     "license": "MIT",
-    "icon": "icons/Flink Icons.png",
+    "icon": "icons/Flink_Icons.png",
     "engines": {
         "vscode": "^1.20.0"
     },
@@ -47,8 +47,8 @@
             {
                 "id": "flink-sql",
                 "icon": {
-                    "light": "./icons/Flink Icons.png",
-                    "dark": "./icons/Flink Icons.png"
+                    "light": "./icons/Flink_Icons.png",
+                    "dark": "./icons/Flink_Icons.png"
                 },
                 "aliases": [
                     "FlinkSQL",

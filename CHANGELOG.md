@@ -1,4 +1,9 @@
 
+### v1.11.2
+
+- Update icons to adapt more themes.
+- Update README for show references.
+
 ### v1.11.1
 
 - Update README.
