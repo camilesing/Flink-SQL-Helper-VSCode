@@ -111,6 +111,7 @@ import { DropTableContext } from "./FlinkSQLParser";
 import { DropDatabaseContext } from "./FlinkSQLParser";
 import { DropViewContext } from "./FlinkSQLParser";
 import { DropFunctionContext } from "./FlinkSQLParser";
+import { TruncateTableContext } from "./FlinkSQLParser";
 import { InsertStatementContext } from "./FlinkSQLParser";
 import { InsertSimpleStatementContext } from "./FlinkSQLParser";
 import { InsertPartitionDefinitionContext } from "./FlinkSQLParser";
@@ -1033,6 +1034,13 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitDropFunction?: (ctx: DropFunctionContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.truncateTable`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitTruncateTable?: (ctx: TruncateTableContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FlinkSQLParser.insertStatement`.
