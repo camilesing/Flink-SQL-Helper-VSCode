@@ -30,6 +30,7 @@ ddlStatement
     : createTable | createDatabase | createView | createFunction | createCatalog
     | alterTable | alertView | alterDatabase | alterFunction
     | dropCatalog | dropTable | dropDatabase | dropView | dropFunction
+    | truncateTable
     ;
 
 dmlStatement
@@ -345,11 +346,14 @@ dropFunction
     : KW_DROP (KW_TEMPORARY|KW_TEMPORARY KW_SYSTEM)? KW_FUNCTION ifExists? functionName
     ;
 
+truncateTable
+    : KW_TRUNCATE KW_TABLE tablePathCreate
+    ;
 
 // Insert statements
 
 insertStatement
-: (KW_EXECUTE? insertSimpleStatement)
+    : (KW_EXECUTE? insertSimpleStatement)
 	| insertMulStatementCompatibility | (KW_EXECUTE insertMulStatement)
     ;
 
