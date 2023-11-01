@@ -27,10 +27,11 @@ emptyStatement
     ;
 
 ddlStatement
-    : createTable | createDatabase | createView | createFunction | createCatalog
-    | alterTable | alertView | alterDatabase | alterFunction
-    | dropCatalog | dropTable | dropDatabase | dropView | dropFunction
-    | truncateTable
+    : createTable | replaceTable  | truncateTable  | alterTable | dropTable
+     | createDatabase | alterDatabase |  dropDatabase  
+     | createView | alertView   | dropView
+     | createFunction | alterFunction  | dropFunction
+     | createCatalog | dropCatalog 
     ;
 
 dmlStatement
@@ -97,6 +98,10 @@ jarStatememt
 
 dtFilePath
     : SLASH_TEXT+
+    ;
+
+replaceTable
+    : KW_REPLACE KW_TABLE  tablePathCreate withOption (KW_AS queryStatement)?
     ;
 
 // Create statements

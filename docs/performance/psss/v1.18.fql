@@ -1,1 +1,8 @@
 TRUNCATE TABLE Orders;
+
+
+REPLACE TABLE my_rtas_table
+WITH (
+    'connector' = 'kafka'
+)
+AS SELECT id, name, age FROM source_table WHERE mod(id, 10) = 0;
