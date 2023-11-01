@@ -60,6 +60,7 @@ import { SetStatememtContext } from "./FlinkSQLParser";
 import { ResetStatememtContext } from "./FlinkSQLParser";
 import { JarStatememtContext } from "./FlinkSQLParser";
 import { DtFilePathContext } from "./FlinkSQLParser";
+import { ReplaceTableContext } from "./FlinkSQLParser";
 import { CreateTableContext } from "./FlinkSQLParser";
 import { SimpleCreateTableContext } from "./FlinkSQLParser";
 import { CreateTableAsSelectContext } from "./FlinkSQLParser";
@@ -677,6 +678,13 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitDtFilePath?: (ctx: DtFilePathContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.replaceTable`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitReplaceTable?: (ctx: ReplaceTableContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FlinkSQLParser.createTable`.
