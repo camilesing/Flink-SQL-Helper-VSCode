@@ -31,6 +31,19 @@ import { ArithmeticBinaryContext } from "./FlinkSQLParser";
 import { ComparisonContext } from "./FlinkSQLParser";
 import { ArithmeticBinaryAlternateContext } from "./FlinkSQLParser";
 import { LengthSymbolsTypeDimensionContext } from "./FlinkSQLParser";
+import { AlterContext } from "./FlinkSQLParser";
+import { AddOrModifyNewColumnContext } from "./FlinkSQLParser";
+import { AddOrModifyNewColumnsContext } from "./FlinkSQLParser";
+import { AddNewPartitionsContext } from "./FlinkSQLParser";
+import { DropAcolumnContext } from "./FlinkSQLParser";
+import { DropColumnListContext } from "./FlinkSQLParser";
+import { DropPrimaryKeyContext } from "./FlinkSQLParser";
+import { DropPartitionsContext } from "./FlinkSQLParser";
+import { DropWatermarkContext } from "./FlinkSQLParser";
+import { RenameColumnContext } from "./FlinkSQLParser";
+import { RenameTableContext } from "./FlinkSQLParser";
+import { SetPropertiyContext } from "./FlinkSQLParser";
+import { ResetPropertiyContext } from "./FlinkSQLParser";
 import { RowSymbolsTypeDimensionContext } from "./FlinkSQLParser";
 import { IdentityTransformContext } from "./FlinkSQLParser";
 import { ApplyTransformContext } from "./FlinkSQLParser";
@@ -98,6 +111,7 @@ import { CreateFunctionContext } from "./FlinkSQLParser";
 import { UsingClauseContext } from "./FlinkSQLParser";
 import { JarFileNameContext } from "./FlinkSQLParser";
 import { AlterTableContext } from "./FlinkSQLParser";
+import { ColoumPositionContext } from "./FlinkSQLParser";
 import { RenameDefinitionContext } from "./FlinkSQLParser";
 import { SetKeyValueDefinitionContext } from "./FlinkSQLParser";
 import { AddConstraintContext } from "./FlinkSQLParser";
@@ -604,6 +618,175 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitLengthSymbolsTypeDimension?: (ctx: LengthSymbolsTypeDimensionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `alter`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterAlter?: (ctx: AlterContext) => void;
+	/**
+	 * Exit a parse tree produced by the `alter`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitAlter?: (ctx: AlterContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `addOrModifyNewColumn`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterAddOrModifyNewColumn?: (ctx: AddOrModifyNewColumnContext) => void;
+	/**
+	 * Exit a parse tree produced by the `addOrModifyNewColumn`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitAddOrModifyNewColumn?: (ctx: AddOrModifyNewColumnContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `addOrModifyNewColumns`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterAddOrModifyNewColumns?: (ctx: AddOrModifyNewColumnsContext) => void;
+	/**
+	 * Exit a parse tree produced by the `addOrModifyNewColumns`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitAddOrModifyNewColumns?: (ctx: AddOrModifyNewColumnsContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `addNewPartitions`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterAddNewPartitions?: (ctx: AddNewPartitionsContext) => void;
+	/**
+	 * Exit a parse tree produced by the `addNewPartitions`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitAddNewPartitions?: (ctx: AddNewPartitionsContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `dropAcolumn`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterDropAcolumn?: (ctx: DropAcolumnContext) => void;
+	/**
+	 * Exit a parse tree produced by the `dropAcolumn`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitDropAcolumn?: (ctx: DropAcolumnContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `dropColumnList`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterDropColumnList?: (ctx: DropColumnListContext) => void;
+	/**
+	 * Exit a parse tree produced by the `dropColumnList`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitDropColumnList?: (ctx: DropColumnListContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `dropPrimaryKey`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterDropPrimaryKey?: (ctx: DropPrimaryKeyContext) => void;
+	/**
+	 * Exit a parse tree produced by the `dropPrimaryKey`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitDropPrimaryKey?: (ctx: DropPrimaryKeyContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `dropPartitions`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterDropPartitions?: (ctx: DropPartitionsContext) => void;
+	/**
+	 * Exit a parse tree produced by the `dropPartitions`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitDropPartitions?: (ctx: DropPartitionsContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `dropWatermark`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterDropWatermark?: (ctx: DropWatermarkContext) => void;
+	/**
+	 * Exit a parse tree produced by the `dropWatermark`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitDropWatermark?: (ctx: DropWatermarkContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `renameColumn`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterRenameColumn?: (ctx: RenameColumnContext) => void;
+	/**
+	 * Exit a parse tree produced by the `renameColumn`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitRenameColumn?: (ctx: RenameColumnContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `renameTable`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterRenameTable?: (ctx: RenameTableContext) => void;
+	/**
+	 * Exit a parse tree produced by the `renameTable`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitRenameTable?: (ctx: RenameTableContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `setPropertiy`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterSetPropertiy?: (ctx: SetPropertiyContext) => void;
+	/**
+	 * Exit a parse tree produced by the `setPropertiy`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitSetPropertiy?: (ctx: SetPropertiyContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `resetPropertiy`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	enterResetPropertiy?: (ctx: ResetPropertiyContext) => void;
+	/**
+	 * Exit a parse tree produced by the `resetPropertiy`
+	 * labeled alternative in `FlinkSQLParser.alterTable`.
+	 * @param ctx the parse tree
+	 */
+	exitResetPropertiy?: (ctx: ResetPropertiyContext) => void;
 
 	/**
 	 * Enter a parse tree produced by the `rowSymbolsTypeDimension`
@@ -1357,6 +1540,17 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitAlterTable?: (ctx: AlterTableContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.coloumPosition`.
+	 * @param ctx the parse tree
+	 */
+	enterColoumPosition?: (ctx: ColoumPositionContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.coloumPosition`.
+	 * @param ctx the parse tree
+	 */
+	exitColoumPosition?: (ctx: ColoumPositionContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `FlinkSQLParser.renameDefinition`.
