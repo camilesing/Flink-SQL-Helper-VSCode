@@ -289,9 +289,35 @@ jarFileName
 // it only includes rename, set key, add constraint, drop constraint, add unique
 
 alterTable
-    : KW_ALTER KW_TABLE ifExists? tablePath (renameDefinition | setKeyValueDefinition | addConstraint | dropConstraint | addUnique)
+    : KW_ALTER KW_TABLE ifExists? tablePath (renameDefinition | setKeyValueDefinition | addConstraint | dropConstraint | addUnique) #alter
+    | KW_ALTER KW_TABLE ifExists? tablePath (KW_MODIFY | KW_ADD)  
+        LR_BRACKET 
+            columnOptionDefinition coloumPosition? (COMMA columnOptionDefinition coloumPosition?)*
+            (COMMA watermarkDefinition)?
+            (COMMA tableConstraint)?
+            (COMMA selfDefinitionClause)?
+        RR_BRACKET
+        commentSpec?
+        partitionDefinition?
+        withOption  #addOrModifyNewColumn 
+    | KW_ALTER KW_TABLE ifExists? tablePath (KW_MODIFY | KW_ADD)  columnOptionDefinition coloumPosition? commentSpec? # addOrModifyNewColumns
+    | KW_ALTER KW_TABLE ifExists? tablePath  KW_ADD  (KW_PARTITION tablePropertyList KW_WITH tablePropertyList)* #addNewPartitions
+    | KW_ALTER KW_TABLE ifExists? tablePath  KW_DROP uid   #dropAcolumn
+    | KW_ALTER KW_TABLE ifExists? tablePath  KW_DROP LR_BRACKET uid (COMMA uid)* RR_BRACKET    #dropColumnList
+    | KW_ALTER KW_TABLE ifExists? tablePath  KW_DROP KW_PRIMARY KW_KEY #dropPrimaryKey
+    | KW_ALTER KW_TABLE ifExists? tablePath  KW_DROP  KW_PARTITION tablePropertyList  (COMMA KW_PARTITION tablePropertyList)*  #dropPartitions
+    | KW_ALTER KW_TABLE ifExists? tablePath  KW_DROP  KW_WATERMARK # dropWatermark
+    | KW_ALTER KW_TABLE ifExists? tablePath  KW_RENAME uid KW_TO uid # renameColumn
+    | KW_ALTER KW_TABLE ifExists? tablePath  KW_RENAME tablePath # renameTable
+    | KW_ALTER KW_TABLE ifExists? tablePath  KW_SET partitionDefinition # setPropertiy
+    | KW_ALTER KW_TABLE ifExists? tablePath  KW_RESET transformList # resetPropertiy
     ;
 
+coloumPosition:
+    (KW_FIRST | KW_LAST)
+    | (KW_BEFORE | KW_AFTER) uid
+    ;
+ 
 renameDefinition
     : KW_RENAME uid? KW_TO uid
     ;
@@ -684,8 +710,8 @@ predicate
         lower=valueExpression KW_AND 
         upper=valueExpression
     | KW_NOT? kind=KW_IN LR_BRACKET expression (COMMA expression)* RR_BRACKET
-    | KW_NOT? kind=KW_IN LR_BRACKET queryStatement ')'
-    | kind=KW_EXISTS LR_BRACKET queryStatement ')'
+    | KW_NOT? kind=KW_IN LR_BRACKET queryStatement RR_BRACKET
+    | kind=KW_EXISTS LR_BRACKET queryStatement RR_BRACKET
     | KW_NOT? kind=KW_RLIKE pattern=valueExpression
     | likePredicate
     | KW_IS KW_NOT? kind=(KW_TRUE | KW_FALSE | KW_UNKNOWN | KW_NULL)
