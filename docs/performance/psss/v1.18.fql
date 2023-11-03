@@ -11,12 +11,12 @@ AS SELECT id, name, age FROM source_table WHERE mod(id, 10) = 0;
 ALTER TABLE MyTable ADD category_id STRING COMMENT 'identifier of the category';
 
 -- add columns, constraint, and watermark
--- ALTER TABLE MyTable ADD (
---     log_ts STRING COMMENT 'log timestamp string' FIRST,
---     ts AS TO_TIMESTAMP(log_ts) AFTER log_ts,
---     PRIMARY KEY (id) NOT ENFORCED,
---     WATERMARK FOR ts AS ts - INTERVAL '3' SECOND
--- );
+ALTER TABLE MyTable ADD (
+    log_ts STRING COMMENT 'log timestamp string' FIRST,
+    ts AS TO_TIMESTAMP(log_ts) AFTER log_ts,
+    PRIMARY KEY (id) NOT ENFORCED,
+    WATERMARK FOR ts AS ts - INTERVAL '3' SECOND
+);
 
 -- add a new partition 
 ALTER TABLE MyTable ADD PARTITION (p1=1,p2='a') with ('k1'='v1');
@@ -29,12 +29,12 @@ ALTER TABLE MyTable MODIFY measurement double COMMENT 'unit is bytes per second'
 
 -- modify definition of column log_ts and ts, primary key, watermark. They must exist in table schema
 
--- ALTER TABLE MyTable MODIFY (
---     log_ts STRING COMMENT 'log timestamp string' AFTER `id`,  -- reorder columns
---     ts AS TO_TIMESTAMP(log_ts) AFTER log_ts,
---     PRIMARY KEY (id) NOT ENFORCED,
---     WATERMARK FOR ts AS ts -- modify watermark strategy
--- );
+ALTER TABLE MyTable MODIFY (
+    log_ts STRING COMMENT 'log timestamp string' AFTER `id`,  -- reorder columns
+    ts AS TO_TIMESTAMP(log_ts) AFTER log_ts,
+    PRIMARY KEY (id) NOT ENFORCED,
+    WATERMARK FOR ts AS ts -- modify watermark
+);
 
 -- drop a column
 ALTER TABLE MyTable DROP measurement;
