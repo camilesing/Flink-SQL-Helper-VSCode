@@ -218,6 +218,7 @@ computedColumnExpression
 
 watermarkDefinition
     : KW_WATERMARK KW_FOR expression KW_AS expression
+    | KW_WATERMARK KW_FOR ( uid | expression) KW_AS uid
     ;
 
 tableConstraint
@@ -293,13 +294,13 @@ alterTable
     | KW_ALTER KW_TABLE ifExists? tablePath (KW_MODIFY | KW_ADD)  
         LR_BRACKET 
             columnOptionDefinition coloumPosition? (COMMA columnOptionDefinition coloumPosition?)*
-            (COMMA watermarkDefinition)?
             (COMMA tableConstraint)?
+            (COMMA watermarkDefinition)?
             (COMMA selfDefinitionClause)?
         RR_BRACKET
         commentSpec?
         partitionDefinition?
-        withOption  #addOrModifyNewColumn 
+        withOption?  #addOrModifyNewColumn 
     | KW_ALTER KW_TABLE ifExists? tablePath (KW_MODIFY | KW_ADD)  columnOptionDefinition coloumPosition? commentSpec? # addOrModifyNewColumns
     | KW_ALTER KW_TABLE ifExists? tablePath  KW_ADD  (KW_PARTITION tablePropertyList KW_WITH tablePropertyList)* #addNewPartitions
     | KW_ALTER KW_TABLE ifExists? tablePath  KW_DROP uid   #dropAcolumn
