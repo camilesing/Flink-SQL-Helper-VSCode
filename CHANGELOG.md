@@ -1,3 +1,6 @@
+### v1.12.0
+
+- Support Flink SQL v1.18: truncate, replcae, alter table.
 
 ### v1.11.2
 
