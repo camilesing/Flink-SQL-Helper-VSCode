@@ -1,7 +1,7 @@
 // ...
 import { FlinkSQLVisitor } from './FlinkSQLVisitor'
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor'
- 
+
 import * as vscode from 'vscode';
 
 export class GrammarError extends Error {
@@ -46,7 +46,5 @@ export class MyFlinkSQLVisitor extends AbstractParseTreeVisitor<void> implements
 		this.errors.push(error);
 	}
 
- 
- 
 }
 
