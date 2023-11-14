@@ -8,7 +8,7 @@ import { FlinkSQLReferenceProvider } from './Reference';
 import { FlinkSQLRenameProvider } from './Rename';
 import { ATNSimulator } from 'antlr4ts/atn/ATNSimulator'
 import { Token, ParserErrorListener, RecognitionException, Recognizer } from 'antlr4ts';
-//const sqlFormatter = require('sql-formatter-plus');
+const sqlFormatter = require('sql-formatter-plus');
 
 interface Config {
     indent: string;
@@ -24,9 +24,9 @@ const config: Config = {
     linesBetweenQueries: 2,
 };
 
-// const format = (text: string): string => {
-//     return sqlFormatter.format(text, config);
-// };
+const format = (text: string): string => {
+    return sqlFormatter.format(text, config);
+};
 
 const selector = 'flink-sql'
 
@@ -53,15 +53,15 @@ export function activate(context: ExtensionContext) {
         })
     );
 
-    // vscode.languages.registerDocumentRangeFormattingEditProvider(selector, {
-    //     provideDocumentRangeFormattingEdits: (
-    //         document: vscode.TextDocument,
-    //         range: vscode.Range,
-    //         options: vscode.FormattingOptions
-    //     ): vscode.TextEdit[] => [
-    //             vscode.TextEdit.replace(range, format(document.getText(range))),
-    //         ],
-    // });
+    vscode.languages.registerDocumentRangeFormattingEditProvider(selector, {
+        provideDocumentRangeFormattingEdits: (
+            document: vscode.TextDocument,
+            range: vscode.Range,
+            options: vscode.FormattingOptions
+        ): vscode.TextEdit[] => [
+                vscode.TextEdit.replace(range, format(document.getText(range))),
+            ],
+    });
     context.subscriptions.push(vscode.languages.registerRenameProvider(selector, new FlinkSQLRenameProvider()));
 
     // 注册插件的其他命令和功能...
