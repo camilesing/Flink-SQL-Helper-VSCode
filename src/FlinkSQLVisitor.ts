@@ -77,6 +77,7 @@ import { ReplaceTableContext } from "./FlinkSQLParser";
 import { CreateTableContext } from "./FlinkSQLParser";
 import { SimpleCreateTableContext } from "./FlinkSQLParser";
 import { CreateTableAsSelectContext } from "./FlinkSQLParser";
+import { CreateMaterializedTableAsSelectContext } from "./FlinkSQLParser";
 import { ColumnOptionDefinitionContext } from "./FlinkSQLParser";
 import { PhysicalColumnDefinitionContext } from "./FlinkSQLParser";
 import { ColumnNameContext } from "./FlinkSQLParser";
@@ -103,6 +104,7 @@ import { TransformListContext } from "./FlinkSQLParser";
 import { TransformContext } from "./FlinkSQLParser";
 import { TransformArgumentContext } from "./FlinkSQLParser";
 import { LikeDefinitionContext } from "./FlinkSQLParser";
+import { DistributionContext } from "./FlinkSQLParser";
 import { LikeOptionContext } from "./FlinkSQLParser";
 import { CreateCatalogContext } from "./FlinkSQLParser";
 import { CreateDatabaseContext } from "./FlinkSQLParser";
@@ -110,6 +112,7 @@ import { CreateViewContext } from "./FlinkSQLParser";
 import { CreateFunctionContext } from "./FlinkSQLParser";
 import { UsingClauseContext } from "./FlinkSQLParser";
 import { JarFileNameContext } from "./FlinkSQLParser";
+import { AlterMaterializedTableContext } from "./FlinkSQLParser";
 import { AlterTableContext } from "./FlinkSQLParser";
 import { ColoumPositionContext } from "./FlinkSQLParser";
 import { RenameDefinitionContext } from "./FlinkSQLParser";
@@ -826,6 +829,13 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitCreateTableAsSelect?: (ctx: CreateTableAsSelectContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.createMaterializedTableAsSelect`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitCreateMaterializedTableAsSelect?: (ctx: CreateMaterializedTableAsSelectContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by `FlinkSQLParser.columnOptionDefinition`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -1008,6 +1018,13 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitLikeDefinition?: (ctx: LikeDefinitionContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.distribution`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitDistribution?: (ctx: DistributionContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by `FlinkSQLParser.likeOption`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -1055,6 +1072,13 @@ export interface FlinkSQLVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitJarFileName?: (ctx: JarFileNameContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FlinkSQLParser.alterMaterializedTable`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitAlterMaterializedTable?: (ctx: AlterMaterializedTableContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FlinkSQLParser.alterTable`.

@@ -1,0 +1,49 @@
+-- 1. Create table schema and data refresh pipeline
+CREATE MATERIALIZED TABLE dwd_orders (PRIMARY KEY(ds, id) NOT ENFORCED) PARTITIONED BY (ds) FRESHNESS = INTERVAL '3' MINUTE AS
+SELECT
+  o.ds o.id,
+  o.order_number,
+  o.user_id
+FROM
+  orders AS o
+  LEFT JOIN products FOR SYSTEM_TIME AS OF proctime() AS prod ON o.product_id = prod.id
+  LEFT JOIN order_pay AS pay ON o.id = pay.order_id
+  AND o.ds = pay.ds;
+
+-- 2. Pause the data refresh pipeline
+ALTER MATERIALIZED TABLE dwd_orders SUSPEND;
+
+-- 3. Resume the data refresh pipeline
+ALTER MATERIALIZED TABLE dwd_orders RESUME -- Set table option via WITH clause
+WITH('sink.parallesim' = '10');
+
+-- Refresh historical partition manually
+ALTER MATERIALIZED TABLE dwd_orders REFRESH PARTITION(ds = '20231023');
+
+-- declares a hash function on a fixed number of 4 buckets (i.e. HASH(uid) % 4 = target bucket).
+CREATE TABLE MyTable (uid BIGINT, NAME STRING, proctime AS PROCTIME()) WITH (
+  'connector' = 'filesystem',
+  'path' = '/path/to/example.csv',
+  'format' = 'csv'
+) DISTRIBUTED BY HASH(uid) INTO 4 BUCKETS;
+
+-- leaves the selection of an algorithm up to the connector.
+CREATE TABLE MyTable (uid BIGINT, NAME STRING, proctime AS PROCTIME()) WITH (
+  'connector' = 'filesystem',
+  'path' = '/path/to/example.csv',
+  'format' = 'csv'
+) DISTRIBUTED BY (uid) INTO 4 BUCKETS;
+
+-- leaves the number of buckets up to the connector.
+CREATE TABLE MyTable (uid BIGINT, NAME STRING, proctime AS PROCTIME()) WITH (
+  'connector' = 'filesystem',
+  'path' = '/path/to/example.csv',
+  'format' = 'csv'
+) DISTRIBUTED BY (uid);
+
+-- only defines the number of buckets.
+CREATE TABLE MyTable (uid BIGINT, NAME STRING, proctime AS PROCTIME()) WITH (
+  'connector' = 'filesystem',
+  'path' = '/path/to/example.csv',
+  'format' = 'csv'
+) DISTRIBUTED INTO 4 BUCKETS;
