@@ -1,3 +1,7 @@
+### v1.13.0
+
+- Support Flink SQL v1.20: Materialized Tables, DISTRIBUTED BY Clause.
+
 ### v1.12.1
 
 - Fix bug: format not avalible.
