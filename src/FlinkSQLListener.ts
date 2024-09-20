@@ -77,6 +77,7 @@ import { ReplaceTableContext } from "./FlinkSQLParser";
 import { CreateTableContext } from "./FlinkSQLParser";
 import { SimpleCreateTableContext } from "./FlinkSQLParser";
 import { CreateTableAsSelectContext } from "./FlinkSQLParser";
+import { CreateMaterializedTableAsSelectContext } from "./FlinkSQLParser";
 import { ColumnOptionDefinitionContext } from "./FlinkSQLParser";
 import { PhysicalColumnDefinitionContext } from "./FlinkSQLParser";
 import { ColumnNameContext } from "./FlinkSQLParser";
@@ -103,6 +104,7 @@ import { TransformListContext } from "./FlinkSQLParser";
 import { TransformContext } from "./FlinkSQLParser";
 import { TransformArgumentContext } from "./FlinkSQLParser";
 import { LikeDefinitionContext } from "./FlinkSQLParser";
+import { DistributionContext } from "./FlinkSQLParser";
 import { LikeOptionContext } from "./FlinkSQLParser";
 import { CreateCatalogContext } from "./FlinkSQLParser";
 import { CreateDatabaseContext } from "./FlinkSQLParser";
@@ -110,6 +112,7 @@ import { CreateViewContext } from "./FlinkSQLParser";
 import { CreateFunctionContext } from "./FlinkSQLParser";
 import { UsingClauseContext } from "./FlinkSQLParser";
 import { JarFileNameContext } from "./FlinkSQLParser";
+import { AlterMaterializedTableContext } from "./FlinkSQLParser";
 import { AlterTableContext } from "./FlinkSQLParser";
 import { ColoumPositionContext } from "./FlinkSQLParser";
 import { RenameDefinitionContext } from "./FlinkSQLParser";
@@ -1168,6 +1171,17 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	exitCreateTableAsSelect?: (ctx: CreateTableAsSelectContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.createMaterializedTableAsSelect`.
+	 * @param ctx the parse tree
+	 */
+	enterCreateMaterializedTableAsSelect?: (ctx: CreateMaterializedTableAsSelectContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.createMaterializedTableAsSelect`.
+	 * @param ctx the parse tree
+	 */
+	exitCreateMaterializedTableAsSelect?: (ctx: CreateMaterializedTableAsSelectContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `FlinkSQLParser.columnOptionDefinition`.
 	 * @param ctx the parse tree
 	 */
@@ -1454,6 +1468,17 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	exitLikeDefinition?: (ctx: LikeDefinitionContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.distribution`.
+	 * @param ctx the parse tree
+	 */
+	enterDistribution?: (ctx: DistributionContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.distribution`.
+	 * @param ctx the parse tree
+	 */
+	exitDistribution?: (ctx: DistributionContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `FlinkSQLParser.likeOption`.
 	 * @param ctx the parse tree
 	 */
@@ -1529,6 +1554,17 @@ export interface FlinkSQLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitJarFileName?: (ctx: JarFileNameContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FlinkSQLParser.alterMaterializedTable`.
+	 * @param ctx the parse tree
+	 */
+	enterAlterMaterializedTable?: (ctx: AlterMaterializedTableContext) => void;
+	/**
+	 * Exit a parse tree produced by `FlinkSQLParser.alterMaterializedTable`.
+	 * @param ctx the parse tree
+	 */
+	exitAlterMaterializedTable?: (ctx: AlterMaterializedTableContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `FlinkSQLParser.alterTable`.

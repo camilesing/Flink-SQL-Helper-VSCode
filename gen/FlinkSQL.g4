@@ -27,7 +27,7 @@ emptyStatement
     ;
 
 ddlStatement
-    : createTable | replaceTable  | truncateTable  | alterTable | dropTable
+    : createTable | replaceTable  | truncateTable  | alterTable | alterMaterializedTable | dropTable
      | createDatabase | alterDatabase |  dropDatabase  
      | createView | alertView   | dropView
      | createFunction | alterFunction  | dropFunction
@@ -107,7 +107,7 @@ replaceTable
 // Create statements
 
 createTable
-    : (simpleCreateTable | createTableAsSelect)
+    : (simpleCreateTable | createTableAsSelect | createMaterializedTableAsSelect)
     ;
     
 simpleCreateTable
@@ -122,6 +122,7 @@ simpleCreateTable
     partitionDefinition?
     withOption
     likeDefinition?
+    distribution?
     ;
 
 /*
@@ -131,6 +132,18 @@ simpleCreateTable
 createTableAsSelect
     : KW_CREATE KW_TABLE ifNotExists? tablePathCreate withOption (KW_AS queryStatement)?
     ;
+
+createMaterializedTableAsSelect
+    : KW_CREATE KW_MATERIALIZED KW_TABLE tablePathCreate 
+        LR_BRACKET 
+            KW_PRIMARY KW_KEY LR_BRACKET identifier (COMMA identifier)* RR_BRACKET (KW_NOT KW_ENFORCED)?
+        RR_BRACKET
+        partitionDefinition? withOption? 
+        (KW_FRESHNESS EQUAL_SYMBOL KW_INTERVAL identifier (KW_SECOND| KW_MINUTE | KW_HOUR | KW_DAY) ) 
+        (KW_REFRESH_MODE EQUAL_SYMBOL (KW_FULL | KW_CONTINUOUS))?
+        (KW_AS queryStatement)?
+    ;
+
 
 columnOptionDefinition
     : physicalColumnDefinition
@@ -256,6 +269,10 @@ likeDefinition
     : KW_LIKE tablePath (LR_BRACKET likeOption* RR_BRACKET)?
     ;
 
+distribution
+    :  KW_DISTRIBUTED (KW_BY KW_HASH? LR_BRACKET identifier RR_BRACKET)? (KW_INTO identifier KW_BUCKETS)? 
+    ;
+
 likeOption
     : ((KW_INCLUDING | KW_EXCLUDING) (KW_ALL | KW_CONSTRAINTS | KW_PARTITIONS))
     | ((KW_INCLUDING | KW_EXCLUDING | KW_OVERWRITING) (KW_GENERATED | KW_OPTIONS | KW_WATERMARKS))
@@ -288,6 +305,12 @@ jarFileName
 // Alter statements
 // Just for simple alter table statements, 
 // it only includes rename, set key, add constraint, drop constraint, add unique
+
+alterMaterializedTable
+    : KW_ALTER KW_MATERIALIZED KW_TABLE  tablePath (KW_SUSPEND | KW_RESUME withOption? 
+        | KW_REFRESH KW_PARTITION LR_BRACKET identifier EQUAL_SYMBOL identifier RR_BRACKET) 
+    ;
+
 
 alterTable
     : KW_ALTER KW_TABLE ifExists? tablePath (renameDefinition | setKeyValueDefinition | addConstraint | dropConstraint | addUnique) #alter
@@ -1325,6 +1348,16 @@ reservedKeywords
     | KW_WITHIN
     | KW_WITHOUT
     | KW_YEAR
+    | KW_MATERIALIZED
+    | KW_FRESHNESS
+    | KW_REFRESH_MODE 
+    | KW_CONTINUOUS
+    | KW_SUSPEND
+    | KW_RESUME
+    | KW_REFRESH
+    | KW_DISTRIBUTED
+    | KW_HASH 
+    | KW_BUCKETS 
     ;
 
 nonReservedKeywords
@@ -1904,6 +1937,17 @@ KW_WITH:                             W I T H;
 KW_WITHIN:                           W I T H I N;
 KW_WITHOUT:                          W I T H O U T;
 KW_YEAR:                             Y E A R;
+KW_MATERIALIZED:                     M A T E R I A L I Z E D;
+KW_FRESHNESS:                        F R E S H N E S S;
+KW_REFRESH_MODE:                     R E F R E S H UNDERLINE_SIGN M O D E;
+KW_CONTINUOUS:                       C O N T I N U O U S;
+KW_SUSPEND:                          S U S P E N D;
+KW_RESUME:                           R E S U M E;
+KW_REFRESH:                          R E F R E S H;
+KW_DISTRIBUTED:                      D I S T R I B U T E D;
+KW_HASH:                             H A S H; 
+KW_BUCKETS:                          B U C K E T S;  
+
 
 // fragment a-z
 fragment A: ('A'|'a');
