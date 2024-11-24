@@ -107,7 +107,7 @@ function updateFeatureStatus() {
             })
             parser.compileParseTreePattern
             // 解析文件内容并获取语法树
-            const parseTree = parser.program();
+            const parseTree = parser.statement();
 
             // 创建访问器实例并访问语法树，以获取语法错误和警告
             const visitor = new MyFlinkSQLVisitor();

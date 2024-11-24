@@ -13,3 +13,6 @@
 - Edit `FlinkSQL.g4`
 - Run `npm run antlr4ts` generate for ts code then move to src directory.
 - Copy ./gen ts file to src directory
+
+# 4. If you want to add keywod and highlight
+- Add to `flink.tmLanguage.json`.
