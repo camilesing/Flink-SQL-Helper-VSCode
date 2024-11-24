@@ -56,3 +56,41 @@ where
 group by
   id,
   name;
+
+insert into
+  table1
+select
+  ARRAY [ ROW(
+    f1,
+    f2,
+    f3,
+    f4,
+    f5
+  )]  as message
+from
+  source_table;
+
+CREATE TABLE source_table (
+    application_id STRING,
+    main_id STRING,
+    province STRING,
+    s_id STRING,
+    areacode STRING,
+    proctime AS PROCTIME()
+) WITH (
+    'connector' = 'filesystem',
+    'path' = '/path/to/example.csv',
+    'format' = 'csv'
+);
+
+-----------------------Time Travel
+-- use timestamp constant expression
+SELECT
+  select_list
+FROM
+  paimon_tb FOR SYSTEM_TIME AS OF TIMESTAMP '2023-07-31 00:00:00';
+--use expression with functions that can be reduced to a timestamp constant
+SELECT
+  select_list
+FROM
+  paimon_tb FOR SYSTEM_TIME AS OF TIMESTAMP '2023-07-31 00:00:00' - INTERVAL '1' DAY;

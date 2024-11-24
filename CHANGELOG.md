@@ -1,3 +1,9 @@
+### v1.13.3
+
+- Update docs for chinese.
+- Fix some bugs.
+- Support more highlight keyword.
+
 ### v1.13.0
 
 - Support Flink SQL v1.20: Materialized Tables, DISTRIBUTED BY Clause.

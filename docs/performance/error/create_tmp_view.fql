@@ -6,7 +6,7 @@ FROM
     SELECT
       *,
       ROW_NUMBER() OVER (
-        PARTITION  FLOOR( --miss 'BY' 
+        PARTITION FLOOR( --miss 'BY' 
           TO_TIMESTAMP(
             FROM_UNIXTIME(event_time / 1000, 'yyyy-MM-dd HH:mm:ss')
           ) TO HOUR
