@@ -1,9 +1,15 @@
 # Flink-SQL-Helper
 
-Help you efficiently and focus on FlinkSQL development. support Flink SQL error grammar check, syntax highlighting, complete keywords, rename, find all references and code format, including user-defined functions.
+Help you efficiently and focus on FlinkSQL development. support FlinkSQL(v1.20.0) error grammar check, syntax highlighting, complete keywords, rename, find all references and code format, including user-defined functions.
 
-> I suggest that you develop and debug on vscode based on the information (https://code.visualstudio.com/docs/java/java-debugging) to obtain a better experience.
+> If you like develop Flink SQL in IDEA, you can use IDEA version of the plugin——[Flink SQL Helper](https://plugins.jetbrains.com/plugin/25912-flink-sql-helper),Its grammar error message is more powerful and supports all statement.
+Or you like develop Flink SQL in VsCode. i suggest that you develop and debug on vscode based on [the information](https://code.visualstudio.com/docs/java/java-debugging) to obtain a better experience.
 
+VsCode plugin support common statement list:
+- create statement.
+- query statement.
+- insert statement.
+ 
 ## 1.Features
 
 ### 1.1 Grammar Check
@@ -14,7 +20,6 @@ example:
 
 - ![](docs/images/unexpect_input_v2.jpg)
 - ![](docs/images/select_not_expect_comma_v3.jpg)
-- ![](docs/images/expect_semicolon_v3.jpg)
 
 if you dont like the feature, you can setting config to turn off and show you how to change config:
 1. ![](docs/images/setting_1.png)
