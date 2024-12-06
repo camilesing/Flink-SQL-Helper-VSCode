@@ -1,3 +1,7 @@
+### v1.13.2
+
+- Update docs for chinese.
+
 ### v1.13.1
 
 - Fix some bug.
