@@ -95,12 +95,12 @@ example:
 ![](docs/images/format.gif)
 
 ## 2. 用户手册(User Guide)
-如果你想让插件在你的FlinkSQL文件中生效，你的扩展名需要是`.FQL`。
+如果你想让插件在你的FlinkSQL文件中生效，你的扩展名需要是`.fql`。
 
 或者通过按F1，输入`Change Language Mode`，然后选择FlinkSQL。
 
 
-Enable the extension on your Flink SQL file, either name the file with a extension `.FQL` .
+Enable the extension on your Flink SQL file, either name the file with a extension `.fql` .
   
 Or press F1, type 'Change Language Mode', and then choose FlinkSQL.
 
