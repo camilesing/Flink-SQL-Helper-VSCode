@@ -16,7 +16,7 @@ Help you efficiently and focus on FlinkSQL development. support FlinkSQL(v1.20.0
 Or you like develop Flink SQL in VsCode. i suggest that you develop and debug on vscode based on [the information](https://code.visualstudio.com/docs/java/java-debugging) to obtain a better experience.
 
 VSCode plugin VS IDEA plugin:
- ![](docs/images/feature_diff.jpg)
+ ![](docs/images/feature_diff_v2.jpg)
 
  
 ## 1.功能介绍(Features)
