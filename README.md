@@ -3,7 +3,7 @@
 
 > 用户QQ群：913711491
 
-> 如果你喜欢在IDEA中进行FlinkSQL的开发。我建议你使用[IDEA版的Flink SQL Helper](https://plugins.jetbrains.com/plugin/25912-flink-sql-helper)，它支持了所有语句，在VsCode插件的基础上，它的报错信息也更加清晰。
+> 如果你喜欢在IDEA中进行FlinkSQL的开发。我建议你使用[IDEA版的Flink SQL Helper](https://plugins.jetbrains.com/plugin/25912-flink-sql-helper)，它支持了最新版本的FlinkSQL所有语句，在VsCode插件的基础上，它的报错信息也更加清晰。
 > 如果你喜欢在VsCode上开发，那么配合[VS Code官网里的Java环境配置](https://code.visualstudio.com/docs/java/java-debugging)也会很棒。
 
 版本之间的差异见下面的介绍`VSCode plugin VS IDEA plugin`。
@@ -12,7 +12,7 @@
 
 Help you efficiently and focus on FlinkSQL development. support FlinkSQL(v1.20.0) error grammar check, syntax highlighting, complete keywords, rename, find all references and code format.
 
-> If you like develop Flink SQL in IDEA, you can use IDEA version of the plugin——[Flink SQL Helper](https://plugins.jetbrains.com/plugin/25912-flink-sql-helper), Its grammar error message is more powerful and supports all statement.
+> If you like develop Flink SQL in IDEA, you can use IDEA version of the plugin——[Flink SQL Helper](https://plugins.jetbrains.com/plugin/25912-flink-sql-helper), Its grammar error message is more powerful and supports the latest version of all FlinkSQL.
 Or you like develop Flink SQL in VsCode. i suggest that you develop and debug on vscode based on [the information](https://code.visualstudio.com/docs/java/java-debugging) to obtain a better experience.
 
 VSCode plugin VS IDEA plugin:
