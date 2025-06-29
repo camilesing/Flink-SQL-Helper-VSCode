@@ -86,7 +86,7 @@
         "onLanguage:flink-sql"
     ],
     "scripts": {
-        "antlr4ts": "antlr4ts -visitor gen/FlinkSQL.g4",
+        "antlr4ts": "antlr4ng -Dlanguage=TypeScript -visitor gen/FlinkSQL.g4",
         "vscode:prepublish": "webpack --mode production",
         "compile": "webpack --mode none",
         "watch": "webpack --mode none --watch",
@@ -97,7 +97,9 @@
     "main": "./out/extension.js",
     "browser": "./out/extension.js",
     "dependencies": {
-        "sql-formatter-plus": "git+ssh://git@github.com:AChangFeng/sql-formatter-plus.git#v0.0.3"
+        "sql-formatter-plus": "git+ssh://git@github.com:AChangFeng/sql-formatter-plus.git#v0.0.3",
+        "antlr4": "^4.13.2",
+        "antlr4ng": "^3.0.10"
     },
     "devDependencies": {
         "@types/glob": "^8.1.0",
@@ -107,8 +109,7 @@
         "@typescript-eslint/eslint-plugin": "^5.59.1",
         "@typescript-eslint/parser": "^5.59.1",
         "@vscode/test-electron": "^2.3.0",
-        "antlr4ts": "^0.5.0-alpha.4",
-        "antlr4ts-cli": "^0.5.0-alpha.4",
+        "antlr4ng-cli": "^2.0.0",
         "eslint": "^8.39.0",
         "glob": "^8.1.0",
         "mocha": "^10.2.0",
