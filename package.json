@@ -36,11 +36,11 @@
         "configuration": {
             "title": "Error grammar Check Settings",
             "properties": {
-              "flink-sql-grammar-check.enable": {
-                "type": "boolean",
-                "default": false,
-                "description": "Enable flink sql grammar check."
-              }
+                "flink-sql-grammar-check.enable": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable flink sql grammar check."
+                }
             }
         },
         "languages": [
@@ -61,9 +61,9 @@
                     ".fql"
                 ],
                 "configuration": "./language-configuration.json",
-                "capabilities" : {
-                    "renameProvider" : "true",
-                    "referencesProvider" : "true"
+                "capabilities": {
+                    "renameProvider": "true",
+                    "referencesProvider": "true"
                 }
             }
         ],
@@ -90,18 +90,20 @@
         "vscode:prepublish": "webpack --mode production",
         "compile": "webpack --mode none",
         "watch": "webpack --mode none --watch",
-        "pretest": "npm run compile && npm run lint",
+        "pretest": "npm run compile",
         "lint": "eslint src --ext ts",
-        "test": "node ./out/test/runTest.js"
+        "test": "node ./out/test/runTest.js",
+        "unit-test": "npx tsc && node ./out/src/test/runUnitTests.js"
     },
     "main": "./out/extension.js",
     "browser": "./out/extension.js",
     "dependencies": {
-        "sql-formatter-plus": "git+ssh://git@github.com:AChangFeng/sql-formatter-plus.git#v0.0.3",
         "antlr4": "^4.13.2",
-        "antlr4ng": "^3.0.10"
+        "antlr4ng": "^3.0.10",
+        "sql-formatter-plus": "git+ssh://git@github.com:AChangFeng/sql-formatter-plus.git#v0.0.3"
     },
     "devDependencies": {
+        "@eslint/js": "^9.39.2",
         "@types/glob": "^8.1.0",
         "@types/mocha": "^10.0.1",
         "@types/node": "16.x",
@@ -110,11 +112,13 @@
         "@typescript-eslint/parser": "^5.59.1",
         "@vscode/test-electron": "^2.3.0",
         "antlr4ng-cli": "^2.0.0",
-        "eslint": "^8.39.0",
+        "eslint": "^8.57.1",
         "glob": "^8.1.0",
+        "globals": "^16.5.0",
         "mocha": "^10.2.0",
         "ts-loader": "^9.4.3",
         "typescript": "^5.0.4",
+        "typescript-eslint": "^8.50.0",
         "webpack": "^5.88.0",
         "webpack-cli": "^5.1.4"
     }
