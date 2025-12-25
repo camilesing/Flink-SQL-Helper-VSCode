@@ -1,7 +1,7 @@
 # Flink-SQL-Helper
 一款帮助你更高效、专注开发FlinkSQL的插件。支持FlinkSQL(v1.20.0)的语法校验提示、代码高亮、关键字补全、重命名、查找全部引用、代码格式化等。
 
-反馈问题可以在QQ群`913711491` or 公众号后台反馈（欢迎关注我公众号一起学习大数据知识）。
+反馈问题可以直接开issue。用户QQ群：`913711491`，也欢迎关注我公众号一起学习更多的大数据知识。
  ![](docs/images/Wechat.jpg)
 
 > 如果你喜欢在IDEA中进行FlinkSQL的开发。我建议你使用[IDEA版的Flink SQL Helper](https://plugins.jetbrains.com/plugin/25912-flink-sql-helper)，它支持了最新版本的FlinkSQL所有语句，在VsCode插件的基础上，它的报错信息也更加清晰。
