@@ -4,7 +4,20 @@ import * as path from 'path';
 import { FlinkSQLLexer } from '../../FlinkSQLLexer';
 import { FlinkSQLParser } from '../../FlinkSQLParser';
 import * as antlr from 'antlr4ng';
-import { CharStream } from 'antlr4ng';
+import {
+    CharStream,
+    CommonTokenStream,
+    Parser,
+    Token,
+    ANTLRErrorListener,
+    RecognitionException,
+    Recognizer,
+    ATNSimulator,
+    ATNConfigSet,
+    BitSet,
+    DFA,
+    ParseTreeWalker
+} from 'antlr4ng';
 
 suite('Flink SQL Grammar Test Suite', () => {
     const projectRoot = path.resolve(__dirname, '../../../../');
@@ -12,22 +25,35 @@ suite('Flink SQL Grammar Test Suite', () => {
 
     function parseSQL(sql: string): { success: boolean; errors: string[] } {
         const errors: string[] = [];
-        
-        // 创建词法分析器和语法分析器
-         const inputStream = CharStream.fromString(sql);
+
+        const inputStream = CharStream.fromString(sql);
         const lexer = new FlinkSQLLexer(inputStream);
         const tokenStream = new antlr.CommonTokenStream(lexer);
         const parser = new FlinkSQLParser(tokenStream);
 
-        try {
-            parser.sqlStatements();
-            return { success: true, errors: [] };
-        } catch (e) {
-            return { success: false, errors: [`Parsing error: ${e}`] };
-        }
+        var parseSuccess = true;
+        parser.removeErrorListeners();
+        parser.addErrorListener({
+            syntaxError: (recognizer: Recognizer<ATNSimulator>, offendingSymbol: Token | null, line: number, startPosition: number, msg: string, e: RecognitionException | null): void => {
+                parseSuccess = false;
+            },
+            reportAmbiguity: function (recognizer: Parser, dfa: DFA, startIndex: number, stopIndex: number, exact: boolean, ambigAlts: BitSet | undefined, configs: ATNConfigSet): void {
+                // throw new Error('Function not implemented.');
+            },
+            reportAttemptingFullContext: function (recognizer: Parser, dfa: DFA, startIndex: number, stopIndex: number, conflictingAlts: BitSet | undefined, configs: ATNConfigSet): void {
+                //  throw new Error('Function not implemented.');
+            },
+            reportContextSensitivity: function (recognizer: Parser, dfa: DFA, startIndex: number, stopIndex: number, prediction: number, configs: ATNConfigSet): void {
+                // throw new Error('Function not implemented.');
+            }
+        })
+
+        parser.compileParseTreePattern
+        parser.sqlStatements();
+        return { success: parseSuccess, errors: [] };
     }
 
-    // 测试error目录下的所有SQL文件，应该都解析失败
+
     test('Error SQL files should fail parsing', () => {
         const errorDir = path.join(exampleDir, 'error');
         const files = fs.readdirSync(errorDir).filter(file => file.endsWith('.fql'));
@@ -39,10 +65,9 @@ suite('Flink SQL Grammar Test Suite', () => {
             const sql = fs.readFileSync(filePath, 'utf8');
             const result = parseSQL(sql);
 
-            // 验证error目录下的文件应该解析失败
             assert.strictEqual(
-                result.success, 
-                false, 
+                result.success,
+                false,
                 `Error file ${file} should fail parsing, but succeeded`
             );
         });
@@ -66,8 +91,8 @@ suite('Flink SQL Grammar Test Suite', () => {
                 const result = parseSQL(sql);
 
                 assert.strictEqual(
-                    result.success, 
-                    true, 
+                    result.success,
+                    true,
                     `Correct file ${file} should pass parsing, but failed with errors: ${result.errors.join('; ')}`
                 );
             });
